@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>My CSS Advanced Page</title>
+
+<style>
+  /* 1. CSS variables + dark mode */
+  :root {
+    --primary: #0f766e;
+    --accent: #14b8a6;
+    --bg: #f0fdfa;
+    --text: #134e4a;
+    --card-bg: white;
+    --radius: 12px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --primary: #14b8a6;
+      --accent: #2dd4bf;
+      --bg: #134e4a;
+      --text: #f0fdfa;
+      --card-bg: #115e59;
+    }
+  }
+
+  /* Reset */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Body */
+  body {
+    font-family: sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  /* 2. Fixed navigation */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 40px;
+    z-index: 1000;
+  }
+
+  nav span {
+    color: white;
+    font-weight: bold;
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+  }
+
+  nav a:hover {
+    color: var(--accent);
+  }
+
+  /* 3. Fade-in animation + hero */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero {
+    min-height: 350px;
+    padding: 140px 40px 80px;
+    text-align: center;
+    background: var(--bg);
+    animation: fadeIn 1s ease;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+
+  .hero p {
+    font-size: 18px;
+  }
+
+  /* 4. Skills section + responsive grid */
+  .skills-section {
+    padding: 40px;
+  }
+
+  /* 5. Sticky section heading */
+  .sticky-h2 {
+    position: sticky;
+    top: 70px;
+    background: var(--bg);
+    padding: 16px 0;
+    margin-bottom: 20px;
+    z-index: 10;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* 3 columns on larger screens */
+  @media (min-width: 640px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card-bg);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 24px;
+    font-size: 18px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  /* Hover effect */
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Icons using data-icon */
+  .card[data-icon]::before {
+    content: attr(data-icon);
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 12px;
+  }
+</style>
+
+</head>
+
+<body>
+
+  <!-- Fixed navigation -->
+  <nav>
+    <span>YOUR NAME</span>
+
+    <div>
+      <a href="#">Home</a>
+      <a href="#">Skills</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Hello, I am [Your Name]</h1>
+    <p>[Your major] · Gachon University · Week 3 CSS Advanced</p>
+  </section>
+
+  <!-- Skills -->
+  <section class="skills-section">
+    <h2 class="sticky-h2">My Skills</h2>
+
+    <div class="grid">
+      <div class="card" data-icon="🌐">HTML5</div>
+      <div class="card" data-icon="🎨">CSS3</div>
+      <div class="card" data-icon="⚡">JavaScript</div>
+    </div>
+  </section>
+
+</body>
+</html>
