@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Air Journey</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link rel="stylesheet" href='styles.css'>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script>
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get elements
+            const hamburgerBtn = document.querySelector('.hamburger-btn');
+            const mainNav = document.getElementById('main-nav');
+            const navList = mainNav.querySelector('.nav-list');
+            const BREAKPOINT = 920; // Same as Bootstrap's md breakpoint
+
+            // Function to handle responsive behavior
+            function updateNavigation() {
+                if (window.innerWidth < BREAKPOINT) {
+                    // Mobile view - show hamburger, hide nav
+                    hamburgerBtn.style.display = 'block';
+                    mainNav.style.display = 'none';
+
+                    // Change nav list to vertical layout
+                    navList.classList.add('mobile-nav');
+                    navList.classList.remove('d-flex', 'gap-2', 'gap-lg-3');
+                } else {
+                    // Desktop view - hide hamburger, show nav
+                    hamburgerBtn.style.display = 'none';
+                    mainNav.style.display = 'block';
+
+                    // Change nav list back to horizontal layout
+                    navList.classList.remove('mobile-nav');
+                    navList.classList.add('d-flex', 'gap-2', 'gap-lg-3');
+                }
+            }
+
+            // Toggle mobile menu
+            hamburgerBtn.addEventListener('click', function () {
+                if (mainNav.style.display === 'none' || mainNav.style.display === '') {
+                    mainNav.style.display = 'block';
+                    this.setAttribute('aria-expanded', 'true');
+                } else {
+                    mainNav.style.display = 'none';
+                    this.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Close menu when clicking on a link (optional)
+            navList.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function () {
+                    if (window.innerWidth < BREAKPOINT) {
+                        mainNav.style.display = 'none';
+                        hamburgerBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+
+            // Initialize and add resize listener
+            updateNavigation();
+            window.addEventListener('resize', updateNavigation);
+        });
+    </script>
+    <header class="bg-black text-white sticky-top">
+        <div class="header-container d-flex justify-content-between align-items-center px-3 py-2 py-md-3">
+
+            <!-- TOP LEFT LOGO GROUP -->
+            <div class="logo-group d-flex align-items-center gap-2 gap-md-3">
+                <a href="Home.html" class="d-inline-block">
+                    <img src="Images/Logo.png" alt="NCC Logo" class="img-fluid logo-img" />
+                </a>
+                <a href="Home.html" class="d-inline-block">
+                    <img src="Images/NYP_LOGO.png" alt="NYP Logo" class="img-fluid logo-img" id="NYP_LOGO" />
+                </a>
+            </div>
+            <!-- Hamburger button (REFER TO JS SCRIPT) -->
+            <button class="btn btn-dark hamburger-btn" type="button" aria-label="Toggle navigation"
+                style="display: none;">
+                ☰
+            </button>
+            <!-- Naviagtion Bar -->
+            <nav id="main-nav">
+                <ul class="nav-list list-unstyled d-flex gap-2 gap-lg-3 mb-0">
+                    <li><a href="Home.html" class="nav-link text-white p-1 p-lg-2">Home</a></li>
+                    <li><a href="About.html" class="nav-link text-white p-1 p-lg-2">About Us</a></li>
+                    <li><a href="Gallery.html" class="nav-link text-white p-1 p-lg-2">Photo Gallery</a></li>
+                    <li><a href="AIR Journey.html" class="nav-link text-white p-1 p-lg-2 active">The AIR Journey</a>
+                    </li>
+                    <li><a href="Events.html" class="nav-link text-white p-1 p-lg-2">Events</a></li>
+                    <li><a href="JoinUs.html" class="nav-btn btn btn-light btn-sm ms-lg-2">Register Now</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container"> <!--Main Container-->
+        <h1 class="display-5 fw-bold text-center py-2">THE AIR JOURNEY</h1>
+        <h3 class="text-center">These are activities hosted in <span>N</span><span class="text-primary">Y</span><span
+                class="text-danger">P</span></h3>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header"> <!--Physical Slide Bar-->
+                    <button class="accordion-button collapsed rounded border border-black bg-button bold" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                        aria-controls="flush-collapseOne">
+                        Physical
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body bg-bar">
+                        <div class='row justify-content-evenly align-items-stretch'> <!--Physical's Flex-->
+                            <div class="col-12 col-md-4 d-flex">
+                                <div class="card box-shadow">
+                                    <img src="Images/Drills.png" class="card-img-top min-height" alt="Drills">
+                                    <div class="card-body">
+                                        <h4>Drills</h4>
+                                        <p class="card-text">Cadets begin their journey with basic drill commands,
+                                            focusing on synchronization and unity as a team. As they progress and master
+                                            these fundamentals, they move on to advanced drill movements and develop a
+                                            strong sense of discipline, teamwork, and kinship.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 d-flex">
+                                <div class="card mt-16 mt-md-0 box-shadow">
+                                    <img src="Images/PDS.png" class="card-img-top min-height" alt="PDS">
+                                    <div class="card-body">
+                                        <h4>Precision Drill Squad (PDS)</h4>
+                                        <p class="card-text">PDS is a showcase of discipline, coordination, and flair.
+                                            Cadets perform advanced rifle drills with sharp precision and rhythmic
+                                            execution. Through dedicated training, they master complex routines that
+                                            build confidence, teamwork, and a deep sense of pride in their performance.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 d-flex">
+                                <div class="card mt-16 mt-md-0 box-shadow">
+                                    <img src="Images/PT.png" class="card-img-top min-height" alt="Physical Training">
+                                    <div class="card-body">
+                                        <h4>Physical Training</h4>
+                                        <p class="card-text">PT builds the strength, endurance, and resilience essential
+                                            for every cadet. Through regular exercises, fitness circuits, and team-based
+                                            challenges, cadets develop not only physical fitness but also mental
+                                            toughness and determination—forming the foundation for all other NCC
+                                            activities.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item"> <!--Skill-Based Slide bar-->
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed rounded border border-black bg-button bold mt-3"
+                        type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
+                        aria-expanded="false" aria-controls="flush-collapseTwo">
+                        Skill-Based
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body bg-bar">
+                        <div class="row justify-content-evenly align-items-stretch"> <!--Skill-Based's Flex-->
+                            <div class="col-12 col-md-4 d-flex">
+                                <div class="card box-shadow">
+                                    <img src="Images/AeroModelling.png" class="card-img-top min-height"
+                                        alt="AeroModelling">
+                                    <div class="card-body">
+                                        <h4>Aero-Modelling</h4>
+                                        <p class="card-text">Aeromodelling introduces cadets to the fundamentals of
+                                            flight and aircraft design. Through hands-on activities like building and
+                                            flying model aircraft, cadets gain insights into aerodynamics, engineering
+                                            concepts, and aviation skills—sparking curiosity and a passion for
+                                            aerospace.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 d-flex">
+                                <div class="card mt-16 mt-md-0 box-shadow">
+                                    <img src="Images/Map Navigation.png" class="card-img-top min-height"
+                                        alt="Map Navigating">
+                                    <div class="card-body">
+                                        <h4>Map Navigation</h4>
+                                        <p class="card-text">Map Navigation equips cadets with essential orienteering
+                                            skills. Cadets learn to read topographic maps, use a compass, and navigate
+                                            unfamiliar terrain with confidence. These skills promote critical thinking,
+                                            independence, and situational awareness during field exercises.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 d-flex">
+                                <div class="card mt-16 mt-md-0 box-shadow">
+                                    <img src="Images/FSD.png" class="card-img-top min-height" alt="FSD">
+                                    <div class="card-body">
+                                        <h4>Free Style Drill (FSD)</h4>
+                                        <p class="card-text">FSD trains cadets in fire prevention, emergency response,
+                                            and basic rescue techniques. Through practical drills and simulations,
+                                            cadets learn to handle fire safety equipment and respond calmly in
+                                            emergencies—developing readiness and a strong sense of civic duty.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item"> <!--Character Slide bar-->
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed rounded border border-black bg-button bold mt-3"
+                        type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
+                        aria-expanded="false" aria-controls="flush-collapseThree">
+                        Character Development
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body bg-bar">
+                        <div class="row justify-content-evenly align-items-stretch"> <!--Character's Flex-->
+                            <div class="col-12 col-md-4 d-flex">
+                                <div class="card box-shadow">
+                                    <img src="Images/Annual Camp.png" class="card-img-top min-height"
+                                        alt="OutDoor Camping">
+                                    <div class="card-body">
+                                        <h4>Annual Camp</h4>
+                                        <p class="card-text">The Annual Camp is the highlight of every cadet’s journey.
+                                            Over several days, cadets participate in a range of challenging and exciting
+                                            activities such as fieldcraft, team-building games, and leadership
+                                            workshops. It’s a chance to forge new friendships, grow in confidence, and
+                                            experience life as a cohesive unit beyond the classroom.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 d-flex">
+                                <div class="card mt-16 mt-md-0 box-shadow">
+                                    <img src="Images/Community Service.png" class="card-img-top min-height"
+                                        alt="Community Service">
+                                    <div class="card-body">
+                                        <h4>Community Service</h4>
+                                        <p class="card-text">Community service is a core part of the NCC experience,
+                                            instilling a sense of responsibility and compassion. Cadets take part in
+                                            meaningful outreach efforts—such as environmental clean-ups, charity drives,
+                                            and support for the elderly—building empathy, civic-mindedness, and a strong
+                                            spirit of giving back.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 d-flex">
+                                <div class="card mt-16 mt-md-0 box-shadow">
+                                    <img src="Images/Specialist.png" class="card-img-top min-height"
+                                        alt="NCC Specialist Course">
+                                    <div class="card-body">
+                                        <h4>Senior Specialist Leadership Course </h4>
+                                        <p class="card-text">The Senior Specialist Leadership Course (SSLC) trains
+                                            cadets in leadership, instruction, and planning. Cadets learn how to guide
+                                            their peers and conduct unit activities effectively. This course prepares
+                                            them to take on key leadership roles within their unit.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column align-items-center">
+            <div class="bg-black d-flex flex-column justify-content-center align-items-stretch py-3"
+                style="height: 150px; width: 100vw; margin-top: 50px; margin-bottom: 50px;">
+                <div class="text-center text-white" style="font-family: 'Poppins', sans-serif;">
+                    <p class="lh-sm display-4"
+                        style="font-family: 'Times New Roman', Times, serif; font-weight: normal; margin: 0;">
+                        Introduction to <span class="text-primary">N</span>CC <span class="text-danger">A</span>ir
+                    </p>
+                </div>
+            </div>
+            <video class='max-width' src="Video/CCSS NCC Air Boys.mp4" width='100%' controls poster="Images/thumbnail.png" style="margin-bottom: 70px;"></video>
+            <div>
+                <!-- Header: Camp Forge -->
+                <div class="bg-black d-flex flex-column justify-content-center align-items-stretch py-3"
+                    style="height: 150px; width: 100vw;">
+                    <div class="text-center text-white" style="font-family: 'Poppins', sans-serif;">
+                        <p class="lh-sm display-4"
+                            style="font-family: 'Times New Roman', Times, serif; font-weight: normal; margin: 0;">
+                            NCC <span class="text-primary">C</span>amp <span class="text-danger">F</span>orge
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Content: Camp Forge -->
+                <div class="text-center p-5" style="width:100vw; background-image: linear-gradient(rgb(255, 136, 86), rgb(255, 225, 53));">
+                    <div class="d-flex flex-wrap flex-lg-nowrap justify-content-center gap-3">
+                        <video class='max-width' src="Video/Camp Forge.mp4" width="100%" height="100%" controls></video>
+                        <div class="box-shadow rounded bg-light max-width align-self-center p-3">
+                            <h5 class="text">
+                                Camp Forge is a field trip that Year One cadets must attend. For many, this is their
+                                first visit to NCC HQ. Cadets will participate in fun and thrilling activities such as
+                                archery, paintball shooting, navigating the Motivational Obstacle Course, and
+                                more—organised by NCC HQ.
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Header: Camp Steel -->
+            <div class="bg-black d-flex flex-column justify-content-center align-items-stretch py-3"
+                style="height: 150px; width: 100vw;">
+                <div class="text-center text-white" style="font-family: 'Poppins', sans-serif;">
+                    <p class="lh-sm display-4"
+                        style="font-family: 'Times New Roman', Times, serif; font-weight: normal; margin: 0;">
+                        NCC <span class="text-primary">C</span>amp <span class="text-danger">S</span>teel
+                    </p>
+                </div>
+            </div>
+
+            <!-- Content: Camp Steel -->
+            <div class="text-center bg-dark-subtle p-5" style="width:100vw;">
+                <div class="d-flex flex-wrap flex-lg-nowrap justify-content-center gap-3">
+                    <video class='max-width' src="Video/Camp Steel.mp4" width="100%" height="100%" controls></video>
+                    <div class="box-shadow rounded bg-light max-width align-self-center p-3">
+                        <h5 class="text">
+                            Camp Steel is a Field Trip that Cadets will attend in Year Two. Cadets will participate in
+                            fun events such as high element with a zip gliding at the end, learning how to disassemble
+                            and re-assemble a real SAR-21 and much more that is organized by NCC HQ.
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Bar -->
+    <div class="social-media-section">
+        <div class="container text-center">
+            <p class="social-media-heading">
+                Reach <span class="text-n">N</span><span class="text-y">Y</span>AIR on our Social Media platforms!
+            </p>
+            <div class="social-icons-container">
+                <a href="https://www.facebook.com/sgncc.hq/" class="social-icon facebook-icon">
+                    <img src="Images/NCC_FACEBOOK.png" alt="Facebook">
+                </a>
+                <a href="https://www.youtube.com/c/nationalcadetcorpssingapore" class="social-icon youtube-icon">
+                    <img src="Images/NCC_YOUTUBE.png" alt="YouTube">
+                </a>
+                <a href="https://www.instagram.com/sg_ncc/?hl=en" class="social-icon instagram-icon">
+                    <img src="Images/NCC_INSTAGRAM.png" alt="Instagram">
+                </a>
+                <a href="https://x.com/HQ_DG_NCC?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+                    class="social-icon twitter-icon">
+                    <img src="Images/NCC_TWITTER.png" alt="Twitter">
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>

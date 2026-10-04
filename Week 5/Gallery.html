@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photo Gallery</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Wait for DOM to be fully loaded 
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get elements
+      const hamburgerBtn = document.querySelector('.hamburger-btn');
+      const mainNav = document.getElementById('main-nav');
+      const navList = mainNav.querySelector('.nav-list');
+      const BREAKPOINT = 920; // Same as Bootstrap's md breakpoint
+
+      // Function to handle responsive behavior
+      function updateNavigation() {
+        if (window.innerWidth < BREAKPOINT) {
+          // Mobile view - show hamburger, hide nav
+          hamburgerBtn.style.display = 'block';
+          mainNav.style.display = 'none';
+
+          // Change nav list to vertical layout
+          navList.classList.add('mobile-nav');
+          navList.classList.remove('d-flex', 'gap-2', 'gap-lg-3');
+        } else {
+          // Desktop view - hide hamburger, show nav
+          hamburgerBtn.style.display = 'none';
+          mainNav.style.display = 'block';
+
+          // Change nav list back to horizontal layout
+          navList.classList.remove('mobile-nav');
+          navList.classList.add('d-flex', 'gap-2', 'gap-lg-3');
+        }
+      }
+
+      // Toggle mobile menu
+      hamburgerBtn.addEventListener('click', function () {
+        if (mainNav.style.display === 'none' || mainNav.style.display === '') {
+          mainNav.style.display = 'block';
+          this.setAttribute('aria-expanded', 'true');
+        } else {
+          mainNav.style.display = 'none';
+          this.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Close menu when clicking on a link (optional)
+      navList.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function () {
+          if (window.innerWidth < BREAKPOINT) {
+            mainNav.style.display = 'none';
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // Initialize and add resize listener
+      updateNavigation();
+      window.addEventListener('resize', updateNavigation);
+    });
+  </script>
+  <!-- Header -->
+  <header class="bg-black text-white sticky-top">
+
+    <div class="header-container d-flex justify-content-between align-items-center px-3 py-2 py-md-3">
+      <!-- TOP LEFT LOGO GROUP -->
+      <div class="logo-group d-flex align-items-center gap-2 gap-md-3">
+        <a href="Home.html" class="d-inline-block">
+          <img src="Images/Logo.png" alt="NCC Logo" class="img-fluid logo-img" />
+        </a>
+        <a href="Home.html" class="d-inline-block">
+          <img src="Images/NYP_LOGO.png" alt="NYP Logo" class="img-fluid logo-img" id="NYP_LOGO" />
+        </a>
+      </div>
+      <!-- Hamburger button (REFER TO JS SCRIPT) -->
+      <button class="btn btn-dark hamburger-btn" type="button" aria-label="Toggle navigation" style="display: none;">
+        ☰
+      </button>
+      <!-- Naviagtion Bar -->
+      <nav id="main-nav">
+        <ul class="nav-list list-unstyled d-flex gap-2 gap-lg-3 mb-0">
+          <li><a href="Home.html" class="nav-link text-white p-1 p-lg-2">Home</a></li>
+          <li><a href="About.html" class="nav-link text-white p-1 p-lg-2">About Us</a></li>
+          <li><a href="Gallery.html" class="nav-link text-white p-1 p-lg-2 active">Photo Gallery</a></li>
+          <li><a href="AIR Journey.html" class="nav-link text-white p-1 p-lg-2">The AIR Journey</a></li>
+          <li><a href="Events.html" class="nav-link text-white p-1 p-lg-2">Events</a></li>
+          <li><a href="JoinUs.html" class="nav-btn btn btn-light btn-sm ms-lg-2">Register Now</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section style="overflow:hidden;">
+    <!-- About Photo Gallery -->
+    <div class="bg-white d-flex justify-content-center align-items-center text-center section-title-container">
+      <p class="lh-sm display-4 section-title">
+        Our Photo Gallery
+      </p>
+    </div>
+    <!-- Words of Photo Gallery -->
+    <div class="bg-white d-flex justify-content-center align-items-center text-center px-3 section-content-container">
+      <div class="skew-container">
+        <p class="lh-base fs-5 mx-auto section-text">
+          Welcome to our Photo Gallery! In NCC we keep track of our memorable moments, exciting events, and
+          behind-the-scenes highlights from our journey together!
+          Explore the collection below to relive the experiences, celebrate achievements, and appreciate the vibrant
+          spirit of our cadets captured.
+      </div>
+    </div>
+
+    <!-- PHOTO IMAGES -->
+    <div class="container my-5">
+      <div class="masonry-gallery">
+        <img src="Photo Gallery/Aero_Training_Plane_P1.png" alt="Gallery Image 1" class="gallery-img mb-4">
+        <img src="Photo Gallery/Aero_Training_balsa_P2.png" alt="Gallery Image 2" class="gallery-img mb-4">
+        <img src="Photo Gallery/Air_Force_Museum.png" alt="Gallery Image 3" class="gallery-img mb-4">
+        <img src="Photo Gallery/Camp_Steel_AirSoft.png" alt="Gallery Image 4" class="gallery-img mb-4">
+        <img src="Photo Gallery/High_Element_Forge.png" alt="Gallery Image 5" class="gallery-img mb-4">
+        <img src="Photo Gallery/Kayaking.png" alt="Gallery Image 6" class="gallery-img mb-4">
+        <img src="Photo Gallery/NDP_Training.png" alt="Gallery Image 7" class="gallery-img mb-4">
+        <img src="Photo Gallery/PDS_Competition.png" alt="Gallery Image 8" class="gallery-img mb-4">
+        <img src="Photo Gallery/PDS_Drills.png" alt="Gallery Image 9" class="gallery-img mb-4">
+        <img src="Photo Gallery/Shooting.png" alt="Gallery Image 10" class="gallery-img mb-4">
+        <img src="Photo Gallery/SYFC_AIRFORCE_NCC.png" alt="Gallery Image 11" class="gallery-img mb-4">
+      </div>
+    </div>
+
+    <!-- Task Force Black Bar -->
+    <div class="bg-dark black-bar-height">
+      <div class="bg-black d-flex flex-column justify-content-center align-items-center py-3 black-bar-height">
+        <div class="text-center text-white font-poppins">
+          <h1 class="display-4 fw-normal font-times mb-0">
+            Our <span class="text-primary">A</span>chieve<span class="text-danger">m</span>ents
+          </h1>
+        </div>
+      </div>
+    </div><br>
+
+    <!-- Achievement Section -->
+    <div class="achievement-section">
+      <div class="container">
+        <hr class="section-divider">
+      </div>
+      <div class="container py-5">
+        <div class="row justify-content-center align-items-center">
+          <!-- Image -->
+          <div class="col-12 col-md-5 text-center mb-4 mb-md-0">
+            <img src="Images/Logo.png" alt="NCC Logo" class="achievement-img">
+          </div>
+          <!-- Text -->
+          <div class="col-12 col-md-7 text-center">
+            <div class="achievement-text">
+              <h3 class="fw-bold mb-3">Unit Recognition Achievement</h3>
+              <p>
+                Our unit has been awarded the <strong>DISTINCTION</strong> award for 2024.<br>
+                Our unit has been awarded the <strong>DISTINCTION</strong> award for 2023.<br>
+                Our unit has been awarded the <strong>DISTINCTION</strong> award for 2022.<br>
+              </p>
+              <p class="mb-0">
+                Congratulations to all Teacher Officers, Cadet Officers, NCOs and Cadets.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <hr class="w-75 mx-auto border-black">
+
+    <!-- PDS COMPETITION -->
+    <div class="achievement-section">
+      <div class="container">
+        <hr class="section-divider">
+      </div>
+      <div class="container py-5">
+        <div class="row justify-content-center align-items-center">
+          <!-- Image -->
+          <div class="col-12 col-md-5 text-center mb-4 mb-md-0">
+            <img src="Images/PDS_COMP_WIN.png" alt="NCC Logo" class="img-fluid w-100">
+          </div>
+          <!-- Text -->
+          <div class="col-12 col-md-7 text-center">
+            <div class="achievement-text">
+              <h3 class="fw-bold mb-3">PDS COMPETITION 2024</h3>
+              <p>
+                Our PDS team performed well and managed to achieve <strong>TOP 5</strong> position for the Air District
+                PDS Competition. All the best for the Finals!
+              </p>
+              <p class="mb-0">
+                Congratulations to all Cadet Officers, NCOs and Cadets.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="w-75 mx-auto border-black">
+
+    <!-- Kayaking content -->
+    <div class="achievement-section">
+      <div class="container">
+        <hr class="section-divider">
+      </div>
+      <div class="container py-5">
+        <div class="row justify-content-center align-items-center">
+          <!-- Image -->
+          <div class="col-12 col-md-5 text-center mb-4 mb-md-0">
+            <img src="Images/KAYAKING_WIN.png" alt="NCC Logo" class="img-fluid w-100">
+          </div>
+          <!-- Text -->
+          <div class="col-12 col-md-7 text-center">
+            <div class="achievement-text">
+              <h3 class="fw-bold mb-3">1-Star Kayaking Proficiency Badge 2024</h3>
+              <p>
+                Selected NCC Air cadets went for the <strong>1-Star Kayaking</strong> Proficiency Course on the 26 & 27
+                Aug 2024. Congratulations on attaining the badge!
+              </p>
+              </p>
+              <p class="mb-0">
+                Congratulations to all NCOs and Cadets.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Social Media Bar -->
+  <div class="social-media-section">
+    <div class="container text-center">
+      <p class="social-media-heading">
+        Reach <span class="text-n">N</span><span class="text-y">Y</span>AIR on our Social Media platforms!
+      </p>
+      <div class="social-icons-container">
+        <a href="https://www.facebook.com/sgncc.hq/" class="social-icon facebook-icon">
+          <img src="Images/NCC_FACEBOOK.png" alt="Facebook">
+        </a>
+        <a href="https://www.youtube.com/c/nationalcadetcorpssingapore" class="social-icon youtube-icon">
+          <img src="Images/NCC_YOUTUBE.png" alt="YouTube">
+        </a>
+        <a href="https://www.instagram.com/sg_ncc/?hl=en" class="social-icon instagram-icon">
+          <img src="Images/NCC_INSTAGRAM.png" alt="Instagram">
+        </a>
+        <a href="https://x.com/HQ_DG_NCC?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+          class="social-icon twitter-icon">
+          <img src="Images/NCC_TWITTER.png" alt="Twitter">
+        </a>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NYP NCC AIR</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get elements
+      const hamburgerBtn = document.querySelector('.hamburger-btn');
+      const mainNav = document.getElementById('main-nav');
+      const navList = mainNav.querySelector('.nav-list');
+      const BREAKPOINT = 920; // Same as Bootstrap's md breakpoint
+
+      // Function to handle responsive behavior
+      function updateNavigation() {
+        if (window.innerWidth < BREAKPOINT) {
+          // Mobile view - show hamburger, hide nav
+          hamburgerBtn.style.display = 'block';
+          mainNav.style.display = 'none';
+
+          // Change nav list to vertical layout
+          navList.classList.add('mobile-nav');
+          navList.classList.remove('d-flex', 'gap-2', 'gap-lg-3');
+        } else {
+          // Desktop view - hide hamburger, show nav
+          hamburgerBtn.style.display = 'none';
+          mainNav.style.display = 'block';
+
+          // Change nav list back to horizontal layout
+          navList.classList.remove('mobile-nav');
+          navList.classList.add('d-flex', 'gap-2', 'gap-lg-3');
+        }
+      }
+
+      // Toggle mobile menu
+      hamburgerBtn.addEventListener('click', function () {
+        if (mainNav.style.display === 'none' || mainNav.style.display === '') {
+          mainNav.style.display = 'block';
+          this.setAttribute('aria-expanded', 'true');
+        } else {
+          mainNav.style.display = 'none';
+          this.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Close menu when clicking on a link (optional)
+      navList.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function () {
+          if (window.innerWidth < BREAKPOINT) {
+            mainNav.style.display = 'none';
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // Initialize and add resize listener
+      updateNavigation();
+      window.addEventListener('resize', updateNavigation);
+    });
+  </script>
+  <!-- Header -->
+  <header class="bg-black text-white sticky-top">
+    <div class="header-container d-flex justify-content-between align-items-center px-3 py-2 py-md-3">
+      <!-- TOP LEFT LOGO GROUP -->
+      <div class="logo-group d-flex align-items-center gap-2 gap-md-3">
+        <a href="Home.html" class="d-inline-block">
+          <img src="Images/Logo.png" alt="NCC Logo" class="img-fluid logo-img" />
+        </a>
+        <a href="Home.html" class="d-inline-block">
+          <img src="Images/NYP_LOGO.png" alt="NYP Logo" class="img-fluid logo-img" id="NYP_LOGO" />
+        </a>
+      </div>
+      <!-- Hamburger button (REFER TO JS SCRIPT) -->
+      <button class="btn btn-dark hamburger-btn" type="button" aria-label="Toggle navigation" style="display: none;">
+        ☰
+      </button>
+      <!-- Naviagtion Bar -->
+      <nav id="main-nav">
+        <ul class="nav-list list-unstyled d-flex gap-2 gap-lg-3 mb-0">
+          <li><a href="Home.html" class="nav-link text-white p-1 p-lg-2 active">Home</a></li>
+          <li><a href="About.html" class="nav-link text-white p-1 p-lg-2">About Us</a></li>
+          <li><a href="Gallery.html" class="nav-link text-white p-1 p-lg-2">Photo Gallery</a></li>
+          <li><a href="AIR Journey.html" class="nav-link text-white p-1 p-lg-2">The AIR Journey</a></li>
+          <li><a href="Events.html" class="nav-link text-white p-1 p-lg-2">Events</a></li>
+          <li><a href="JoinUs.html" class="nav-btn btn btn-light btn-sm ms-lg-2">Register Now</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- LOGO AT MIDDLE OF PAGE HERO SECTION -->
+  <div id="hero-section" class="hero-section">
+    <div class="hero-overlay"></div>
+    <img src="Images/Logo.png" alt="Main Logo" class="hero-logo">
+    <div id="Motto1" class="hero-motto">
+      <span class="d-block fs-4">" To Serve with Pride and Dedication NCC! "</span>
+      <span class="d-block fs-5 mb-3">- NCC Motto</span>
+    </div>
+  </div>
+  <!-- White Bar with Centered Text -->
+  <div class="white-bar">
+    <p class="welcome-title">
+      Welcome to <span class="text-primary">N</span><span class="text-danger">Y</span>AIR!
+    </p>
+  </div>
+
+  <!-- SOAR AS ONE Black Bar -->
+  <div class="bg-dark black-bar-container">
+    <div class="bg-black d-flex flex-column justify-content-center align-items-center py-3 black-bar-inner">
+      <div class="text-center text-white poppins-font">
+        <p class="mb-1 fw-bold subtitle-text">Leadership · Loyalty · Camaraderie</p>
+        <p class="mb-0 fw-bold main-title">
+          <span>"Soar as One!"</span> #<span class="text-primary">N</span><span class="text-danger">Y</span>AIR!
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!---------------------------------------------- Bow Formation for 3 Cards ---------------------------------------------------->
+  <div class="container my-5">
+    <div class="row gy-4">
+
+      <!-- Card 1: ABOUT US -->
+      <div class="col-md-4 d-flex flex-column align-items-center text-center">
+        <div class="hover-expand ratio ratio-16x9 w-100 rounded shadow overflow-hidden">
+          <a href="About.html">
+            <img src="Images/NCC_ABOUT_US.png" alt="About Us" class="w-100 h-100 object-fit-cover">
+          </a>
+        </div>
+        <a href="About.html" class="fs-4 fw-bold text-primary mt-2 hover-underline">
+          ABOUT US
+        </a>
+        <p class="mt-3 fw-bold text-dark">
+          Discover what makes NYP NCC (Air) unique. Our program offers military training of drills, Precision Drills
+          (PDS) and Aerospace and so much more combined with leadership development.
+        </p>
+        <p class="fw-bold text-dark">
+          Learn about our mission, and the values that guide our cadets to excellence in this CCA.
+        </p>
+      </div>
+
+      <!-- Card 2: THE AIR JOURNEY -->
+      <div class="col-md-4 d-flex flex-column align-items-center text-center">
+        <div class="hover-expand ratio ratio-16x9 w-100 rounded shadow overflow-hidden">
+          <a href="AIR Journey.html">
+            <img src="Images/NCC_AIR_JOURNEY.png" alt="Air Journey" class="w-100 h-100 object-fit-cover">
+          </a>
+        </div>
+        <a href="AIR Journey.html" class="fs-4 fw-bold text-primary mt-2 hover-underline">
+          THE AIR JOURNEY
+        </a>
+        <p class="mt-3 fw-bold text-dark">
+          Experience the thrilling journey of our cadets from beginner to advanced aerospace missions, where they learn
+          to fly remote-controlled drones and even model aircraft. It's hands-on, high-flying action that takes your
+          skills to the next level!
+        </p>
+        <p class="fw-bold text-dark">
+          Our cadets get to master Precision Drill Squad (PDS), where they perform sharp, high-impact rifle drills using
+          replica rifles showcasing thrilling routines and impressive coordination in front of a live audience. It's
+          discipline, teamwork, and showmanship all in one!
+        </p>
+      </div>
+
+      <!-- Card 3: OUR EVENTS -->
+      <div class="col-md-4 d-flex flex-column align-items-center text-center">
+        <div class="hover-expand ratio ratio-16x9 w-100 rounded shadow overflow-hidden">
+          <a href="Events.html">
+            <img src="Images/NCC_EVENTS.png" alt="Events" class="w-100 h-100 object-fit-cover">
+          </a>
+        </div>
+        <a href="Events.html" class="fs-4 fw-bold text-primary mt-2 hover-underline">
+          OUR EVENTS
+        </a>
+        <p class="mt-3 fw-bold text-dark">
+          Participate in our exciting lineup of events throughout the year, from air shows to leadership camps and even
+          overseas trips!
+        </p>
+        <p class="fw-bold text-dark">
+          These activities provide practical experiences that complement classroom learning and build camaraderie with
+          others from other schools!
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Social Media Bar -->
+  <div class="social-media-section">
+    <div class="container text-center">
+      <p class="social-media-heading">
+        Reach <span class="text-n">N</span><span class="text-y">Y</span>AIR on our Social Media platforms!
+      </p>
+      <div class="social-icons-container">
+        <a href="https://www.facebook.com/sgncc.hq/" class="social-icon facebook-icon">
+          <img src="Images/NCC_FACEBOOK.png" alt="Facebook">
+        </a>
+        <a href="https://www.youtube.com/c/nationalcadetcorpssingapore" class="social-icon youtube-icon">
+          <img src="Images/NCC_YOUTUBE.png" alt="YouTube">
+        </a>
+        <a href="https://www.instagram.com/sg_ncc/?hl=en" class="social-icon instagram-icon">
+          <img src="Images/NCC_INSTAGRAM.png" alt="Instagram">
+        </a>
+        <a href="https://x.com/HQ_DG_NCC?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+          class="social-icon twitter-icon">
+          <img src="Images/NCC_TWITTER.png" alt="Twitter">
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

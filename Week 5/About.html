@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get elements
+      const hamburgerBtn = document.querySelector('.hamburger-btn');
+      const mainNav = document.getElementById('main-nav');
+      const navList = mainNav.querySelector('.nav-list');
+      const BREAKPOINT = 920; // Same as Bootstrap's md breakpoint
+
+      // Function to handle responsive behavior
+      function updateNavigation() {
+        if (window.innerWidth < BREAKPOINT) {
+          // Mobile view - show hamburger, hide nav
+          hamburgerBtn.style.display = 'block';
+          mainNav.style.display = 'none';
+
+          // Change nav list to vertical layout
+          navList.classList.add('mobile-nav');
+          navList.classList.remove('d-flex', 'gap-2', 'gap-lg-3');
+        } else {
+          // Desktop view - hide hamburger, show nav
+          hamburgerBtn.style.display = 'none';
+          mainNav.style.display = 'block';
+
+          // Change nav list back to horizontal layout
+          navList.classList.remove('mobile-nav');
+          navList.classList.add('d-flex', 'gap-2', 'gap-lg-3');
+        }
+      }
+
+      // Toggle mobile menu
+      hamburgerBtn.addEventListener('click', function () {
+        if (mainNav.style.display === 'none' || mainNav.style.display === '') {
+          mainNav.style.display = 'block';
+          this.setAttribute('aria-expanded', 'true');
+        } else {
+          mainNav.style.display = 'none';
+          this.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Close menu when clicking on a link (optional)
+      navList.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function () {
+          if (window.innerWidth < BREAKPOINT) {
+            mainNav.style.display = 'none';
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // Initialize and add resize listener
+      updateNavigation();
+      window.addEventListener('resize', updateNavigation);
+    });
+  </script>
+  <!-- Header -->
+  <header class="bg-black text-white sticky-top">
+    <div class="header-container d-flex justify-content-between align-items-center px-3 py-2 py-md-3">
+
+      <!-- TOP LEFT LOGO GROUP -->
+      <div class="logo-group d-flex align-items-center gap-2 gap-md-3">
+        <a href="Home.html" class="d-inline-block">
+          <img src="Images/Logo.png" alt="NCC Logo" class="img-fluid logo-img" />
+        </a>
+        <a href="Home.html" class="d-inline-block">
+          <img src="Images/NYP_LOGO.png" alt="NYP Logo" class="img-fluid logo-img" id="NYP_LOGO" />
+        </a>
+      </div>
+      <!-- Hamburger button (REFER TO JS SCRIPT) -->
+      <button class="btn btn-dark hamburger-btn" type="button" aria-label="Toggle navigation" style="display: none;">
+        ☰
+      </button>
+      <!-- Naviagtion Bar -->
+      <nav id="main-nav">
+        <ul class="nav-list list-unstyled d-flex gap-2 gap-lg-3 mb-0">
+          <li><a href="Home.html" class="nav-link text-white p-1 p-lg-2">Home</a></li>
+          <li><a href="About.html" class="nav-link text-white p-1 p-lg-2 active">About Us</a></li>
+          <li><a href="Gallery.html" class="nav-link text-white p-1 p-lg-2">Photo Gallery</a></li>
+          <li><a href="AIR Journey.html" class="nav-link text-white p-1 p-lg-2">The AIR Journey</a></li>
+          <li><a href="Events.html" class="nav-link text-white p-1 p-lg-2">Events</a></li>
+          <li><a href="JoinUs.html" class="nav-btn btn btn-light btn-sm ms-lg-2">Register Now</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section style="overflow: hidden;">
+    <!-- About NCC AIR -->
+    <div class="bg-white d-flex justify-content-center align-items-center text-center section-title-container">
+      <p class="lh-sm display-4 section-title">
+        About the Corps
+      </p>
+    </div>
+    <!-- Words of NCC AIR -->
+    <div class="bg-white d-flex justify-content-center align-items-center text-center px-3 section-content-container">
+      <div class="skew-container">
+        <p class="lh-base fs-5 mx-auto section-text">
+          The National Cadet Corps (Air) in Singapore, established in 1969, is a uniformed youth organization supported
+          by
+          the Ministry of Education that aims to develop responsible and resilient leaders through military-related
+          activities. Originally focused on aviation and basic military skills, it has evolved to offer comprehensive
+          training aligned with the Republic of Singapore Air Force's standards. Cadets undergo drills, fieldcraft, and
+          aviation knowledge training, with opportunities for flight experiences and visits to the RSAF. Emphasizing
+          character building, leadership, and teamwork, NCC Air prepares cadets to serve the nation and excel in their
+          future endeavors.
+        </p>
+      </div>
+    </div>
+
+    <!-- About Mission & Vision -->
+    <div class="bg-white d-flex justify-content-center align-items-center text-center section-title-container">
+      <p class="lh-sm display-4 section-title">
+        Mission & Vision
+      </p>
+    </div>
+    <!-- Words of the Mission & Vision -->
+    <div class="bg-white d-flex justify-content-center align-items-center text-center px-3 mission-vision-container">
+      <p class="lh-base fs-5 mx-auto mission-vision-text">
+        "Our <span class="bold-text">Mission</span> is to nurture inspiring leaders and committed citizens through
+        adventurous, challenging, and military-inspired experiences, while upholding a <span
+          class="bold-text">Vision</span> to forge extraordinary youth leaders who lead with honor, courage, and
+        excellence."
+      </p>
+    </div>
+
+    <!-- Core Values -->
+    <div class="bg-white d-flex justify-content-center align-items-center text-center core-values-title-container">
+      <p class="lh-sm display-4 section-title">
+        Core Values
+      </p>
+    </div>
+    <!--  Words of the Core Values -->
+    <div class="bg-white d-flex justify-content-center align-items-center text-center px-3"
+      style="min-height: 75x; flex-direction: column;">
+      <p class="lh-base mx-auto text-center"
+        style="font-family: 'Times New Roman', Times, serif; font-weight: normal; margin: 0; max-width: 800px; transform: skewX(-10deg); font-size:22px;">
+        NCC is driven by 8 Core Values:
+      </p>
+      <p
+        style="font-family: 'Times New Roman', Times, serif; font-weight: normal; font-size: 20px; max-width: 800px; margin: 0; padding-left: 10px; font-weight:bold;">
+        Loyalty to Country<br>
+        Uprightness<br>
+        Leadership<br>
+        Discipline<br>
+        Commitment & Responsibility<br>
+        Care for Fellow Cadets<br>
+        Adventurous Spirit<br>
+        Safety
+      </p>
+    </div><br>
+
+    <!-- Task Force Black Bar -->
+    <div class="bg-dark black-bar-height">
+      <div class="bg-black d-flex flex-column justify-content-center align-items-center py-3 black-bar-height">
+        <div class="text-center text-white font-poppins">
+          <h1 class="display-4 fw-normal font-times mb-0">
+            Our <span class="text-primary">T</span>ask <span class="text-danger">F</span>orce
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <!-- TASK FORCE IMAGE -->
+    <div class="mt-3 text-center">
+      <img src="Images/NCC_TASK_FORCE.png" alt="TASK_FORCE" class="img-fluid mx-auto d-block">
+    </div>
+    <!-- TABLE FOR EACH ROLE -->
+    <div
+      class="bg-white d-flex flex-column justify-content-center align-items-center text-center px-3 core-values-section">
+      <p class="core-values-heading">
+        Roles in Task force
+      </p>
+      <div class="container my-4">
+        <h2 class="text-center mb-3">NCC Air Roles and Responsibilities</h2>
+        <div class="table-responsive" style="overflow-x:hidden;">
+          <table class="table table-bordered table-striped table-hover text-center align-middle">
+            <thead class="table-dark">
+              <tr>
+                <th>Role</th>
+                <th>Assistant Role</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="fw-bold">T'O</span> (Teacher Officer)</td>
+                <td>-</td>
+                <td>Teachers serving as official officers overseeing NCC Air activities.</td>
+              </tr>
+              <tr>
+                <td><span class="fw-bold">MSG</span> (Master Sergeant)</td>
+                <td><span class="fw-bold">ASM</span> (Assistant Sergeant Major)</td>
+                <td>Highest-ranking cadet responsible for leading and managing the entire company; ASM assists MSG in
+                  command and organization.</td>
+              </tr>
+              <tr>
+                <td><span class="fw-bold">PS A & PS B</span> (Platoon Sergeants)</td>
+                <td><span class="fw-bold">APS</span> (Assistant Platoon Sergeants)</td>
+                <td>Lead respective platoons and ensure discipline and training; APS supports platoon management and
+                  welfare.</td>
+              </tr>
+              <tr>
+                <td><span class="fw-bold">Aero-I</span> (Aeromodelling Instructor)</td>
+                <td><span class="fw-bold">AAero-I</span> (Assistant Aeromodelling Instructor)</td>
+                <td>Oversees aeromodelling training and projects; assistant supports activities and instruction.</td>
+              </tr>
+              <tr>
+                <td><span class="fw-bold">DSI</span> (Drill Specialist Instructor)</td>
+                <td><span class="fw-bold">ADSI</span> (Assistant Drill Specialist Instructor)</td>
+                <td>Conducts precision drill training; assistant aids in drills and coordination.</td>
+              </tr>
+              <tr>
+                <td><span class="fw-bold">PTI</span> (Physical Training Instructor)</td>
+                <td><span class="fw-bold">APTI</span> (Assistant Physical Training Instructor)</td>
+                <td>Responsible for cadets' physical fitness and conditioning; assistant helps organize fitness
+                  sessions.
+                </td>
+              </tr>
+              <tr>
+                <td><span class="fw-bold">CWO</span> (Cadet Welfare Officer)</td>
+                <td><span class="fw-bold">ACWO</span> (Assistant Cadet Welfare Officer)</td>
+                <td>Ensures cadet health and welfare, including medical needs; assistant supports medical and welfare
+                  tasks.</td>
+              </tr>
+              <tr>
+                <td><span class="fw-bold">QM</span> (Quartermaster)</td>
+                <td><span class="fw-bold">AQM</span> (Assistant Quartermaster)</td>
+                <td>Manages equipment, uniforms, and logistics; assistant helps maintain inventory and logistics.</td>
+              </tr>
+              <tr>
+                <td><span class="fw-bold">Admin</span></td>
+                <td><span class="fw-bold">AAdmin</span> (Assistant Admin)</td>
+                <td>Handles administrative tasks such as attendance and records; assistant helps track cadet
+                  information.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ranks in NCC Black Bar -->
+    <div class="bg-dark black-bar-height">
+      <div class="bg-black d-flex flex-column justify-content-center align-items-center py-3 black-bar-height">
+        <div class="text-center text-white font-poppins">
+          <h1 class="display-4 fw-normal font-times mb-0">
+            <span class="text-primary">R</span><span class="text-danger">a</span>nks in NCC
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="container my-4">
+      <div class="row justify-content-center text-center">
+        <!-- NCC ROUTE IMAGE -->
+        <div class="col-md-6 mb-4 mb-md-0">
+          <img src="Images/NCC_ROUTE_ADVANCEMENT.png" alt="NCC_ROUTE_ADVANCEMENT"
+            class="img-fluid rounded shadow mx-auto d-block" style="width: 90%; height: auto;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="social-media-section">
+    <div class="container text-center">
+      <p class="social-media-heading">
+        Reach <span class="text-n">N</span><span class="text-y">Y</span>AIR on our Social Media platforms!
+      </p>
+      <div class="social-icons-container">
+        <a href="https://www.facebook.com/sgncc.hq/" class="social-icon facebook-icon">
+          <img src="Images/NCC_FACEBOOK.png" alt="Facebook">
+        </a>
+        <a href="https://www.youtube.com/c/nationalcadetcorpssingapore" class="social-icon youtube-icon">
+          <img src="Images/NCC_YOUTUBE.png" alt="YouTube">
+        </a>
+        <a href="https://www.instagram.com/sg_ncc/?hl=en" class="social-icon instagram-icon">
+          <img src="Images/NCC_INSTAGRAM.png" alt="Instagram">
+        </a>
+        <a href="https://x.com/HQ_DG_NCC?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+          class="social-icon twitter-icon">
+          <img src="Images/NCC_TWITTER.png" alt="Twitter">
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

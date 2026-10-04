@@ -1,0 +1,764 @@
+body{
+    font-family: verdana;
+    letter-spacing:-1px;
+}
+
+/*-------------------------------------------------------- Header -------------------------------------------------------- */
+
+.nav-link {
+  color: #ffffff !important;
+  transition: color 0.3s ease;
+}
+
+/* Active page link style */
+.nav-link.active {
+  color: #d2d2d2 !important;
+  /* Optional: Add underline */
+  border-bottom: 2px solid #b0b0b0;
+  padding-bottom: 2px;
+}
+
+.nav-link:hover:not(.active) {
+  color: #b0b0b0 !important;
+}
+
+/* Register button styles remain the same */
+.nav-btn {
+  margin-top:4px;
+  border: 2px solid #fff;
+  background-color: #fff;
+  color: #000 !important;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.nav-btn:hover {
+  color: #b0b0b0 !important;
+  background-color: #fff !important;
+}
+
+/* Mobile Navigation button */
+@media (max-width: 920.98px) {
+  #main-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #343a40;
+    z-index: 1000;
+  }
+
+  .mobile-nav {
+    flex-direction: column;
+    padding: 1rem;
+    margin: 0;
+  }
+
+  .mobile-nav li {
+    padding: 0.5rem 0;
+  }
+
+  .mobile-nav .nav-btn {
+    display: block;
+    margin: 0.5rem 0 !important;
+    text-align: center;
+  }
+}
+
+
+/* Base Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* logo image bar on header */
+.logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+#NYP_LOGO {
+  height: 40px;
+}
+
+/*-------------------------------------------------------- HOME -------------------------------------------------------- */
+
+/* LOGO Height */
+#LOGO-1 {
+  max-height: 40px;
+}
+
+/* LOGO AT MIDDLE OF PAGE HERO SECTION */
+.hero-section {
+  position: relative;
+  text-align: center;
+  color: white;
+  padding: 3rem 0;
+  background-image: url('Images/NCC_BACKGROUND.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 0;
+}
+
+.hero-logo {
+  max-height: 150px;
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 8%;
+  height: auto;
+}
+
+.hero-motto {
+  position: relative;
+  z-index: 1;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-style: italic;
+  text-shadow: 1px 3px 6px #000;
+}
+
+
+/* White Bar Section */
+.white-bar {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 200px;
+}
+
+.welcome-title {
+  font-weight: bold;
+  padding: 0 1rem;
+  text-align: center;
+  line-height: 1.5;
+  font-family: 'Poppins', sans-serif;
+  transform: skewX(-10deg);
+  font-size: calc(1.475rem + 2.7vw);
+}
+
+/* Black Bar Styles */
+.black-bar-container {
+  height: 150px;
+}
+
+.black-bar-inner {
+  height: 150px;
+}
+
+.poppins-font {
+  font-family: 'Poppins', sans-serif;
+}
+
+.subtitle-text {
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.main-title {
+  font-size: 1.5rem;
+  transform: skewX(-5deg);
+  display: inline-block;
+}
+
+/*-------------------------------------------------------- Footer Bar -------------------------------------------------------- */
+.social-media-section {
+  background-color: #212529;
+  padding: 1.5rem 0;
+}
+
+.social-media-heading {
+  font-weight: 700;
+  color: #fff;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.text-n { color: #007BFF; }
+.text-y { color: #FF0000; }
+
+.social-icons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Base icon styles */
+.social-icon img {
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.social-icon:hover img {
+  transform: scale(1.1);
+}
+
+/* Individual icon sizing */
+.facebook-icon img {
+  width: 5vw;
+  max-width: 60px;
+  min-width: 55px;
+  height: 56px;
+  margin: 15px;
+}
+
+.youtube-icon img {
+  width: 8vw;
+  max-width: 95px;
+  min-width: 75px;
+  height: 90px;
+}
+
+.instagram-icon img {
+  width: 9vw;
+  max-width: 100px;
+  min-width: 85px;
+  height: 90px;
+}
+
+.twitter-icon img {
+  width: 7vw;
+  max-width: 85px;
+  min-width: 75px;
+  height: 80px;
+  margin: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .social-icon img {
+    margin: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .facebook-icon img { min-width: 50px; height: 50px; }
+  .youtube-icon img { min-width: 70px; height: 80px; }
+  .instagram-icon img { min-width: 80px; height: 80px; }
+  .twitter-icon img { min-width: 70px; height: 70px; }
+}
+
+@media (max-width: 576px) {
+  .social-icons-container {
+    gap: 0.5rem;
+  }
+  .facebook-icon img { min-width: 45px; height: 45px; margin: 8px; }
+  .youtube-icon img { min-width: 65px; height: 70px; }
+  .instagram-icon img { min-width: 75px; height: 75px; }
+  .twitter-icon img { min-width: 65px; height: 65px; margin: 3px; }
+}
+
+/*-------------------------------------------------------- ABOUT US -------------------------------------------------------- */
+
+/* Custom styles for text */
+.section-title-container {
+  min-height: 150px;
+}
+
+.section-title {
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: normal;
+  margin: 0;
+}
+
+.section-content-container {
+  min-height: 50px;
+}
+
+.skew-container {
+  transform: skewX(-10deg);
+}
+
+.section-text {
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: normal;
+  margin: 0;
+  max-width: 800px;
+  transform: skewX(10deg);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .section-text {
+    max-width: 90%;
+  }
+}
+
+/* Mission & Vision Section */
+.mission-vision-container {
+  min-height: 50px;
+}
+
+.mission-vision-text {
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: normal;
+  margin: 0;
+  max-width: 800px;
+  transform: skewX(-10deg);
+}
+
+/* Core Values Section */
+.core-values-title-container {
+  min-height: 150px;
+}
+
+.core-values-container {
+  min-height: 75px;
+  flex-direction: column;
+}
+
+.core-values-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.core-values-intro {
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: normal;
+  margin: 0;
+  transform: skewX(-10deg);
+}
+
+.core-values-list {
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: normal;
+  font-size: 1.25rem;
+  margin: 0;
+  padding-left: 1.25rem;
+  text-align: left;
+  list-style-type: none;
+}
+
+.core-values-list li {
+  margin-bottom: 0.5rem;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mission-vision-text,
+  .core-values-content {
+    max-width: 90%;
+  }
+  
+  .core-values-list {
+    font-size: 1.1rem;
+    padding-left: 1rem;
+  }
+}
+
+/* BLACK BAR */
+
+.black-bar-height {
+  height: 150px; 
+}
+
+.font-times {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+
+/* TABLE */
+.core-values-section {
+  min-height: 75px;
+}
+
+.core-values-heading {
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: normal;
+  margin: 0;
+  max-width: 800px;
+  transform: skewX(-10deg);
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .core-values-heading {
+    max-width: 90%;
+    font-size: 1.1rem;
+  }
+}
+
+
+/* HOVER FOR IMAGES */
+.hover-expand {
+  transition: transform 0.4s ease;
+}
+.hover-expand:hover {
+  transform: scale(1.05);
+}
+
+.hover-underline {
+  transition: text-decoration 0.3s ease;
+  text-decoration: none;
+}
+
+.hover-underline:hover {
+  text-decoration: underline;
+}
+
+/*-------------------------------------------------------- Gallery -------------------------------------------------------- */
+/* Achievement Section Styles */
+.achievement-section {
+  margin-bottom: 3rem;
+}
+
+.section-divider {
+  width: 80%;
+  margin: 0 auto;
+  border-top: 1px solid #dee2e6;
+}
+
+.achievement-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.achievement-text {
+  width: 100%;
+  text-align: center;
+}
+
+.achievement-text h3 {
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.achievement-text p {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .achievement-text p {
+    font-size: 1.1rem;
+  }
+  
+  .achievement-section {
+    margin-bottom: 2rem;
+  }
+}
+
+/* Achievement Section */
+.achievement-img {
+  max-width: 280px;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.achievement-text {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 0.5rem; 
+}
+
+/* Mobile adjustments */
+@media (max-width: 767.98px) {
+  .achievement-img {
+    max-width: 200px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .achievement-text {
+    padding-top: 0; 
+  }
+}
+
+/* Gallery pinterest design */
+.masonry-gallery {
+  column-count: 1;
+  column-gap: 1rem;
+}
+
+.masonry-gallery .gallery-img {
+  width: 100%;
+  display: block;
+  break-inside: avoid;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  overflow-x:hidden;
+}
+
+/* Hover & Touch Zoom Effect */
+.masonry-gallery .gallery-img:hover,
+.masonry-gallery .gallery-img:active,
+.masonry-gallery .gallery-img:focus-visible {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive columns */
+@media (min-width: 576px) {
+  .masonry-gallery {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 768px) {
+  .masonry-gallery {
+    column-count: 3;
+  }
+}
+
+@media (min-width: 992px) {
+  .masonry-gallery {
+    column-count: 4;
+  }
+}
+
+/*-------------------------------------------------------- Air Journey Page -------------------------------------------------------- */
+.mt-16{
+    margin-top:16px;
+}
+
+.mb-10{
+    margin-bottom:10rem;
+}
+
+.min-height{ /*Modify image height in slide bar*/
+    height:250px;
+}
+
+.box-shadow{
+    box-shadow:5px 5px grey;
+}
+
+.max-width{ /* Set a maximum height for video and text in content section*/
+    max-width:600px;
+}
+
+.bold{
+    font-weight:bold;
+}
+
+.text{/*font size for mobile user*/
+    font-family:Roboto;
+    font-size: 16px;
+    letter-spacing: 0px;
+}
+
+@media (min-width:576px) { /*Change font size for non-mobile user*/
+    .text{
+        font-size:26px;
+        letter-spacing: -1px;
+    }
+}
+
+.bg-bar{
+    background-color:#eaeaea;
+}
+
+.bg-button{
+  background-color:	#d8d8d8a4;
+}
+
+/* Event Page */
+.legend{
+  font-size:22px;
+}
+
+.calendar-day {
+  border: 1px solid #8e8e8e;
+  height: 100px;
+  padding: 5px;
+  border-radius: 0.5rem;
+  background-color: #f8f9fa;
+}
+
+@media (max-width: 576px) {
+  .calendar-day {
+    height: auto;
+    min-height: 100px;
+  }
+}
+
+.day-number {
+  font-weight: bold;
+}
+
+.event {
+  font-size: 1rem;
+  margin-top: 4px;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.event-details {
+  display: none;
+  margin-top: 0.5rem;
+  z-index:1;
+}
+
+.position{
+  position:static;
+  margin-top: 2rem;
+}
+
+.red-position{
+  position:static;
+  margin-top: 3rem;
+}
+
+@media (max-width: 992px){
+  .position{
+    margin-top: 0rem;
+  }
+  .red-position{
+    margin-top:0rem;
+  }
+}
+
+@media (min-width: 576px){
+  .position{
+    position:absolute;
+  }
+  .red-position{
+    position:absolute;
+  }
+}
+
+@media (min-width: 992px){/*overlaps button with event details*/
+  .position {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .red-position {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top:3rem;
+  }
+}
+
+@media (min-width:1200px){
+  .red-position{
+    margin-top:2rem;
+  }
+}
+
+.list-group-flush{
+  box-shadow: 3px 3px grey;
+  border-radius: 4px;
+}
+.event.red {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.event.blue {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.button-text{
+  font-size:16px;
+}
+
+@media (min-width: 992px){
+  .button-text{
+   font-size:12px;
+  }
+}
+
+/* Register Page */
+.bg-image{
+    background-attachment: fixed;
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+    background-image: url('Images/NCC.png');
+}
+
+fieldset{
+    padding:10px;
+}
+
+textarea{
+    width:100%;
+}
+
+input ,textarea{
+    border-radius: 10px;
+    padding:5px 0px 5px 10px;
+    font-size: 20px;
+    flex-wrap: nowrap;
+}
+
+button{
+    border-radius:10px;
+}
+
+.error{
+    border-color: red;
+    animation: shake 0.5s ease-in-out ; /* Apply the animation */
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); } /* Start at original position */
+  20% { transform: translateX(-4px); } /* Move left */
+  40% { transform: translateX(4px); } /* Move right */
+  60% { transform: translateX(-4px); } /* Move left again */
+  80% { transform: translateX(4px); } /* Move right again */
+  100% { transform: translateX(0); } /* Return to original position */
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Processor Page */
+.center{
+  margin-top:20vh;
+}
+
+.processor-bg{
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-image: url('Images/processor-bg.png');
+}

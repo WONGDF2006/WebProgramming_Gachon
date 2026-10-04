@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link rel="stylesheet" href='styles.css'>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+        // Get elements
+        const hamburgerBtn = document.querySelector('.hamburger-btn');
+        const mainNav = document.getElementById('main-nav');
+        const navList = mainNav.querySelector('.nav-list');
+        const BREAKPOINT = 920; // Same as Bootstrap's md breakpoint
+
+        // Function to handle responsive behavior
+        function updateNavigation() {
+            if (window.innerWidth < BREAKPOINT) {
+            // Mobile view - show hamburger, hide nav
+            hamburgerBtn.style.display = 'block';
+            mainNav.style.display = 'none';
+            
+            // Change nav list to vertical layout
+            navList.classList.add('mobile-nav');
+            navList.classList.remove('d-flex', 'gap-2', 'gap-lg-3');
+            } else {
+            // Desktop view - hide hamburger, show nav
+            hamburgerBtn.style.display = 'none';
+            mainNav.style.display = 'block';
+            
+            // Change nav list back to horizontal layout
+            navList.classList.remove('mobile-nav');
+            navList.classList.add('d-flex', 'gap-2', 'gap-lg-3');
+            }
+        }
+
+        // Toggle mobile menu
+        hamburgerBtn.addEventListener('click', function() {
+            if (mainNav.style.display === 'none' || mainNav.style.display === '') {
+            mainNav.style.display = 'block';
+            this.setAttribute('aria-expanded', 'true');
+            } else {
+            mainNav.style.display = 'none';
+            this.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Close menu when clicking on a link (optional)
+        navList.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+            if (window.innerWidth < BREAKPOINT) {
+                mainNav.style.display = 'none';
+                hamburgerBtn.setAttribute('aria-expanded', 'false');
+            }
+            });
+        });
+
+        // Initialize and add resize listener
+        updateNavigation();
+        window.addEventListener('resize', updateNavigation);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const emailInput = document.getElementById('email'); 
+            const mobileInput = document.getElementById('mobile');
+            const form = document.getElementById('Form');
+            const requiredFields = form.querySelectorAll('[required]');
+
+            // Check email input when it loses focus
+            emailInput.addEventListener('blur', function () { // when input loses focus
+                emailInput.setCustomValidity(''); // Clear any previous custom error messages
+
+                if (!emailInput.validity.valid) { // if the email field is invalid
+                    if (emailInput.validity.valueMissing) { // if email field is empty
+                        emailInput.setCustomValidity('Please enter your email address.');
+                    } else if (emailInput.validity.patternMismatch) { // if email doesn't match the required pattern
+                        emailInput.setCustomValidity(
+                            'Please enter a valid school email ' + '\n' + '(e.g. 254619S@mymail.nyp.edu.sg).'
+                        );
+                    }
+
+                    emailInput.reportValidity(); // display the error message to the user
+                }
+            });
+
+            // Check mobile number input when it loses focus
+            mobileInput.addEventListener('blur', function () { // when input loses focus
+                mobileInput.setCustomValidity(''); // Clear any previous custom error messages
+
+                if (!mobileInput.validity.valid) { // if mobile number is invalid
+                    if (mobileInput.validity.valueMissing) { // if mobile number field is empty
+                        mobileInput.setCustomValidity('Please enter your phone number');
+                    } else if (mobileInput.validity.patternMismatch) { // if mobile number doesn't match the required pattern
+                        mobileInput.setCustomValidity(
+                            'Phone number must be exactly 8 digits' + '\n' + '(e.g., 82834029).'
+                        );
+                    }
+
+                    mobileInput.reportValidity(); // display the error message to the user
+                } 
+            });
+
+            //Highlight a field with an error
+            function highlightError(input) {
+                input.classList.remove('error'); // remove existing error style
+                void input.offsetWidth; // force browser reflow so animation restarts
+                input.classList.add('error'); // re-add error style
+            }
+
+            //Remove error highlight
+            function clearError(input) {
+                input.classList.remove('error');
+            }
+
+            // Validate a single field
+            function validateField(field) {
+                if (!field.value.trim()) { // if input is empty or only spaces
+                    highlightError(field);
+                    return false;
+                }
+                clearError(field);
+                return true;
+            }
+
+            // Check each required field when it loses focus
+            requiredFields.forEach(field => {
+                field.addEventListener('blur', function () {
+                    validateField(field);
+                });
+            });
+        });
+
+        // Confirm form submission with the user
+        function showConfirmation(){
+            if (!confirm('Do you want to submit the form?')) {
+                event.preventDefault(); // stop the form from being submitted
+            }
+        }        
+    </script>
+    <div class="bg-image">
+         
+        <header class="bg-black text-white sticky-top">
+            <div class="header-container d-flex justify-content-between align-items-center px-3 py-2 py-md-3">
+                
+                <!-- TOP LEFT LOGO GROUP -->
+                <div class="logo-group d-flex align-items-center gap-2 gap-md-3">
+                    <a href="Home.html" class="d-inline-block">
+                        <img src="Images/Logo.png" alt="NCC Logo" class="img-fluid logo-img" />
+                    </a>
+                    <a href="Home.html" class="d-inline-block">
+                        <img src="Images/NYP_LOGO.png" alt="NYP Logo" class="img-fluid logo-img" id="NYP_LOGO" />
+                    </a>
+                </div>
+                <!-- Hamburger button (REFER TO JS SCRIPT) -->
+                <button class="btn btn-dark hamburger-btn" type="button" aria-label="Toggle navigation" style="display: none;">
+                ☰
+                </button>
+                <!-- Naviagtion Bar -->
+                <nav id="main-nav">
+                    <ul class="nav-list list-unstyled d-flex gap-2 gap-lg-3 mb-0">
+                        <li><a href="Home.html" class="nav-link text-white p-1 p-lg-2">Home</a></li>
+                        <li><a href="About.html" class="nav-link text-white p-1 p-lg-2">About Us</a></li>
+                        <li><a href="Gallery.html" class="nav-link text-white p-1 p-lg-2">Photo Gallery</a></li>
+                        <li><a href="AIR Journey.html" class="nav-link text-white p-1 p-lg-2">The AIR Journey</a></li>
+                        <li><a href="Events.html" class="nav-link text-white p-1 p-lg-2">Events</a></li>
+                        <li><a href="JoinUs.html" class="nav-btn btn btn-light btn-sm ms-lg-2 active">Register Now</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <section class="container">
+            <div class="my-5"><!--Form-->
+                <div class="mx-auto p-4 border rounded bg-info-subtle" style="max-width: 800px;">
+                    <form id="Form" action="Processor.html" method="get">
+                    <h2 class="text-center mb-4">Join Us Now!</h2>
+
+                    <div class="row mb-3"><!--Name and Age Input-->
+                        <div class="col-md-8">
+                            <label for="name" class="form-label">Name: <span style="color:red;">*</span></label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="age" class="form-label">Age: <span style="color:red;">*</span></label>
+                            <input type="number" id="age" name="age" class="form-control" min="16" max="100" title="You must be above the age of 15 to join this CCA" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3"><!--Gender Input-->
+                        <label class="form-label">Gender: <span style="color:red;">*</span></label><br>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="gender" id="male" value="Male" class="form-check-input" required>
+                            <label class="form-check-label" for="male">Male</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="gender" id="female" value="Female" class="form-check-input" required>
+                            <label class="form-check-label" for="female">Female</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3"><!--Email Input-->
+                        <label for="email" class="form-label">Email: <span style="color:red;">*</span></label>
+                        <input type="email" id="email" name="email" class="form-control" pattern="[0-9]{6}[A-Za-z]@mymail\.nyp\.edu\.sg" placeholder='Enter your School Email' required>
+                    </div>
+
+                    <div class="mb-3"><!--Mobile No. Input-->
+                        <label for="mobile" class="form-label">Mobile No: <span style="color:red;">*</span></label>
+                        <input type="tel" id="mobile" name="mobile" class="form-control" pattern="[0-9]{8}" placeholder="8 Digits" required>
+                    </div>
+
+                    <div class="mb-3"><!--Reasons Input-->
+                        <label for="reason" class="form-label">Reason for joining this CCA: <span style="color:red;">*</span></label>
+                        <textarea id="reason" name="reason" class="form-control" placeholder="Reasons" required></textarea>
+                    </div>
+
+                    <div class="mb-3"><!--Medical Conditions Input-->
+                        <label for="medical" class="form-label">Existing Medical Conditions:</label>
+                        <textarea id="medical" name="medical" class="form-control" placeholder="If Any"></textarea>
+                    </div>
+
+                    <div class="text-center"><!--Submit Button-->
+                        <button class="btn btn-primary" onclick="showConfirmation()">Submit</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="bg-dark-subtle p-3 rounded mb-10">
+                <h1 class="text-center mb-3">FAQ</h1>
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item rounded">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                Can I join NCC in polytechnic if I wasn’t in NCC during secondary school?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                Yes! While prior experience is helpful, students without an NCC background can still join NCC (Polytechnic) and receive foundational training before progressing.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item rounded">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                Do I have to wear a uniform?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                Yes. NCC (Polytechnic) cadets are issued uniforms and are expected to wear them during official training sessions, parades, or events.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item rounded">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                Can I leave NCC if I can’t commit anymore?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                While commitment is important, cadets can step down if they’re unable to continue—preferably after discussing with unit leaders and completing any ongoing responsibilities.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item rounded">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                Are there academic benefits to being in NCC (Air)?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                Yes. NCC cadets often demonstrate strong leadership, discipline, and resilience, which reflect well on portfolios and EAE (Early Admission Exercise) applications.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item rounded">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                                Is NCC Air very strict?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                We do have rules and discipline, but it’s about building self-respect and responsibility. Cadet leaders and teachers guide you patiently — as long as you try your best, you’ll do fine.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <!-- Social Media Bar -->
+        <div class="social-media-section">
+            <div class="container text-center">
+                <p class="social-media-heading">
+                Reach <span class="text-n">N</span><span class="text-y">Y</span>AIR on our Social Media platforms!
+                </p>
+                <div class="social-icons-container">
+                    <a href="https://www.facebook.com/sgncc.hq/" class="social-icon facebook-icon">
+                        <img src="Images/NCC_FACEBOOK.png" alt="Facebook">
+                    </a>
+                    <a href="https://www.youtube.com/c/nationalcadetcorpssingapore" class="social-icon youtube-icon">
+                        <img src="Images/NCC_YOUTUBE.png" alt="YouTube">
+                    </a>
+                    <a href="https://www.instagram.com/sg_ncc/?hl=en" class="social-icon instagram-icon">
+                        <img src="Images/NCC_INSTAGRAM.png" alt="Instagram">
+                    </a>
+                    <a href="https://x.com/HQ_DG_NCC?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" class="social-icon twitter-icon">
+                        <img src="Images/NCC_TWITTER.png" alt="Twitter">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div> 
+     
+</body>
+</html>
