@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade Calculator</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 420px; margin: 40px auto; padding: 0 16px; color: #1e293b; }
+    h1 { color: #0f766e; }
+    form { display: flex; gap: 8px; }
+    input { flex: 1; padding: 8px 12px; font-size: 1rem; border: 2px solid #cbd5e1; border-radius: 8px; }
+    button { padding: 8px 18px; font-size: 1rem; font-weight: 600; color: white; background: #0f766e; border: none; border-radius: 8px; cursor: pointer; }
+    #result { margin-top: 20px; font-size: 1.4rem; font-weight: 700; }
+    #result.error { color: #dc2626; font-size: 1rem; font-weight: 400; }
+  </style>
+</head>
+<body>
+  <h1>Grade Calculator</h1>
+
+  <form id="grade-form">
+    <input id="score" type="number" min="0" max="100" placeholder="Score (0-100)">
+    <button type="submit">Get grade</button>
+  </form>
+  <p id="result"></p>
+
+  <script>
+    // Conditions (if / else)
+    function getGrade(score) {
+      if (score >= 90) {
+        return 'A';
+      } else if (score >= 80) {
+        return 'B';
+      } else if (score >= 70) {
+        return 'C';
+      } else {
+        return 'F';
+      }
+    }
+
+    const form = document.querySelector('#grade-form');
+    const input = document.querySelector('#score');
+    const result = document.querySelector('#result');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const score = Number(input.value);
+
+      if (input.value.trim() === '' || score < 0 || score > 100) {
+        result.textContent = 'Please enter a score from 0 to 100.';
+        result.classList.add('error');
+        return;
+      }
+
+      const grade = getGrade(score);
+      console.log(grade);
+      result.textContent = 'Score ' + score + ' → Grade ' + grade;
+      result.classList.remove('error');
+    });
+  </script>
+</body>
+</html>

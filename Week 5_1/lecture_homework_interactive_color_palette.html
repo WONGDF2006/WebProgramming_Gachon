@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Color Palette</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 16px; color: #1e293b; background: #f8fafc; }
+    h1 { margin-bottom: 4px; }
+    .help { color: #64748b; margin-top: 0; }
+
+    .controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 6px; }
+    .controls input { flex: 1; min-width: 180px; padding: 8px 12px; font-size: 1rem; border: 2px solid #cbd5e1; border-radius: 8px; }
+    .controls button { padding: 8px 16px; font-size: 1rem; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; color: white; background: #1a56db; }
+    .controls button.secondary { background: #475569; }
+    #message { min-height: 1.4em; margin: 0 0 14px; color: #dc2626; font-size: .9rem; }
+
+    #palette { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start; }
+
+    /* A box is small by default and grows when it has the "expanded" class */
+    .color-box {
+      width: 100px;
+      height: 100px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font: 700 1.1rem monospace;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, .6);
+      user-select: none;
+      transition: width .3s ease, height .3s ease, box-shadow .3s ease;
+    }
+    .color-box.expanded {
+      width: 220px;
+      height: 160px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, .25);
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive Color Palette</h1>
+  <p class="help">Click a box to expand it and see its hex code. Double-click a box to remove it.</p>
+
+  <form class="controls" id="add-form">
+    <input id="color-input" type="text" placeholder="Hex color, e.g. #ff6600" maxlength="7">
+    <button type="submit">Add Color</button>
+    <button type="button" class="secondary" id="export-btn">Export PNG</button>
+  </form>
+  <p id="message"></p>
+
+  <div id="palette"></div>
+
+  <script>
+    const STORAGE_KEY = 'color-palette';
+    const DEFAULT_COLORS = ['#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
+
+    const palette = document.querySelector('#palette');
+    const form = document.querySelector('#add-form');
+    const input = document.querySelector('#color-input');
+    const message = document.querySelector('#message');
+    const exportBtn = document.querySelector('#export-btn');
+
+    // ── Extra credit: save and restore with localStorage ──
+    function loadColors() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (Array.isArray(saved)) return saved;
+      } catch (e) {}
+      return DEFAULT_COLORS.slice();
+    }
+
+    function saveColors() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(colors));
+      } catch (e) {}
+    }
+
+    let colors = loadColors();
+
+    // ── Required: create the colored div boxes ──
+    function createBox(color) {
+      const box = document.createElement('div');
+      box.className = 'color-box';
+      box.style.backgroundColor = color;
+      box.dataset.color = color;
+      palette.appendChild(box);
+    }
+
+    colors.forEach(createBox);
+
+    // ── Required: click a box → it expands and shows its hex code ──
+    palette.addEventListener('click', (e) => {
+      const box = e.target;
+      if (!box.classList.contains('color-box')) return;
+
+      box.classList.toggle('expanded');
+      if (box.classList.contains('expanded')) {
+        box.textContent = box.dataset.color;
+      } else {
+        box.textContent = '';
+      }
+    });
+
+    // ── Challenge: double-click any box to remove it ──
+    palette.addEventListener('dblclick', (e) => {
+      const box = e.target;
+      if (!box.classList.contains('color-box')) return;
+
+      // Position of this box among the boxes = position of its color in the array
+      const index = Array.from(palette.children).indexOf(box);
+      colors.splice(index, 1);
+      box.remove();
+      saveColors();
+    });
+
+    // ── Challenge: Add Color button + text input ──
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      let color = input.value.trim().toLowerCase();
+      if (color !== '' && color[0] !== '#') color = '#' + color;
+
+      // Accept #rgb or #rrggbb only
+      if (!/^#([0-9a-f]{3}|[0-9a-f]{6})$/.test(color)) {
+        message.textContent = 'Please enter a valid hex color such as #ff6600 or #f60.';
+        return;
+      }
+
+      message.textContent = '';
+      colors.push(color);
+      createBox(color);
+      saveColors();
+      input.value = '';
+    });
+
+    // ── Bonus: export the palette as a PNG using a canvas ──
+    exportBtn.addEventListener('click', () => {
+      if (colors.length === 0) {
+        message.textContent = 'Add at least one color before exporting.';
+        return;
+      }
+      message.textContent = '';
+
+      const size = 140;      // width of one swatch
+      const label = 36;      // space under each swatch for the hex code
+      const canvas = document.createElement('canvas');
+      canvas.width = size * colors.length;
+      canvas.height = size + label;
+
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.font = 'bold 16px monospace';
+      ctx.textAlign = 'center';
+
+      colors.forEach((color, i) => {
+        ctx.fillStyle = color;
+        ctx.fillRect(i * size, 0, size, size);
+        ctx.fillStyle = '#1e293b';
+        ctx.fillText(color, i * size + size / 2, size + 24);
+      });
+
+      // Download the canvas as an image file
+      const link = document.createElement('a');
+      link.download = 'palette.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  </script>
+</body>
+</html>

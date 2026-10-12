@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Web Programming | Course Library</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="layout">
+		<header class="sidebar">
+			<p class="eyebrow">Web Programming · Gachon University</p>
+			<h1>Web Programming<br>Course Library</h1>
+			<p class="intro">A single starting point for every week, session, topic, and hands-on exercise in the course.</p>
+			<nav class="week-nav" aria-label="Jump to week">
+				<a href="#week-2"><span>02</span>Week 2 · HTML</a>
+				<a href="#week-3"><span>03</span>Week 3 · CSS</a>
+				<a href="#week-5"><span>05</span>Week 5 · DOM &amp; JS</a>
+			</nav>
+			<div class="legend" aria-label="Content types"><span>Topic</span><span>Exercise</span></div>
+			<footer>Web Programming · Gachon University · 2026</footer>
+		</header>
+
+		<main>
+			<div class="section-lead">
+				<h2>Browse the course</h2>
+				<p>Open a week, choose a session, and jump straight into a lesson.</p>
+			</div>
+			<section id="course-content" class="week-list" aria-label="Course weeks"></section>
+		</main>
+	</div>
+
+	<script>
+		// An item is either a file name (the label is made from the name)
+		// or [file name, label]. Add new weeks, sessions, or files here.
+		const course = [
+			{
+				week: 2, title: "HTML foundations", description: "Structure, meaning, and accessible HTML", sessions: [
+					{ name: "Session 1 · HTML essentials", folder: "week 2-1", topics: [
+						"topic_01_what_is_html.html",
+						"topic_02_doctype_declaration.html",
+						"topic_03_the_body_element.html",
+						"topic_04_headings_h1-h6.html",
+						"topic_05_the_head_section.html",
+						"topic_06_meta_charset_utf-8.html",
+						"topic_07_the_title_element.html",
+						"topic_08_the_lang_attribute.html",
+						"topic_09_paragraphs_and_block_elements.html",
+						"topic_10_inline_elements_and_span.html",
+						"topic_11_strong.html",
+						"topic_12_em.html",
+						"topic_13_void_elements_and_br.html",
+						"topic_14_links_a_tag_and_href.html",
+						"topic_15_target_blank.html",
+						"topic_16_unordered_lists.html",
+						"topic_17_ordered_lists.html",
+						"topic_18_list_items.html",
+						"topic_19_images_img_src.html",
+						"topic_20_alt_attribute.html",
+						"topic_21_id_attribute.html",
+						"topic_22_class_attribute.html",
+						"topic_23_html_comments.html",
+						"topic_24_block_vs_inline_summary.html",
+						"topic_25_complete_page.html"
+					], exercises: [
+						["Ex_1.html", "HTML Skeleton"],
+						["Ex_2.html", "Headings, Paragraph & Emphasis"],
+						["Ex_3.html", "Navigation List With Links"],
+						["Ex_4.html", "Image With Meaningful Alt Text"],
+						["Ex_5.html", "Complete Profile Page"],
+						["Ex_6.html", "Fix Broken HTML"],
+						["Ex_7.html", "Ordered Steps With Nested List"],
+						["Ex_8.html", "Favourites Gallery"]
+					] },
+					{ name: "Session 2 · Semantic HTML", folder: "week 2-2", topics: [
+						"topic_01_semantic_html.html",
+						"topic_02_page_and_section_header.html",
+						"topic_03_navigation_landmark.html",
+						"topic_04_main_content.html",
+						"topic_05_page_and_section_footer.html",
+						"topic_06_thematic_grouping.html",
+						"topic_07_self_contained_content.html",
+						"topic_08_tangentially_related_content.html",
+						"topic_09_non_semantic_container.html",
+						"topic_10_self_contained_figure.html",
+						"topic_11_caption_for_figure.html",
+						"topic_12_machine-readable_dates.html",
+						"topic_13_contact_information.html",
+						"topic_14_highlighted_text.html",
+						"topic_15_abbreviations.html",
+						"topic_16_block_quotation.html",
+						"topic_17_inline_quotation.html",
+						"topic_18_cite_title_of_a_work.html",
+						"topic_19_inline_code.html",
+						"topic_20_preformatted_text.html",
+						"topic_21_disclosure_widget.html",
+						"topic_22_popup_modal.html",
+						"topic_23_aria_role_attribute.html",
+						"topic_24_semantic_landmarks_and_accessibility.html",
+						"topic_25_complete_semantic_page.html"
+					], exercises: [
+						["Ex_1.html", "Convert Div Soup To Semantic HTML"],
+						["Ex_2.html", "Blog Article With Header & Footer"],
+						["Ex_3.html", "Figure, Figcaption & Time"],
+						["Ex_4.html", "FAQ With Details & Summary"],
+						["Ex_5.html", "Full Semantic Portfolio Page"],
+						["Ex_6.html", "Fix Semantic Errors"],
+						["Ex_7.html", "Quotation & Citation Page"],
+						["Ex_8.html", "News Article"]
+					] }
+				]
+			},
+			{
+				week: 3, title: "CSS fundamentals", description: "Selectors, layout, and visual styling", sessions: [
+					{ name: "CSS essentials", folder: "Week 3_2", topics: [
+						"topic_01_what_is_css.html",
+						"topic_02_three_ways_to_add_css.html",
+						"topic_03_css_syntax.css",
+						"topic_04_the_universal_selector.css",
+						"topic_05_id_selector.html",
+						"topic_06_class_selector.html",
+						"topic_07_type_element_selector.html",
+						"topic_08_color_property.html",
+						"topic_09_background_color_property.html",
+						"topic_10_hex_color_codes.html",
+						"topic_11_rgb_color_values.html",
+						"topic_12_font-size_property.html",
+						"topic_13_font-weight_property.html",
+						"topic_14_font-style_property.html",
+						"topic_15_text-align_property.html",
+						"topic_16_box_model_padding.html",
+						"topic_17_box_model_margin.html",
+						"topic_18_box_model_width_calculation.html",
+						"topic_19_display_block.html",
+						"topic_20_display_none.html",
+						"topic_21_display_flex.html",
+						"topic_22_css_specificity.css",
+						"topic_23_which_selector_wins.html",
+						"topic_24_css_comments.css",
+						"topic_25_putting_it_all_together.html"
+					], exercises: [
+						"exercise_01_style_your_first_heading.html",
+						"exercise_02_three_ways_spot_the_difference.html",
+						"exercise_03_color_palette_card.html",
+						"exercise_04_box_model_explorer.html",
+						"exercise_05_fix_the_broken_css.html",
+						"exercise_06_flexbox_navigation_bar.html",
+						"exercise_07_profile_card_with_css.html",
+						"exercise_08_full_style_sheet_from_scratch.html"
+					] },
+					{ name: "Advanced CSS", folder: "Week 3_1", topics: [
+						["Ex1.html", "Position Static & Relative"],
+						["Ex2.html", "Position Absolute"],
+						["Ex3.html", "Position Fixed & Sticky"],
+						["Ex4.html", "Z-Index & Overflow"],
+						["Ex5.html", "Pseudo Classes"],
+						["Ex6.html", "Pseudo Elements Before & After"],
+						["Ex7.html", "CSS Transitions"],
+						["Ex8.html", "CSS Animations & @keyframes"],
+						["Ex9.html", "CSS Custom Properties (Variables)"],
+						["Ex10.html", "CSS Media Queries"],
+						["Ex11.html", "Advanced Flexbox"],
+						["Ex12.html", "CSS Grid"],
+						["Ex13.html", "Border-Radius & Box-Shadow"],
+						["Ex14.html", "The Inherit Keyword"],
+						["Ex15.html", "Putting CSS Advanced Together"]
+					], exercises: [
+						["P1.html", "Position The Badge"],
+						["P2.html", "Hover Card With Transition"],
+						["P3.html", "Loading Spinner With @keyframes"],
+						["P4.html", "CSS Variables Theme"],
+						["P5.html", "Fixed Navigation Bar"],
+						["P6.html", "Responsive Grid Page"],
+						["P7.html", "Complete CSS Advanced Portfolio Page"]
+					] }
+				]
+			},
+			{
+				week: 5, title: "DOM & JavaScript interactivity", description: "Selecting elements, events, and modifying the page dynamically", sessions: [
+					{ name: "Session 1 · DOM essentials", folder: "Week 5_1", topics: [
+						"topic_01_what_is_the_dom.html",
+						"topic_02_selecting_elements.js",
+						"topic_03_querySelector_and_querySelectorAll.js",
+						"topic_04_textContent_reading_and_writing_text.js",
+						"topic_05_innerHTML_power_and_danger.js",
+						"topic_06_classList_styling_with_javascript.js",
+						"topic_07_addEventListener.js",
+						"topic_08_the_event_object_e.js",
+						"topic_09_e_preventDefault.js",
+						"topic_10_event_bubbling_and_delegation.js",
+						"topic_11_createElement_and_appendChild.js",
+						"topic_12_removing_elements.js"
+					], exercises: [
+						"exercise_01_click_counter_with_colour_change.html",
+						"exercise_02_dark_mode_toggle_card.html",
+						"exercise_03_interactive_to-do_list.html",
+						"exercise_04_live_search_filter_advanced.html",
+						"lecture_homework_interactive_color_palette.html",
+						"lecture_mini_project_todo_list.html"
+					] },
+					{ name: "Session 2 · JavaScript practice", folder: "Week 5_2", topics: [], exercises: [
+						"exercise_01_fruit_loops.html",
+						"exercise_02_grade_calculator.html"
+					] }
+				]
+			}
+		];
+
+		const escapeHtml = (text) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+
+		// "topic_09_paragraphs_and_block_elements.html" -> "Paragraphs & Block Elements"
+		const prettyName = (fileName) => fileName
+			.replace(/\.[^.]+$/, "")
+			.replace(/^(topic|exercise)_\d+_/, "")
+			.replace(/_and_/g, " & ")
+			.replace(/_/g, " ")
+			.replace(/(^| )[a-z]/g, (letter) => letter.toUpperCase())
+			.replace(/\b(html|css|dom|rgb|utf|aria)\b/gi, (word) => word.toUpperCase());
+
+		const makeGroup = (heading, kind, items, folder) => {
+			const links = items.map((item, index) => {
+				const [file, label] = Array.isArray(item) ? item : [item, prettyName(item)];
+				const number = String(index + 1).padStart(2, "0");
+				return `<li><a href="${encodeURI(`${folder}/${file}`)}"><span class="num">${number}</span>${escapeHtml(label)}</a></li>`;
+			}).join("");
+			const body = items.length ? `<ul class="link-list">${links}</ul>` : `<p class="empty">Nothing added yet.</p>`;
+			return `<div class="link-group ${kind}"><h5>${heading} · ${items.length}</h5>${body}</div>`;
+		};
+
+		document.querySelector("#course-content").innerHTML = course.map((week, weekIndex) => {
+			const itemCount = week.sessions.reduce((total, session) => total + session.topics.length + session.exercises.length, 0);
+			const sessions = week.sessions.map((session) =>
+				`<article class="session"><h4>${escapeHtml(session.name)}</h4>${makeGroup("Topics", "topics", session.topics, session.folder)}${makeGroup("Exercises", "exercises", session.exercises, session.folder)}</article>`
+			).join("");
+			return `<details class="week" id="week-${week.week}" ${weekIndex === 0 ? "open" : ""}><summary><span class="week-number">${String(week.week).padStart(2, "0")}</span><span class="week-title"><h3>${escapeHtml(week.title)}</h3><p>${escapeHtml(week.description)} · ${week.sessions.length} session${week.sessions.length === 1 ? "" : "s"} · ${itemCount} resources</p></span></summary><div class="sessions">${sessions}</div></details>`;
+		}).join("");
+
+		// Jumping to a week from the header also opens it.
+		document.querySelectorAll(".week-nav a").forEach((link) => {
+			link.addEventListener("click", () => {
+				document.querySelector(link.getAttribute("href")).open = true;
+			});
+		});
+	</script>
+</body>
+</html>
