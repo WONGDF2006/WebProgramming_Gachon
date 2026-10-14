@@ -14,8 +14,10 @@
 			<p class="intro">A single starting point for every week, session, topic, and hands-on exercise in the course.</p>
 			<nav class="week-nav" aria-label="Jump to week">
 				<a href="#week-2"><span>02</span>Week 2 · HTML</a>
-				<a href="#week-3"><span>03</span>Week 3 · CSS</a>
-				<a href="#week-5"><span>05</span>Week 5 · DOM &amp; JS</a>
+				<a href="#week-3-essentials"><span>03</span>Week 3 · CSS essentials</a>
+				<a href="#week-3-advanced"><span>03</span>Week 3 · Advanced CSS</a>
+				<a href="#week-4"><span>04</span>Week 4 · DOM &amp; Events</a>
+				<a href="#week-5"><span>05</span>Week 5 · JS practice</a>
 			</nav>
 			<div class="legend" aria-label="Content types"><span>Topic</span><span>Exercise</span></div>
 			<footer>Web Programming · Gachon University · 2026</footer>
@@ -111,7 +113,7 @@
 				]
 			},
 			{
-				week: 3, title: "CSS fundamentals", description: "Selectors, layout, and visual styling", sessions: [
+				week: 3, id: "week-3-essentials", title: "CSS fundamentals", description: "Selectors, colours, the box model, and display", sessions: [
 					{ name: "CSS essentials", folder: "Week 3_2", topics: [
 						"topic_01_what_is_css.html",
 						"topic_02_three_ways_to_add_css.html",
@@ -147,8 +149,12 @@
 						"exercise_06_flexbox_navigation_bar.html",
 						"exercise_07_profile_card_with_css.html",
 						"exercise_08_full_style_sheet_from_scratch.html"
-					] },
-					{ name: "Advanced CSS", folder: "Week 3_1", topics: [
+					] }
+				]
+			},
+			{
+				week: 3, id: "week-3-advanced", title: "Advanced CSS", description: "Positioning, motion, variables, and responsive layout", sessions: [
+					{ name: "CSS advanced", folder: "Week 3_1", topics: [
 						["Ex1.html", "Position Static & Relative"],
 						["Ex2.html", "Position Absolute"],
 						["Ex3.html", "Position Fixed & Sticky"],
@@ -176,8 +182,8 @@
 				]
 			},
 			{
-				week: 5, title: "DOM & JavaScript interactivity", description: "Selecting elements, events, and modifying the page dynamically", sessions: [
-					{ name: "Session 1 · DOM essentials", folder: "Week 5_1", topics: [
+				week: 4, title: "DOM & JavaScript interactivity", description: "Selecting elements, events, and modifying the page dynamically", sessions: [
+					{ name: "DOM essentials", folder: "Week 5_1", topics: [
 						"topic_01_what_is_the_dom.html",
 						"topic_02_selecting_elements.js",
 						"topic_03_querySelector_and_querySelectorAll.js",
@@ -197,8 +203,12 @@
 						"exercise_04_live_search_filter_advanced.html",
 						"lecture_homework_interactive_color_palette.html",
 						"lecture_mini_project_todo_list.html"
-					] },
-					{ name: "Session 2 · JavaScript practice", folder: "Week 5_2", topics: [], exercises: [
+					] }
+				]
+			},
+			{
+				week: 5, title: "JavaScript practice", description: "Conditions, loops, and small interactive programs", sessions: [
+					{ name: "JavaScript practice", folder: "Week 5_2", topics: [], exercises: [
 						"exercise_01_fruit_loops.html",
 						"exercise_02_grade_calculator.html"
 					] }
@@ -232,7 +242,7 @@
 			const sessions = week.sessions.map((session) =>
 				`<article class="session"><h4>${escapeHtml(session.name)}</h4>${makeGroup("Topics", "topics", session.topics, session.folder)}${makeGroup("Exercises", "exercises", session.exercises, session.folder)}</article>`
 			).join("");
-			return `<details class="week" id="week-${week.week}" ${weekIndex === 0 ? "open" : ""}><summary><span class="week-number">${String(week.week).padStart(2, "0")}</span><span class="week-title"><h3>${escapeHtml(week.title)}</h3><p>${escapeHtml(week.description)} · ${week.sessions.length} session${week.sessions.length === 1 ? "" : "s"} · ${itemCount} resources</p></span></summary><div class="sessions">${sessions}</div></details>`;
+			return `<details class="week" id="${week.id || `week-${week.week}`}" ${weekIndex === 0 ? "open" : ""}><summary><span class="week-number">${String(week.week).padStart(2, "0")}</span><span class="week-title"><h3>${escapeHtml(week.title)}</h3><p>${escapeHtml(week.description)} · ${week.sessions.length} session${week.sessions.length === 1 ? "" : "s"} · ${itemCount} resources</p></span></summary><div class="sessions">${sessions}</div></details>`;
 		}).join("");
 
 		// Jumping to a week from the header also opens it.
