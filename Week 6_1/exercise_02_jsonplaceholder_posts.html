@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSONPlaceholder Posts</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 40px 16px; font-family: system-ui, sans-serif; color: #1e293b; background: #f1f5f9; }
+    main { max-width: 640px; margin: 0 auto; }
+    h1 { margin-top: 0; }
+
+    .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 20px; }
+    select { padding: 9px 12px; font-size: 1rem; border: 1px solid #cbd5e1; border-radius: 8px; background: white; }
+    button { padding: 6px 14px; font-size: .9rem; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; color: white; background: #1a56db; }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+
+    .post { padding: 18px 20px; margin-bottom: 12px; border-radius: 12px; background: white; box-shadow: 0 4px 14px rgba(15, 23, 42, .06); }
+    .post h2 { margin: 0 0 4px; font-size: 1.05rem; text-transform: capitalize; }
+    .author { margin: 0 0 10px; font-size: .85rem; color: #0284c7; }
+    .body { margin: 0 0 12px; line-height: 1.5; }
+    .comments { padding: 0; margin: 12px 0 0; list-style: none; border-top: 1px solid #e2e8f0; }
+    .comments li { padding: 10px 0; border-bottom: 1px solid #e2e8f0; font-size: .9rem; }
+    .comments strong { display: block; color: #475569; }
+
+    .muted { color: #64748b; }
+    .error { color: #dc2626; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Blog Posts</h1>
+    <p class="muted">Fake posts from <code>jsonplaceholder.typicode.com</code>. Pick an author, then open a post's comments.</p>
+
+    <div class="controls">
+      <label for="user-select">Author:</label>
+      <select id="user-select" disabled>
+        <option value="">Loading authors…</option>
+      </select>
+    </div>
+
+    <div id="posts" aria-live="polite"></div>
+  </main>
+
+  <script>
+    const API = 'https://jsonplaceholder.typicode.com';
+
+    const userSelect = document.querySelector('#user-select');
+    const postsBox = document.querySelector('#posts');
+
+    // id -> user object, so each post can show its author's name
+    const users = new Map();
+
+    function makeEl(tag, className, text) {
+      const el = document.createElement(tag);
+      if (className) el.className = className;
+      if (text !== undefined) el.textContent = text;
+      return el;
+    }
+
+    async function getJSON(path) {
+      const res = await fetch(API + path);
+      if (!res.ok) throw new Error('Server answered with status ' + res.status);
+      return res.json();
+    }
+
+    async function loadUsers() {
+      try {
+        const list = await getJSON('/users');
+        userSelect.textContent = '';
+        userSelect.appendChild(new Option('All authors', ''));
+        list.forEach((user) => {
+          users.set(user.id, user);
+          userSelect.appendChild(new Option(user.name, user.id));
+        });
+        userSelect.disabled = false;
+        loadPosts();
+      } catch (err) {
+        console.error('Error:', err);
+        postsBox.replaceChildren(makeEl('p', 'error', 'Could not load authors. Check your connection and refresh.'));
+      }
+    }
+
+    async function loadPosts() {
+      const userId = userSelect.value;
+      postsBox.replaceChildren(makeEl('p', 'muted', 'Loading posts…'));
+
+      try {
+        // Query string filters on the server: /posts?userId=3
+        const posts = await getJSON(userId ? '/posts?userId=' + userId : '/posts?_limit=20');
+        postsBox.textContent = '';
+        posts.forEach((post) => postsBox.appendChild(renderPost(post)));
+      } catch (err) {
+        console.error('Error:', err);
+        postsBox.replaceChildren(makeEl('p', 'error', 'Could not load posts. Try again.'));
+      }
+    }
+
+    function renderPost(post) {
+      const article = makeEl('article', 'post');
+      const author = users.get(post.userId);
+      const btn = makeEl('button', '', 'Show comments');
+      btn.dataset.postId = post.id;
+
+      article.append(
+        makeEl('h2', '', post.title),
+        makeEl('p', 'author', 'by ' + (author ? author.name : 'Unknown')),
+        makeEl('p', 'body', post.body),
+        btn
+      );
+      return article;
+    }
+
+    // Event delegation: one listener for every "Show comments" button
+    postsBox.addEventListener('click', async (e) => {
+      const btn = e.target.closest('button[data-post-id]');
+      if (!btn) return;
+
+      const article = btn.closest('.post');
+      const existing = article.querySelector('.comments');
+      if (existing) {
+        existing.remove();
+        btn.textContent = 'Show comments';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Loading…';
+      try {
+        const comments = await getJSON('/posts/' + btn.dataset.postId + '/comments');
+        const ul = makeEl('ul', 'comments');
+        comments.forEach((c) => {
+          const li = makeEl('li');
+          li.append(makeEl('strong', '', c.email), document.createTextNode(c.body));
+          ul.appendChild(li);
+        });
+        article.appendChild(ul);
+        btn.textContent = 'Hide comments';
+      } catch (err) {
+        console.error('Error:', err);
+        btn.textContent = 'Retry comments';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    userSelect.addEventListener('change', loadPosts);
+    loadUsers();
+  </script>
+</body>
+</html>

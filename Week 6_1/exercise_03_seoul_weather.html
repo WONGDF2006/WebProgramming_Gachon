@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seoul Weather</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 40px 16px; font-family: system-ui, sans-serif; color: #1e293b; background: #f1f5f9; }
+    main { max-width: 640px; margin: 0 auto; }
+    h1 { margin-top: 0; }
+    h2 { margin-top: 32px; font-size: 1.15rem; }
+
+    .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    select { padding: 9px 12px; font-size: 1rem; border: 1px solid #cbd5e1; border-radius: 8px; background: white; }
+    button { padding: 10px 20px; font-size: 1rem; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; color: white; background: #7c3aed; }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+
+    .now { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; padding: 24px; border-radius: 14px; color: white; background: linear-gradient(135deg, #7c3aed, #4f46e5); }
+    .icon { font-size: 3.5rem; line-height: 1; }
+    .temp { margin: 0; font-size: 3rem; font-weight: 700; }
+    .desc { margin: 4px 0 0; font-size: 1.1rem; }
+    .details { margin: 0; padding: 0; list-style: none; line-height: 1.7; }
+
+    .days { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
+    .day { padding: 14px; border-radius: 12px; text-align: center; background: white; }
+    .day p { margin: 4px 0; }
+    .day .d-icon { font-size: 1.8rem; }
+    .hi { font-weight: 700; }
+    .lo { color: #64748b; }
+
+    .muted { color: #64748b; }
+    .error { color: #dc2626; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Weather Now</h1>
+    <p class="muted">Live data from <code>api.open-meteo.com</code> — no API key needed.</p>
+
+    <div class="controls">
+      <select id="city">
+        <option value="37.5665,126.9780">Seoul</option>
+        <option value="35.1796,129.0756">Busan</option>
+        <option value="37.4563,126.7052">Incheon</option>
+        <option value="33.4996,126.5312">Jeju</option>
+        <option value="1.3521,103.8198">Singapore</option>
+        <option value="35.6762,139.6503">Tokyo</option>
+      </select>
+      <button id="refresh-btn">Refresh</button>
+    </div>
+
+    <div id="weather" aria-live="polite"><p class="muted">Loading…</p></div>
+  </main>
+
+  <script>
+    const citySelect = document.querySelector('#city');
+    const refreshBtn = document.querySelector('#refresh-btn');
+    const weatherBox = document.querySelector('#weather');
+
+    // WMO weather codes -> [emoji, description]
+    function describe(code) {
+      if (code === 0) return ['☀️', 'Clear sky'];
+      if (code <= 2) return ['🌤️', 'Partly cloudy'];
+      if (code === 3) return ['☁️', 'Overcast'];
+      if (code <= 48) return ['🌫️', 'Fog'];
+      if (code <= 57) return ['🌦️', 'Drizzle'];
+      if (code <= 67) return ['🌧️', 'Rain'];
+      if (code <= 77) return ['❄️', 'Snow'];
+      if (code <= 82) return ['🌧️', 'Rain showers'];
+      if (code <= 86) return ['🌨️', 'Snow showers'];
+      return ['⛈️', 'Thunderstorm'];
+    }
+
+    function makeEl(tag, className, text) {
+      const el = document.createElement(tag);
+      if (className) el.className = className;
+      if (text !== undefined) el.textContent = text;
+      return el;
+    }
+
+    async function loadWeather() {
+      const [lat, lon] = citySelect.value.split(',');
+      const url = 'https://api.open-meteo.com/v1/forecast'
+        + '?latitude=' + lat + '&longitude=' + lon
+        + '&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,weather_code'
+        + '&daily=weather_code,temperature_2m_max,temperature_2m_min'
+        + '&timezone=auto';
+
+      refreshBtn.disabled = true;
+      weatherBox.replaceChildren(makeEl('p', 'muted', 'Loading…'));
+
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Server answered with status ' + res.status);
+        const data = await res.json();
+        render(data);
+      } catch (err) {
+        console.error('Error:', err);
+        weatherBox.replaceChildren(makeEl('p', 'error', 'Could not load the weather. Check your connection and try again.'));
+      } finally {
+        refreshBtn.disabled = false;
+      }
+    }
+
+    function render(data) {
+      const c = data.current;
+      const u = data.current_units;
+      const [icon, text] = describe(c.weather_code);
+      const cityName = citySelect.options[citySelect.selectedIndex].text;
+
+      // Current conditions
+      const now = makeEl('div', 'now');
+      const main = makeEl('div');
+      main.append(
+        makeEl('p', 'temp', Math.round(c.temperature_2m) + u.temperature_2m),
+        makeEl('p', 'desc', text + ' in ' + cityName)
+      );
+      const details = makeEl('ul', 'details');
+      details.append(
+        makeEl('li', '', 'Feels like ' + Math.round(c.apparent_temperature) + u.apparent_temperature),
+        makeEl('li', '', 'Humidity ' + c.relative_humidity_2m + u.relative_humidity_2m),
+        makeEl('li', '', 'Wind ' + c.wind_speed_10m + ' ' + u.wind_speed_10m)
+      );
+      now.append(makeEl('span', 'icon', icon), main, details);
+
+      // 7-day forecast: daily data comes as parallel arrays (time[i], max[i], min[i]…)
+      const days = makeEl('div', 'days');
+      data.daily.time.forEach((date, i) => {
+        const [dIcon, dText] = describe(data.daily.weather_code[i]);
+        const label = i === 0 ? 'Today' : new Date(date + 'T00:00').toLocaleDateString('en', { weekday: 'short' });
+        const day = makeEl('div', 'day');
+        const iconEl = makeEl('p', 'd-icon', dIcon);
+        iconEl.title = dText;
+        day.append(
+          makeEl('p', '', label),
+          iconEl,
+          makeEl('p', 'hi', Math.round(data.daily.temperature_2m_max[i]) + '°'),
+          makeEl('p', 'lo', Math.round(data.daily.temperature_2m_min[i]) + '°')
+        );
+        days.appendChild(day);
+      });
+
+      weatherBox.replaceChildren(
+        now,
+        makeEl('h2', '', '7-day forecast'),
+        days,
+        makeEl('p', 'muted', 'Updated ' + c.time.replace('T', ' ') + ' (local time)')
+      );
+    }
+
+    citySelect.addEventListener('change', loadWeather);
+    refreshBtn.addEventListener('click', loadWeather);
+    loadWeather();
+  </script>
+</body>
+</html>

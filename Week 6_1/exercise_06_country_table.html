@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Country Table</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 40px 16px; font-family: system-ui, sans-serif; color: #1e293b; background: #f1f5f9; }
+    main { max-width: 860px; margin: 0 auto; }
+    h1 { margin-top: 0; }
+
+    .note { padding: 12px 16px; margin-bottom: 20px; border-left: 4px solid #4f46e5; border-radius: 8px; font-size: .9rem; background: #eef2ff; }
+
+    form { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    input, select { padding: 10px 12px; font-size: 1rem; border: 1px solid #cbd5e1; border-radius: 8px; background: white; }
+    input { flex: 1; min-width: 180px; }
+    button { padding: 10px 20px; font-size: 1rem; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; color: white; background: #4f46e5; }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+
+    .table-wrap { overflow-x: auto; border-radius: 12px; background: white; box-shadow: 0 6px 20px rgba(15, 23, 42, .08); }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #e2e8f0; white-space: nowrap; }
+    th { font-size: .85rem; color: #475569; background: #eef2ff; }
+    th button { padding: 0; font: inherit; font-weight: 700; color: inherit; background: none; }
+    td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    td img { width: 40px; height: auto; border: 1px solid #e2e8f0; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+
+    .muted { color: #64748b; }
+    .error { color: #dc2626; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Country Table</h1>
+    <p class="note">
+      The slide's <code>restcountries.com/v3.1</code> API has been shut down, and its new v5 needs an API key.
+      This page uses three free, no-signup sources instead: the same country data REST Countries was built from
+      (<code>world-countries</code> via jsDelivr), flags from <code>flagcdn.com</code>, and population from the
+      <code>World Bank API</code>. Click a column heading to sort.
+    </p>
+
+    <form id="search-form">
+      <select id="mode" aria-label="Search by">
+        <option value="name">Name</option>
+        <option value="region">Region</option>
+      </select>
+      <input id="search" value="korea" aria-label="Search text" required>
+      <button type="submit" id="search-btn">Search</button>
+    </form>
+
+    <p id="status" class="muted" aria-live="polite"></p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Flag</th>
+            <th><button data-sort="name">Country</button></th>
+            <th><button data-sort="capital">Capital</button></th>
+            <th><button data-sort="region">Region</button></th>
+            <th><button data-sort="population">Population</button></th>
+            <th><button data-sort="area">Area (km²)</button></th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    const COUNTRIES_URL = 'https://cdn.jsdelivr.net/npm/world-countries@5.1.0/countries.json';
+    const POPULATION_URL = 'https://api.worldbank.org/v2/country/';
+
+    const form = document.querySelector('#search-form');
+    const modeSelect = document.querySelector('#mode');
+    const input = document.querySelector('#search');
+    const searchBtn = document.querySelector('#search-btn');
+    const statusEl = document.querySelector('#status');
+    const rows = document.querySelector('#rows');
+
+    let allCountries = null; // downloaded once, then searched locally
+    let countries = [];
+    let sortKey = 'population';
+    let sortAsc = false;
+
+    function makeEl(tag, className, text) {
+      const el = document.createElement(tag);
+      if (className) el.className = className;
+      if (text !== undefined) el.textContent = text;
+      return el;
+    }
+
+    async function getJSON(url) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('Server answered with status ' + res.status);
+      return res.json();
+    }
+
+    // One request for every matched country: /country/KOR;PRK/indicator/SP.POP.TOTL
+    // Returns { KOR: 51700000, PRK: 26100000 }
+    async function getPopulations(codes) {
+      const url = POPULATION_URL + codes.join(';')
+        + '/indicator/SP.POP.TOTL?format=json&mrnev=1&per_page=500';
+      const [, data] = await getJSON(url);
+      const result = {};
+      (data || []).forEach((row) => { result[row.countryiso3code] = row.value; });
+      return result;
+    }
+
+    async function search() {
+      const query = input.value.trim().toLowerCase();
+      if (!query) return;
+
+      searchBtn.disabled = true;
+      statusEl.className = 'muted';
+      statusEl.textContent = 'Loading…';
+
+      try {
+        if (!allCountries) allCountries = await getJSON(COUNTRIES_URL);
+
+        const matches = allCountries.filter((c) => modeSelect.value === 'region'
+          ? c.region.toLowerCase() === query || c.subregion.toLowerCase().includes(query)
+          : c.name.common.toLowerCase().includes(query) || c.name.official.toLowerCase().includes(query));
+
+        if (matches.length === 0) {
+          countries = [];
+          renderRows();
+          statusEl.className = 'error';
+          statusEl.textContent = 'No countries match "' + input.value.trim() + '".';
+          return;
+        }
+
+        // Population is a bonus: if the World Bank is down, still show the table
+        let populations = {};
+        try {
+          populations = await getPopulations(matches.map((c) => c.cca3));
+        } catch (err) {
+          console.error('Population error:', err);
+        }
+
+        // Flatten each result to the few values the table needs
+        countries = matches.map((c) => ({
+          name: c.name.common,
+          official: c.name.official,
+          flag: 'https://flagcdn.com/w80/' + c.cca2.toLowerCase() + '.png',
+          capital: c.capital.join(', ') || '—',
+          region: c.region,
+          population: populations[c.cca3] ?? null,
+          area: c.area
+        }));
+        statusEl.textContent = countries.length + (countries.length === 1 ? ' country' : ' countries') + ' found.';
+        renderRows();
+      } catch (err) {
+        console.error('Error:', err);
+        statusEl.className = 'error';
+        statusEl.textContent = 'Could not load countries. Check your connection and try again.';
+      } finally {
+        searchBtn.disabled = false;
+      }
+    }
+
+    function renderRows() {
+      const sorted = [...countries].sort((a, b) => {
+        const x = a[sortKey], y = b[sortKey];
+        // Missing population always goes to the bottom
+        if (x === null || y === null) return (x === null) - (y === null);
+        const diff = typeof x === 'number' ? x - y : String(x).localeCompare(String(y));
+        return sortAsc ? diff : -diff;
+      });
+
+      rows.replaceChildren(...sorted.map((c) => {
+        const tr = makeEl('tr');
+        const flagCell = makeEl('td');
+        const img = document.createElement('img');
+        img.src = c.flag;
+        img.alt = 'Flag of ' + c.name;
+        flagCell.appendChild(img);
+
+        const nameCell = makeEl('td', '', c.name);
+        nameCell.title = c.official;
+
+        tr.append(
+          flagCell,
+          nameCell,
+          makeEl('td', '', c.capital),
+          makeEl('td', '', c.region),
+          makeEl('td', 'num', c.population === null ? '—' : c.population.toLocaleString()),
+          makeEl('td', 'num', c.area.toLocaleString())
+        );
+        return tr;
+      }));
+
+      document.querySelectorAll('th button').forEach((btn) => {
+        const arrow = btn.dataset.sort === sortKey ? (sortAsc ? ' ▲' : ' ▼') : '';
+        btn.textContent = btn.textContent.replace(/ [▲▼]$/, '') + arrow;
+      });
+    }
+
+    // Clicking the same heading flips the order; a new heading starts descending for numbers
+    document.querySelector('thead').addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-sort]');
+      if (!btn) return;
+      if (btn.dataset.sort === sortKey) {
+        sortAsc = !sortAsc;
+      } else {
+        sortKey = btn.dataset.sort;
+        sortAsc = !['population', 'area'].includes(sortKey);
+      }
+      renderRows();
+    });
+
+    modeSelect.addEventListener('change', () => {
+      input.value = modeSelect.value === 'region' ? 'asia' : '';
+      input.focus();
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      search();
+    });
+
+    search();
+  </script>
+</body>
+</html>
