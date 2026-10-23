@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Me</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 40px 16px; font-family: system-ui, sans-serif; color: #1e293b; background: #f1f5f9; }
+    main { max-width: 520px; margin: 0 auto; padding: 28px; border-radius: 14px; background: white; box-shadow: 0 6px 20px rgba(15, 23, 42, .08); }
+    h1 { margin: 0 0 4px; }
+    .intro { margin: 0 0 20px; color: #64748b; }
+
+    fieldset { border: none; padding: 0; margin: 0; }
+    label { display: block; font-weight: 600; font-size: .9rem; margin: 14px 0 4px; }
+    .hint { font-weight: 400; color: #64748b; }
+
+    input, select, textarea {
+      width: 100%; padding: 10px 12px; font-size: 1rem; font-family: inherit; color: inherit;
+      border: 2px solid #c8d4f0; border-radius: 8px; background: white;
+      outline: none; transition: border-color .2s, box-shadow .2s, background .2s;
+    }
+    textarea { min-height: 140px; resize: vertical; }
+
+    /* :focus — blue ring on the field being typed in */
+    input:focus, select:focus, textarea:focus {
+      border-color: #1a56db;
+      box-shadow: 0 0 0 3px rgba(26, 86, 219, .15);
+    }
+
+    /* :valid / :invalid — wait until the user has typed something */
+    input:valid:not(:placeholder-shown),
+    textarea:valid:not(:placeholder-shown) {
+      border-color: #16a34a;
+      background: #f0fdf4;
+    }
+    input:invalid:not(:placeholder-shown),
+    textarea:invalid:not(:placeholder-shown) {
+      border-color: #dc2626;
+      background: #fef2f2;
+    }
+    select:valid { border-color: #16a34a; }
+
+    /* After a failed submit, also show empty required fields in red */
+    form.submitted input:invalid, form.submitted textarea:invalid { border-color: #dc2626; background: #fef2f2; }
+
+    /* Small message under a field, only while it is invalid */
+    .error-msg { display: none; margin: 4px 0 0; font-size: .8rem; color: #dc2626; }
+    input:invalid:not(:placeholder-shown) + .error-msg,
+    textarea:invalid:not(:placeholder-shown) + .error-msg { display: block; }
+
+    .counter { margin: 4px 0 0; font-size: .8rem; text-align: right; color: #64748b; }
+
+    button { width: 100%; margin-top: 20px; padding: 12px; font-size: 1rem; font-weight: 700; color: white; background: #1a56db; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #1240b0; }
+
+    .success { display: none; padding: 14px 16px; margin-top: 16px; border-radius: 8px; color: #166534; background: #dcfce7; }
+    .success.show { display: block; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Contact Me</h1>
+    <p class="intro">Have a question or want to work together? Send me a message.</p>
+
+    <!--
+      HTML5 validation attributes used:
+        required, minlength, maxlength, pattern, type="email"
+      CSS pseudo-classes used:
+        :valid, :invalid, :focus, :placeholder-shown
+    -->
+    <form id="contact-form" method="post" action="/contact">
+      <fieldset>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required minlength="2" maxlength="50"
+               pattern="[A-Za-z가-힣\s'\-]+" title="Letters only, at least 2"
+               placeholder="Your name" autocomplete="name">
+        <p class="error-msg">Please enter at least 2 letters.</p>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="name@example.com" autocomplete="email">
+        <p class="error-msg">Please enter a valid email address.</p>
+
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" required minlength="3" maxlength="80"
+               placeholder="What is this about?">
+        <p class="error-msg">The subject needs at least 3 characters.</p>
+
+        <label for="message">Message <span class="hint">(20–1000 characters)</span></label>
+        <textarea id="message" name="message" required minlength="20" maxlength="1000"
+                  placeholder="Write your message here..."></textarea>
+        <p class="error-msg">Your message needs at least 20 characters.</p>
+        <p class="counter" id="counter">0 / 1000</p>
+      </fieldset>
+
+      <button type="submit">Send Message</button>
+      <p class="success" id="success" role="status">Thanks! Your message has been sent.</p>
+    </form>
+  </main>
+
+  <script>
+    const form = document.querySelector('#contact-form');
+    const message = document.querySelector('#message');
+    const counter = document.querySelector('#counter');
+    const success = document.querySelector('#success');
+
+    // Live character counter for the textarea
+    message.addEventListener('input', () => {
+      counter.textContent = message.value.length + ' / ' + message.maxLength;
+    });
+
+    // The submit button fires 'invalid' on each bad field before the browser
+    // shows its message — mark the form so empty required fields turn red too
+    form.addEventListener('invalid', () => form.classList.add('submitted'), true);
+
+    // There is no server yet, so stop the real submit and show a thank-you
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      success.classList.add('show');
+      form.reset();
+      form.classList.remove('submitted');
+      counter.textContent = '0 / ' + message.maxLength;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Labels and Accessibility</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 460px; margin: 0 auto; color: #1e293b; }
+    label { display: block; font-weight: 600; font-size: .9rem; margin: 14px 0 4px; cursor: pointer; }
+    input { width: 100%; padding: 9px 12px; font-size: 1rem; border: 2px solid #c8d4f0; border-radius: 8px; box-sizing: border-box; }
+    input:focus { border-color: #16a34a; outline: none; }
+    .bad { color: #dc2626; }
+  </style>
+</head>
+<body>
+  <!-- A <label> links text to an input. Screen readers read the label when
+       the input gets focus; without it they only say "edit text".
+       Bonus: clicking the label focuses the input. -->
+  <h1>Labels</h1>
+
+  <!-- Method 1: for/id pairing (recommended). for and id must match EXACTLY. -->
+  <label for="username">Username (click this text)</label>
+  <input type="text" id="username" name="username">
+
+  <!-- Method 2: wrap the input inside the label -->
+  <label>
+    Email (click this text too)
+    <input type="email" name="email">
+  </label>
+
+  <!-- WRONG: a placeholder is NOT a label. It disappears as soon as you type
+       and screen readers may not announce it. Use placeholders only for
+       format hints like "YYYY-MM-DD". -->
+  <p class="bad">No label — placeholder only (not accessible):</p>
+  <input type="text" placeholder="Username">
+</body>
+</html>

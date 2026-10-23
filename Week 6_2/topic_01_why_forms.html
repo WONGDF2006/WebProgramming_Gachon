@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Forms?</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 520px; margin: 0 auto; color: #1e293b; }
+    form { display: flex; gap: 8px; }
+    input { flex: 1; padding: 10px 12px; font-size: 1rem; border: 2px solid #c8d4f0; border-radius: 8px; }
+    button { padding: 10px 18px; font-weight: 700; color: white; background: #1a56db; border: none; border-radius: 8px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <!-- Forms are how users SEND data to a server: login, search, registration... -->
+  <h1>Search Google</h1>
+
+  <!-- The Google search bar is just an HTML form.
+       Submitting it opens https://www.google.com/search?q=your+words -->
+  <form action="https://www.google.com/search" method="get">
+    <input type="text" name="q" placeholder="Search Google..." aria-label="Search words">
+    <button type="submit">Search</button>
+  </form>
+
+  <!--
+    Key points
+    - Forms collect user input and send it to a server.
+    - Every interaction that changes data on a website uses a form.
+    - HTML gives the structure, CSS styles it, JavaScript can validate it.
+    - <form> wraps all the form controls.
+  -->
+</body>
+</html>

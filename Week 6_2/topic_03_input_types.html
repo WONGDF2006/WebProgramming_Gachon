@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input Types</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 560px; margin: 0 auto; color: #1e293b; }
+    .row { margin-bottom: 16px; }
+    .row > label { display: block; font-weight: 600; font-size: .9rem; margin-bottom: 4px; }
+    .row code { color: #e34c26; }
+    input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select {
+      width: 100%; padding: 8px 12px; font-size: 1rem; border: 2px solid #c8d4f0; border-radius: 8px; box-sizing: border-box;
+    }
+    .choices { display: flex; gap: 14px; }
+  </style>
+</head>
+<body>
+  <!-- The type attribute tells the browser what kind of data to expect.
+       It changes the UI (date picker, mobile keyboard) and the built-in validation. -->
+  <h1>Input Types</h1>
+
+  <div class="row">
+    <label for="t-text"><code>text</code> — any single line (the default)</label>
+    <input type="text" id="t-text" placeholder="Enter any text...">
+  </div>
+
+  <div class="row">
+    <label for="t-email"><code>email</code> — checks the format; phones show the @ keyboard</label>
+    <input type="email" id="t-email" placeholder="name@example.com">
+  </div>
+
+  <div class="row">
+    <label for="t-pw"><code>password</code> — hides the characters</label>
+    <input type="password" id="t-pw">
+  </div>
+
+  <div class="row">
+    <label for="t-num"><code>number</code> — digits only, with up/down arrows</label>
+    <input type="number" id="t-num" min="0" max="100">
+  </div>
+
+  <div class="row">
+    <label for="t-date"><code>date</code> — date picker, value is YYYY-MM-DD</label>
+    <input type="date" id="t-date">
+  </div>
+
+  <div class="row">
+    <label for="t-range"><code>range</code> — slider between min and max</label>
+    <input type="range" id="t-range" min="0" max="100" value="50">
+  </div>
+
+  <div class="row">
+    <!-- checkbox: on/off, several can be ticked -->
+    <label><code>checkbox</code> — tick as many as you like</label>
+    <div class="choices">
+      <label><input type="checkbox" name="skills" value="html" checked> HTML</label>
+      <label><input type="checkbox" name="skills" value="css"> CSS</label>
+      <label><input type="checkbox" name="skills" value="js"> JS</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- radio: the SAME name makes them one group, so only one can be picked -->
+    <label><code>radio</code> — same name = only one choice</label>
+    <div class="choices">
+      <label><input type="radio" name="day" value="mon"> Mon</label>
+      <label><input type="radio" name="day" value="wed"> Wed</label>
+      <label><input type="radio" name="day" value="fri" checked> Fri</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- select is not an input, but it submits like one when it has a name -->
+    <label for="major"><code>&lt;select&gt;</code> — dropdown list</label>
+    <select id="major" name="major">
+      <option value="">-- Choose your major --</option>
+      <option value="cs">Computer Science</option>
+      <option value="sw">Software Engineering</option>
+      <option value="ai">Artificial Intelligence</option>
+      <option value="ds">Data Science</option>
+    </select>
+  </div>
+</body>
+</html>

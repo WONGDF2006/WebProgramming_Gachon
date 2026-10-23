@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The form Element</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 420px; margin: 0 auto; color: #1e293b; }
+    form { display: flex; flex-direction: column; gap: 8px; margin-bottom: 30px; }
+    label { font-weight: 600; font-size: .9rem; }
+    input { padding: 9px 12px; font-size: 1rem; border: 2px solid #c8d4f0; border-radius: 8px; }
+    button { margin-top: 8px; padding: 10px; font-weight: 700; color: white; background: #1a56db; border: none; border-radius: 8px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <!--
+    <form action="..." method="...">
+      action = WHERE the data is sent (a URL)
+      method = HOW it is sent
+        get  -> data goes in the URL:  /search?q=javascript&lang=en
+                visible, bookmarkable, short. Use for search and filters.
+        post -> data goes in the request body, hidden from the address bar.
+                Use for login, register, anything sensitive.
+      (GET is a postcard everyone can read; POST is a sealed envelope.)
+
+    The name attribute on each input is the KEY the server receives.
+  -->
+
+  <h2>GET example</h2>
+  <!-- Submit this and look at the address bar: ?city=Seoul appears -->
+  <form action="" method="get">
+    <label for="city">City</label>
+    <input type="text" id="city" name="city" value="Seoul">
+    <button type="submit">Search (GET)</button>
+  </form>
+
+  <h2>POST example</h2>
+  <!-- Data is sent as:  email=kim@gachon.edu&password=secret123  (in the body)
+       There is no server for this file, so the action is just a placeholder. -->
+  <form action="/login" method="post">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="pw">Password</label>
+    <input type="password" id="pw" name="password" required>
+
+    <button type="submit">Log In (POST)</button>
+  </form>
+</body>
+</html>
