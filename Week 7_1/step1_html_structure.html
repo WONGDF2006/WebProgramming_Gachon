@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Step 1 · HTML Structure</title>
+  <!--
+    STEP 1 · HTML STRUCTURE
+    Task: write the semantic skeleton of the Book Search app.
+      - <header> with the app title and a one-line subtitle
+      - <main> containing a search <form> (label, text input, submit button)
+      - an empty <section id="results"> where book cards will go later
+      - <footer> crediting Open Library
+    No CSS or JavaScript yet. Give the form, input, button, and results
+    section ids so later steps can find them.
+  -->
+</head>
+<body>
+  <header class="site-header">
+    <h1>📚 Book Search</h1>
+    <p>Search the Open Library — millions of books, free</p>
+  </header>
+
+  <main>
+    <form id="search-form" class="search-bar" role="search">
+      <label for="search-input" class="visually-hidden">Book title</label>
+      <input id="search-input" type="search" name="q" placeholder="e.g. harry potter" required>
+      <button id="search-button" type="submit">Search</button>
+    </form>
+
+    <p id="status" class="status" aria-live="polite"></p>
+
+    <section id="results" class="results" aria-label="Search results"></section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Data from <a href="https://openlibrary.org" target="_blank" rel="noopener">Open Library</a></p>
+  </footer>
+</body>
+</html>

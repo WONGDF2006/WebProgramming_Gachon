@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Library API Explorer</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 40px 16px; font-family: system-ui, sans-serif; color: #e2e8f0; background: #1b2540; }
+    main { max-width: 820px; margin: 0 auto; }
+    h1 { margin-top: 0; }
+    code, pre, .url { font-family: Consolas, "Courier New", monospace; }
+
+    .muted { color: #94a3b8; }
+    .controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 12px; }
+    .controls input { flex: 1; min-width: 180px; padding: 10px 14px; font-size: 1rem; border: 1px solid #334155; border-radius: 8px; color: inherit; background: #0f172a; }
+    .controls button { padding: 10px 22px; font-size: 1rem; font-weight: 700; color: white; background: #1a56db; border: none; border-radius: 8px; cursor: pointer; }
+    .url { padding: 10px 14px; margin-bottom: 20px; overflow-wrap: anywhere; color: #7dd3fc; background: #0f172a; border-radius: 8px; }
+
+    .fields { display: grid; gap: 10px; margin-bottom: 20px; }
+    .field { padding: 12px 16px; border: 1px solid #334155; border-radius: 10px; background: #1e2a4a; }
+    .field code { color: #7dd3fc; font-weight: 700; }
+    .field .value { display: block; margin-top: 4px; color: #86efac; }
+    .field .value.missing { color: #fca5a5; }
+
+    details { border: 1px solid #334155; border-radius: 10px; }
+    summary { padding: 12px 16px; cursor: pointer; }
+    pre { max-height: 420px; margin: 0; padding: 16px; overflow: auto; font-size: .82rem; color: #cbd5e1; background: #0f172a; border-radius: 0 0 10px 10px; }
+    .error { color: #fca5a5; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Open Library API Explorer</h1>
+    <p class="muted">See the JSON shape before you write the Book Search app. Free, no API key needed.</p>
+
+    <form id="explore-form" class="controls">
+      <label for="q" class="muted" hidden>Search</label>
+      <input id="q" type="search" value="harry potter" required>
+      <button type="submit">Fetch</button>
+    </form>
+
+    <div id="url" class="url"></div>
+    <p class="muted">The four fields the app needs from <code>data.docs[0]</code>:</p>
+    <div id="fields" class="fields"></div>
+
+    <details>
+      <summary>Raw JSON of <code>data.docs[0]</code></summary>
+      <pre id="raw"></pre>
+    </details>
+  </main>
+
+  <script>
+    const form = document.getElementById('explore-form');
+    const input = document.getElementById('q');
+    const urlBox = document.getElementById('url');
+    const fieldsBox = document.getElementById('fields');
+    const raw = document.getElementById('raw');
+
+    function showField(path, value) {
+      const div = document.createElement('div');
+      div.className = 'field';
+      const name = document.createElement('code');
+      name.textContent = path + ' (' + (value === undefined ? 'undefined' : typeof value) + ')';
+      const val = document.createElement('span');
+      val.className = value === undefined ? 'value missing' : 'value';
+      val.textContent = '→ ' + (value === undefined ? 'undefined — handle it!' : JSON.stringify(value));
+      div.append(name, val);
+      fieldsBox.appendChild(div);
+    }
+
+    async function explore(query) {
+      const url = 'https://openlibrary.org/search.json?q=' + encodeURIComponent(query) + '&limit=12';
+      urlBox.textContent = url;
+      fieldsBox.innerHTML = '<p class="muted">Loading…</p>';
+      raw.textContent = '';
+
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Server answered with status ' + res.status);
+        const data = await res.json();
+        fieldsBox.textContent = '';
+
+        const book = data.docs[0];
+        if (!book) {
+          fieldsBox.innerHTML = '<p class="muted">No results — data.docs is an empty array.</p>';
+          return;
+        }
+        showField('.title', book.title);
+        showField('.author_name[0]', book.author_name ? book.author_name[0] : undefined);
+        showField('.first_publish_year', book.first_publish_year);
+        showField('.cover_i', book.cover_i);
+        raw.textContent = JSON.stringify(book, null, 2);
+      } catch (err) {
+        console.error('Error:', err);
+        fieldsBox.innerHTML = '<p class="error">Request failed. Check your connection and try again.</p>';
+      }
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      explore(input.value.trim());
+    });
+
+    explore(input.value);
+  </script>
+</body>
+</html>
