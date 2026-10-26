@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration — JS Validation</title>
+  <!--
+    HOMEWORK: upgrade Monday's registration form (Week 6_2) with
+      - novalidate on the form, so JavaScript shows the errors
+      - preventDefault() on submit
+      - input listeners on every field for real-time feedback
+      - aria-describedby + aria-invalid linking each input to its error span
+      - a password confirm checked with setCustomValidity()
+      - a success message div
+    Bonus: the Submit button stays disabled until form.checkValidity() is true.
+  -->
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 40px 16px; font-family: system-ui, sans-serif; color: #1e293b; background: #f0f4ff; }
+    main { max-width: 520px; margin: 0 auto; padding: 28px; border-radius: 14px; background: white; box-shadow: 0 6px 20px rgba(15, 23, 42, .08); }
+    h1 { margin-top: 0; }
+
+    fieldset { border: 2px solid #c8d4f0; border-radius: 10px; padding: 6px 18px 18px; margin: 0 0 18px; }
+    legend { font-weight: 700; color: #1a56db; padding: 0 8px; }
+    label { display: block; font-weight: 600; font-size: .9rem; margin: 14px 0 4px; }
+    .hint { font-weight: 400; color: #64748b; }
+
+    input, select {
+      width: 100%; padding: 10px 12px; font-size: 1rem; font-family: inherit; color: inherit;
+      border: 2px solid #c8d4f0; border-radius: 8px; background: white;
+      outline: none; transition: border-color .2s, box-shadow .2s, background .2s;
+    }
+    input:focus, select:focus { border-color: #1a56db; box-shadow: 0 0 0 3px rgba(26, 86, 219, .15); }
+
+    /* Validation states come from aria-invalid, set by JavaScript */
+    [aria-invalid="false"] { border-color: #16a34a; background: #f0fdf4; }
+    [aria-invalid="true"] { border-color: #dc2626; background: #fef2f2; }
+    .error { display: block; min-height: 1.1em; margin-top: 4px; color: #dc2626; font-size: .8rem; }
+
+    input[type="checkbox"], input[type="range"] { width: auto; padding: 0; border: none; background: none; box-shadow: none; }
+    .checkbox-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+    .checkbox-row label { margin: 0; }
+
+    .range-row { display: flex; align-items: center; gap: 12px; }
+    .range-row input { flex: 1; }
+    output { min-width: 70px; font-weight: 700; color: #1a56db; }
+
+    button { width: 100%; margin-top: 20px; padding: 12px; font-size: 1rem; font-weight: 700; color: white; background: #1a56db; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #1240b0; }
+    button:disabled { background: #94a3b8; cursor: not-allowed; }
+
+    .success { margin-top: 18px; padding: 14px 16px; border-radius: 8px; color: #166534; background: #dcfce7; border: 1px solid #86efac; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Student Registration</h1>
+
+    <form id="register-form" novalidate>
+      <fieldset>
+        <legend>Personal Info</legend>
+
+        <label for="full-name">Full Name</label>
+        <input type="text" id="full-name" name="full_name" required minlength="2" placeholder="Kim Minjun"
+               aria-describedby="full-name-error">
+        <span class="error" id="full-name-error" aria-live="polite"></span>
+
+        <label for="student-id">Student ID <span class="hint">(9 digits)</span></label>
+        <input type="text" id="student-id" name="student_id" required pattern="\d{9}" inputmode="numeric" placeholder="202112345"
+               aria-describedby="student-id-error">
+        <span class="error" id="student-id-error" aria-live="polite"></span>
+
+        <label for="dob">Date of Birth <span class="hint">(optional)</span></label>
+        <input type="date" id="dob" name="dob" max="2010-12-31"
+               aria-describedby="dob-error">
+        <span class="error" id="dob-error" aria-live="polite"></span>
+
+        <label for="major">Major</label>
+        <select id="major" name="major" required aria-describedby="major-error">
+          <option value="">-- Choose your major --</option>
+          <option value="cs">Computer Science</option>
+          <option value="sw">Software Engineering</option>
+          <option value="ai">Artificial Intelligence</option>
+          <option value="ds">Data Science</option>
+        </select>
+        <span class="error" id="major-error" aria-live="polite"></span>
+      </fieldset>
+
+      <fieldset>
+        <legend>Account Info</legend>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="name@gachon.ac.kr"
+               aria-describedby="email-error">
+        <span class="error" id="email-error" aria-live="polite"></span>
+
+        <label for="password">Password <span class="hint">(at least 8 characters)</span></label>
+        <input type="password" id="password" name="password" required minlength="8" placeholder="At least 8 characters"
+               aria-describedby="password-error">
+        <span class="error" id="password-error" aria-live="polite"></span>
+
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm_password" required placeholder="Type it again"
+               aria-describedby="confirm-password-error">
+        <span class="error" id="confirm-password-error" aria-live="polite"></span>
+
+        <label for="phone">Phone <span class="hint">(optional, 010-1234-5678)</span></label>
+        <input type="tel" id="phone" name="phone" pattern="\d{3}-\d{4}-\d{4}" placeholder="010-1234-5678"
+               aria-describedby="phone-error">
+        <span class="error" id="phone-error" aria-live="polite"></span>
+
+        <label for="experience">Years of coding experience</label>
+        <div class="range-row">
+          <input type="range" id="experience" name="experience" min="0" max="10" value="0">
+          <output id="experience-value" for="experience">0 years</output>
+        </div>
+      </fieldset>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="terms" name="terms" required aria-describedby="terms-error">
+        <label for="terms">I agree to the terms</label>
+      </div>
+      <span class="error" id="terms-error" aria-live="polite"></span>
+
+      <button type="submit" id="submit-button" disabled>Register</button>
+    </form>
+
+    <div id="success" class="success" role="status" hidden></div>
+  </main>
+
+  <script>
+    const form = document.querySelector('#register-form');
+    const submitButton = document.querySelector('#submit-button');
+    const success = document.querySelector('#success');
+    const password = document.querySelector('#password');
+    const confirmPassword = document.querySelector('#confirm-password');
+
+    // Every field that has an error span (found through aria-describedby)
+    const fields = [...form.querySelectorAll('[aria-describedby]')];
+
+    // Specific messages for each field, read from the validity API
+    const messages = {
+      'full-name': { valueMissing: 'Please enter your full name.', tooShort: 'Name must be at least 2 characters.' },
+      'student-id': { valueMissing: 'Student ID is required.', patternMismatch: 'Student ID must be exactly 9 digits.' },
+      'dob': { rangeOverflow: 'Date of birth must be in 2010 or earlier.' },
+      'major': { valueMissing: 'Please choose your major.' },
+      'email': { valueMissing: 'Email is required.', typeMismatch: 'Enter a valid email, like name@gachon.ac.kr.' },
+      'password': { valueMissing: 'Password is required.', tooShort: 'Password must be at least 8 characters.' },
+      'confirm-password': { valueMissing: 'Please confirm your password.' },
+      'phone': { patternMismatch: 'Use the format 010-1234-5678.' },
+      'terms': { valueMissing: 'You must agree to the terms.' }
+    };
+
+    function getMessage(field) {
+      const v = field.validity;
+      if (v.customError) return field.validationMessage; // from setCustomValidity()
+      const fieldMessages = messages[field.id] || {};
+      const flag = Object.keys(fieldMessages).find((name) => v[name]);
+      return flag ? fieldMessages[flag] : 'Please check this field.';
+    }
+
+    // Password confirm: a rule HTML attributes can't express
+    function checkPasswordsMatch() {
+      if (confirmPassword.value && confirmPassword.value !== password.value) {
+        confirmPassword.setCustomValidity('Passwords do not match.');
+      } else {
+        confirmPassword.setCustomValidity('');
+      }
+    }
+
+    function showFieldState(field) {
+      const error = document.getElementById(field.getAttribute('aria-describedby'));
+      const ok = field.checkValidity();
+      field.setAttribute('aria-invalid', String(!ok));
+      error.textContent = ok ? '' : getMessage(field);
+    }
+
+    // Bonus: only enable Register when the whole form is valid
+    function updateSubmitButton() {
+      submitButton.disabled = !form.checkValidity();
+    }
+
+    // Real-time feedback on every field
+    fields.forEach((field) => {
+      field.addEventListener('input', () => {
+        if (field === password || field === confirmPassword) {
+          checkPasswordsMatch();
+          // Changing one password can fix or break the other one
+          if (confirmPassword.value) showFieldState(confirmPassword);
+        }
+        showFieldState(field);
+        success.hidden = true;
+        updateSubmitButton();
+      });
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // run our checks; never reload the page
+      checkPasswordsMatch();
+      fields.forEach(showFieldState);
+
+      const firstInvalid = fields.find((field) => !field.checkValidity());
+      if (firstInvalid) {
+        firstInvalid.focus();
+        return;
+      }
+
+      const name = document.querySelector('#full-name').value.trim();
+      success.textContent = '🎉 Registration complete! Welcome, ' + name + '.';
+      success.hidden = false;
+
+      form.reset();
+      document.querySelector('#experience-value').textContent = '0 years';
+      fields.forEach((field) => field.removeAttribute('aria-invalid'));
+      updateSubmitButton();
+    });
+
+    // Slider value (from Monday's bonus)
+    const slider = document.querySelector('#experience');
+    const sliderValue = document.querySelector('#experience-value');
+
+    slider.addEventListener('input', () => {
+      const years = Number(slider.value);
+      sliderValue.textContent = years + (years === 1 ? ' year' : ' years');
+    });
+  </script>
+</body>
+</html>
