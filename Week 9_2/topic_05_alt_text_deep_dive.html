@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>alt Text Deep Dive</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    .step { margin-bottom: 10px; padding: 12px 14px; border-radius: 8px; }
+    .step strong { display: block; }
+    .s1 { background: #e0eaff; } .s2 { background: #dcfce7; } .s3 { background: #fef3c7; } .s4 { background: #fee2e2; }
+    pre { padding: 14px; overflow-x: auto; border-radius: 8px; font-size: .8rem; background: #f1f5f9; }
+  </style>
+</head>
+<body>
+  <!-- alt is a TEXT EQUIVALENT of the image. The rule is not "describe what you see",
+       it is "describe the purpose the image serves". -->
+  <h1>alt text deep dive</h1>
+
+  <h2>Decision tree</h2>
+  <div class="step s1"><strong>Purely decorative?</strong> (border, texture, flourish)
+    Use <code>alt=""</code>. Screen readers skip it. Never leave the attribute out.</div>
+  <div class="step s2"><strong>Inside a link?</strong>
+    Describe where the link goes: <code>alt="Gachon University homepage"</code>.</div>
+  <div class="step s3"><strong>Informational?</strong> (photo, chart, diagram)
+    Say what it tells you. Not <code>alt="chart"</code> but
+    <code>alt="Bar chart: enrollment rose 23% from 2024 to 2026"</code>.</div>
+  <div class="step s4"><strong>An image of text?</strong> (code screenshot, receipt)
+    Use real text instead. If you can't, put the full text in alt.</div>
+
+  <h2>Examples</h2>
+<pre>&lt;!-- ✗ Missing alt (worst case) --&gt;
+&lt;img src="profile.jpg"&gt;
+
+&lt;!-- ✗ Useless: screen reader says "image, image" --&gt;
+&lt;img src="profile.jpg" alt="image"&gt;
+
+&lt;!-- ✗ Filename as alt --&gt;
+&lt;img src="profile.jpg" alt="profile.jpg"&gt;
+
+&lt;!-- ✓ Informational --&gt;
+&lt;img src="profile.jpg" alt="Kim Jisoo, Web Programming student"&gt;
+
+&lt;!-- ✓ Decorative --&gt;
+&lt;img src="decorative-wave.svg" alt=""&gt;
+
+&lt;!-- ✓ Complex chart: short alt + long description --&gt;
+&lt;figure&gt;
+  &lt;img src="chart.png" alt="Enrollment bar chart — see caption below"
+       aria-describedby="chart-desc"&gt;
+  &lt;figcaption id="chart-desc"&gt;
+    2024: 1,200 students; 2025: 1,400; 2026: 1,476.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+
+  <h2>Key points</h2>
+  <ul>
+    <li>Every <code>&lt;img&gt;</code> needs an <code>alt</code> attribute, even if it is empty.</li>
+    <li>Use <code>&lt;figcaption&gt;</code> or <code>aria-describedby</code> for long descriptions.</li>
+  </ul>
+</body>
+</html>

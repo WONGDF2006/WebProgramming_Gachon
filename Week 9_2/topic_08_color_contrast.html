@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Contrast</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .rule { padding: 14px; text-align: center; border: 1px solid #c8d4f0; border-radius: 10px; }
+    .rule strong { display: block; font-size: 1.6rem; }
+    .samples { display: flex; flex-wrap: wrap; gap: 10px; }
+    .sample { padding: 12px 18px; font-weight: 600; border: 2px solid #cbd5e1; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <!-- Low contrast hurts people with low vision, colour blindness, or anyone in
+       bright sunlight. WCAG 1.4.3 sets minimum contrast ratios between text and background. -->
+  <h1>Color contrast</h1>
+
+  <div class="rules">
+    <div class="rule"><strong>4.5 : 1</strong>Normal text — WCAG AA</div>
+    <div class="rule"><strong>3 : 1</strong>Large text (18pt+, or 14pt+ bold) — WCAG AA</div>
+    <div class="rule"><strong>7 : 1</strong>Normal text — WCAG AAA</div>
+  </div>
+
+  <h2>Fail vs pass on white</h2>
+  <div class="samples">
+    <span class="sample" style="color:#ff9999">#ff9999 — fail (2.1 : 1)</span>
+    <span class="sample" style="color:#ff9900">#ff9900 — fail (2.1 : 1)</span>
+    <span class="sample" style="color:#767676">#767676 — pass AA (4.5 : 1)</span>
+    <span class="sample" style="color:#595959">#595959 — pass AAA (7 : 1)</span>
+    <span class="sample" style="color:#fff;background:#1a7f5a;border-color:#1a7f5a">White on #1a7f5a — pass AA (5 : 1)</span>
+  </div>
+
+  <h2>Tools for checking contrast</h2>
+  <ul>
+    <li><strong>WebAIM Contrast Checker</strong> — <a href="https://webaim.org/resources/contrastchecker/" target="_blank" rel="noopener">webaim.org/resources/contrastchecker</a></li>
+    <li><strong>Chrome DevTools</strong> — inspect text and click the colour swatch to see the ratio.</li>
+    <li><strong>Lighthouse</strong> — flags every element with low contrast.</li>
+    <li><strong>Colour Contrast Analyser</strong> — a desktop eyedropper for anything on screen.</li>
+  </ul>
+
+  <h2>Key points</h2>
+  <ul>
+    <li>Decorative graphics and disabled controls are exempt.</li>
+    <li>Light grey on white is the most common failure.</li>
+  </ul>
+</body>
+</html>

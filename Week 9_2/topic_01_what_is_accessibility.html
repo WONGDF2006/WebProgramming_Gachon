@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What is Accessibility?</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    .users { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+    .user { padding: 14px 16px; border: 1px solid #c8d4f0; border-radius: 10px; background: #f8faff; }
+    .user h2 { margin: 0 0 4px; font-size: 1rem; }
+    .user p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin-top: 20px; padding: 14px 16px; border-left: 4px solid #0891b2; border-radius: 0 8px 8px 0; background: #e0f2fe; }
+    kbd { padding: 1px 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: .8rem; background: #f1f5f9; }
+  </style>
+</head>
+<body>
+  <!-- Web accessibility = building sites that people with disabilities can perceive,
+       understand, navigate, and interact with. "A11y" = A + 11 letters + y.
+       About 1 billion people (15% of the world) live with some form of disability. -->
+  <h1>What is Accessibility?</h1>
+  <p>People use the web in very different ways. Your site has to work for all of them.</p>
+
+  <div class="users">
+    <section class="user">
+      <h2><span aria-hidden="true">👁️</span> Visual impairment</h2>
+      <p>Min-jun uses a <strong>screen reader</strong> (NVDA) that reads the page aloud. He moves with <kbd>Tab</kbd>. If your button is a <code>&lt;div&gt;</code>, he can't reach it.</p>
+    </section>
+    <section class="user">
+      <h2><span aria-hidden="true">🤝</span> Motor disability</h2>
+      <p>Soyeon uses a <strong>switch device</strong>, one button that cycles through focusable elements. She needs large targets and a logical tab order.</p>
+    </section>
+    <section class="user">
+      <h2><span aria-hidden="true">🧠</span> Cognitive differences</h2>
+      <p>Hyunwoo has dyslexia. He needs clear fonts, generous spacing, <strong>simple language</strong>, and no flashing animations.</p>
+    </section>
+    <section class="user">
+      <h2><span aria-hidden="true">👂</span> Hearing impairment</h2>
+      <p>Yuna is Deaf. She needs <strong>captions</strong> on every video and a visual version of every sound cue.</p>
+    </section>
+  </div>
+
+  <p class="note"><strong>Accessibility helps everyone.</strong> Curb cuts were made for wheelchairs but help strollers and bikes too.
+    Captions help in noisy places. Good contrast helps in bright sunlight.</p>
+
+  <h2>Key points</h2>
+  <ul>
+    <li>A11y covers visual, motor, cognitive, and hearing disabilities.</li>
+    <li>Improvements for disabled users make the site better for all users.</li>
+    <li>In many countries, inaccessible government and commercial sites are illegal.</li>
+  </ul>
+</body>
+</html>

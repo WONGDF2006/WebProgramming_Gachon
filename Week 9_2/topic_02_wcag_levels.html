@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WCAG Levels</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    .levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .level { padding: 16px; border: 2px solid; border-radius: 10px; }
+    .level strong { display: block; font-size: 1.8rem; }
+    .level p { margin: 4px 0 0; font-size: .88rem; }
+    .a { border-color: #dc2626; background: #fee2e2; }
+    .aa { border-color: #d97706; background: #fef3c7; }
+    .aaa { border-color: #16a34a; background: #dcfce7; }
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+  </style>
+</head>
+<body>
+  <!-- WCAG (Web Content Accessibility Guidelines) is the international standard from the W3C.
+       WCAG 2.1 groups its rules into three levels. Aim for AA on every project. -->
+  <h1>WCAG Levels</h1>
+
+  <div class="levels">
+    <div class="level a"><strong>A</strong>Minimum — required
+      <p>Without these, some people can't use the site at all. Alt text, form labels, no colour-only meaning.</p></div>
+    <div class="level aa"><strong>AA</strong>Standard target — expected
+      <p>Legally required in many places. 4.5:1 contrast, text resizable to 200%, full keyboard access.</p></div>
+    <div class="level aaa"><strong>AAA</strong>Excellent — enhanced
+      <p>For key features. 7:1 contrast, sign language for video, simpler reading level.</p></div>
+  </div>
+
+  <h2>Example success criteria</h2>
+  <table>
+    <thead><tr><th>Level</th><th>Criterion</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td>1.1.1 Non-text content</td><td>Every image has alt text</td></tr>
+      <tr><td>A</td><td>2.1.1 Keyboard</td><td>Everything works with the keyboard alone</td></tr>
+      <tr><td>AA</td><td>1.4.3 Contrast</td><td>Normal text reaches 4.5:1</td></tr>
+      <tr><td>AA</td><td>2.4.7 Focus visible</td><td>Keyboard focus is always visible</td></tr>
+      <tr><td>AAA</td><td>1.4.6 Enhanced contrast</td><td>Text reaches 7:1</td></tr>
+      <tr><td>AAA</td><td>2.4.9 Link purpose</td><td>Link text alone describes where it goes</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Key points</h2>
+  <ul>
+    <li>The four principles are <strong>POUR</strong>: Perceivable, Operable, Understandable, Robust.</li>
+    <li>WCAG 2.1 is the current standard; WCAG 2.2 adds more focus-related rules.</li>
+  </ul>
+</body>
+</html>

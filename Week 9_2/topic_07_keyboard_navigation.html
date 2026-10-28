@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keyboard Navigation</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    .keys { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+    .key { padding: 14px 16px; border: 1px solid #c8d4f0; border-radius: 10px; }
+    .key h2 { margin: 0 0 4px; font-size: 1rem; }
+    .key p { margin: 0; font-size: .88rem; color: #475569; }
+    kbd { padding: 1px 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: .8rem; background: #f1f5f9; }
+    pre { padding: 14px; overflow-x: auto; border-radius: 8px; font-size: .8rem; background: #f1f5f9; }
+    /* Keyboard users see the ring, mouse clicks don't */
+    :focus-visible { outline: 3px solid #1a7f5a; outline-offset: 3px; border-radius: 4px; }
+    .try a, .try button { margin-right: 10px; }
+  </style>
+</head>
+<body>
+  <!-- Many users can't use a mouse. The whole site must work with Tab, Shift+Tab,
+       Enter, Space and the arrow keys. This is WCAG 2.1.1 — a Level A requirement. -->
+  <h1>Keyboard navigation</h1>
+
+  <div class="keys">
+    <section class="key"><h2><kbd>Tab</kbd> — forward</h2><p>To the next link, button, or input. Other elements need <code>tabindex="0"</code>.</p></section>
+    <section class="key"><h2><kbd>Shift+Tab</kbd> — back</h2><p>To the previous one. Tab order should follow reading order.</p></section>
+    <section class="key"><h2><kbd>Enter</kbd> / <kbd>Space</kbd> — activate</h2><p>Enter follows links and presses buttons; Space presses buttons and checkboxes.</p></section>
+    <section class="key"><h2>Arrow keys — inside widgets</h2><p>Move between options in radio groups, menus, tabs, and sliders.</p></section>
+  </div>
+
+  <h2>Try it — press Tab</h2>
+  <p class="try"><a href="#">A link</a><button type="button">A button</button><input type="text" aria-label="A text field" placeholder="A field"></p>
+
+  <h2>Focus styles and tabindex</h2>
+<pre>/* ✓ Ring for keyboard focus, not for mouse clicks */
+:focus-visible { outline: 3px solid #1a7f5a; outline-offset: 3px; }
+
+/* ✗ Never — keyboard users lose track of where they are */
+*:focus { outline: none; }
+
+&lt;!-- tabindex="0": add to the normal Tab order --&gt;
+&lt;div role="button" tabindex="0"&gt;Custom widget&lt;/div&gt;
+
+&lt;!-- tabindex="-1": focusable from JS only --&gt;
+&lt;div id="modal" tabindex="-1"&gt;...&lt;/div&gt;
+
+&lt;!-- Skip link: jump past the navigation --&gt;
+&lt;a href="#main-content" class="skip-link"&gt;Skip to main content&lt;/a&gt;
+&lt;nav&gt;...&lt;/nav&gt;
+&lt;main id="main-content"&gt;...&lt;/main&gt;</pre>
+
+  <h2>Key points</h2>
+  <ul>
+    <li>Never use <code>outline: none</code> without another visible focus style.</li>
+    <li>Avoid positive <code>tabindex</code> values; they break the natural order.</li>
+    <li>A skip link (WCAG 2.4.1) lets keyboard users jump past repeated navigation.</li>
+  </ul>
+</body>
+</html>

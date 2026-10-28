@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lighthouse Accessibility Audit</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    kbd { padding: 1px 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: .8rem; background: #f1f5f9; }
+    .score { margin-bottom: 8px; padding: 12px 14px; border-radius: 8px; }
+    .score strong { display: block; }
+    .green { background: #dcfce7; } .orange { background: #fef3c7; } .red { background: #fee2e2; }
+    .warn { margin-top: 20px; padding: 14px 16px; border-left: 4px solid #d97706; border-radius: 0 8px 8px 0; background: #fef3c7; }
+  </style>
+</head>
+<body>
+  <!-- Lighthouse is built into Chrome DevTools. Its Accessibility category runs about
+       50 automated checks. Automated tools catch only ~30–40% of real issues,
+       so always test with the keyboard and a screen reader too. -->
+  <h1>Lighthouse accessibility audit</h1>
+
+  <h2>How to run it</h2>
+  <ol>
+    <li>Open your page in Chrome and press <kbd>F12</kbd> (or right-click → Inspect).</li>
+    <li>Open the <strong>Lighthouse</strong> tab (it may be under <code>»</code>).</li>
+    <li>Tick only <strong>Accessibility</strong>.</li>
+    <li>Click <strong>Analyze page load</strong> and wait 10–20 seconds.</li>
+    <li>Expand each failing item to see the exact element and how to fix it.</li>
+  </ol>
+
+  <h2>Reading the score</h2>
+  <div class="score green"><strong>90–100 · Green</strong>Automated checks pass. Still test by keyboard and screen reader.</div>
+  <div class="score orange"><strong>50–89 · Orange</strong>Needs work. Most fixes are quick: alt text, contrast, labels.</div>
+  <div class="score red"><strong>0–49 · Red</strong>Some users can't use the site. Fix missing alt, missing labels, and low contrast first.</div>
+
+  <p class="warn"><strong>100 does not mean fully accessible.</strong> Lighthouse can't tell if alt text is
+    <em>good</em> (only that it exists), and can't find illogical reading order, keyboard traps, or confusing language.</p>
+
+  <h2>Key points</h2>
+  <ul>
+    <li>Aim for 90+. Each failing item links to the exact element in the DOM.</li>
+    <li>Quick wins: missing alt text, low contrast, missing form labels, buttons with no text.</li>
+    <li>Test manually with NVDA, VoiceOver, or JAWS as well.</li>
+  </ul>
+</body>
+</html>

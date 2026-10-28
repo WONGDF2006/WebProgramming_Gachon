@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>button vs div</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    .compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+    pre { margin: 0; padding: 14px; overflow-x: auto; border-radius: 8px; font-size: .8rem; background: #f1f5f9; }
+    h2 { font-size: 1rem; }
+    .bad { color: #dc2626; }
+    .good { color: #16a34a; }
+    .warn { margin-top: 20px; padding: 14px 16px; border-left: 4px solid #d97706; border-radius: 0 8px 8px 0; background: #fef3c7; }
+  </style>
+</head>
+<body>
+  <!-- A <div onclick> can LOOK exactly like a button, but keyboard and screen reader
+       users can't use it. A real <button> gets everything below for free. -->
+  <h1>The &lt;button&gt; vs &lt;div&gt; problem</h1>
+
+  <div class="compare">
+    <section>
+      <h2 class="bad">✗ div as a button</h2>
+<pre>&lt;div class="btn" onclick="submitForm()"&gt;
+  Submit
+&lt;/div&gt;
+
+&lt;!-- Not reachable with Tab
+     Screen reader says only "Submit"
+     Enter / Space do nothing
+     No disabled state --&gt;</pre>
+    </section>
+    <section>
+      <h2 class="good">✓ real &lt;button&gt;</h2>
+<pre>&lt;button type="button" onclick="submitForm()"&gt;
+  Submit
+&lt;/button&gt;
+
+&lt;!-- Tab stops here
+     Screen reader: "Submit, button"
+     Enter and Space both work
+     disabled attribute works --&gt;</pre>
+    </section>
+  </div>
+
+  <h2>What &lt;button&gt; gives you for free</h2>
+  <ul>
+    <li><strong>Keyboard focus</strong> — no <code>tabindex</code> needed.</li>
+    <li><strong>Enter &amp; Space</strong> activation — no keydown handler needed.</li>
+    <li><strong>Built-in role</strong> — announced as "button".</li>
+    <li><strong>disabled</strong> — removed from Tab order and announced as unavailable.</li>
+    <li><strong>Focus ring</strong> — customise it, never remove it.</li>
+  </ul>
+
+  <p class="warn"><strong>If you really must use a div:</strong> add <code>role="button"</code>, <code>tabindex="0"</code>,
+    and a keydown handler for Enter and Space. But almost always, you can just use <code>&lt;button&gt;</code>.</p>
+
+  <h2>Key points</h2>
+  <ul>
+    <li><code>&lt;button&gt;</code> for actions, <code>&lt;a href&gt;</code> for navigation.</li>
+    <li>Add <code>type="button"</code> inside forms so the button doesn't submit by accident.</li>
+  </ul>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semantic HTML</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    .compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+    pre { margin: 0; padding: 14px; overflow-x: auto; border-radius: 8px; font-size: .8rem; background: #f1f5f9; }
+    h2 { font-size: 1rem; }
+    .bad { color: #dc2626; }
+    .good { color: #16a34a; }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+    td:first-child { font-family: Consolas, monospace; color: #1a7f5a; }
+  </style>
+</head>
+<body>
+  <!-- A screen reader doesn't see your CSS. It reads the HTML and announces what
+       each element IS. Semantic elements give it a map of the page; divs give it nothing. -->
+  <h1>Semantic HTML</h1>
+
+  <div class="compare">
+    <section>
+      <h2 class="bad">✗ Div soup</h2>
+<pre>&lt;div id="header"&gt;
+  &lt;div id="logo"&gt;My Site&lt;/div&gt;
+  &lt;div id="nav"&gt;
+    &lt;div class="link"&gt;Home&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="main"&gt;
+  &lt;div class="title"&gt;Hello&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="footer"&gt;© 2026&lt;/div&gt;</pre>
+    </section>
+    <section>
+      <h2 class="good">✓ Semantic</h2>
+<pre>&lt;header&gt;
+  &lt;a href="/"&gt;My Site&lt;/a&gt;
+  &lt;nav aria-label="Main navigation"&gt;
+    &lt;a href="/"&gt;Home&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+&lt;main&gt;
+  &lt;article&gt;&lt;h1&gt;Hello&lt;/h1&gt;&lt;/article&gt;
+&lt;/main&gt;
+&lt;footer&gt;© 2026&lt;/footer&gt;</pre>
+    </section>
+  </div>
+
+  <h2>What the screen reader announces</h2>
+  <table>
+    <thead><tr><th>Element</th><th>Announced as</th></tr></thead>
+    <tbody>
+      <tr><td>&lt;header&gt;</td><td>"banner" landmark (page header)</td></tr>
+      <tr><td>&lt;nav&gt;</td><td>"navigation" landmark — users jump straight here</td></tr>
+      <tr><td>&lt;main&gt;</td><td>"main" landmark — the skip-link target</td></tr>
+      <tr><td>&lt;article&gt;</td><td>"article" — makes sense on its own</td></tr>
+      <tr><td>&lt;aside&gt;</td><td>"complementary" landmark</td></tr>
+      <tr><td>&lt;footer&gt;</td><td>"contentinfo" landmark (page footer)</td></tr>
+      <tr><td>&lt;section&gt;</td><td>"region" landmark, when it has an aria-label</td></tr>
+      <tr><td>&lt;h1&gt;–&lt;h6&gt;</td><td>"Heading level 1: …" — users skim by heading</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Key points</h2>
+  <ul>
+    <li>One <code>&lt;main&gt;</code> and one <code>&lt;h1&gt;</code> per page.</li>
+    <li>Don't skip heading levels — style sizes with CSS instead.</li>
+  </ul>
+</body>
+</html>

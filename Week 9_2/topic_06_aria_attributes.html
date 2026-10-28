@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARIA Attributes</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    td:first-child { font-family: Consolas, monospace; color: #1a7f5a; }
+    .warn { margin-top: 20px; padding: 14px 16px; border-left: 4px solid #d97706; border-radius: 0 8px 8px 0; background: #fef3c7; }
+    button { padding: 8px 16px; font: 600 .95rem system-ui, sans-serif; color: white; background: #1a56db; border: none; border-radius: 8px; cursor: pointer; }
+    #faq-1 { margin-top: 8px; padding: 12px; border-radius: 8px; background: #f1f5f9; }
+  </style>
+</head>
+<body>
+  <!-- ARIA = Accessible Rich Internet Applications. Extra attributes that tell
+       assistive technology what HTML alone can't. First rule: don't use ARIA if
+       a native HTML element already does the job. -->
+  <h1>ARIA attributes</h1>
+
+  <table>
+    <thead><tr><th>Attribute</th><th>Purpose</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>aria-label</td><td>A name for an element with no visible text</td><td><code>&lt;button aria-label="Close dialog"&gt;✕&lt;/button&gt;</code></td></tr>
+      <tr><td>aria-describedby</td><td>Points to extra description text</td><td><code>&lt;input aria-describedby="pwd-hint"&gt;</code></td></tr>
+      <tr><td>aria-hidden</td><td>Hides decoration from screen readers</td><td><code>&lt;span aria-hidden="true"&gt;🏠&lt;/span&gt; Home</code></td></tr>
+      <tr><td>aria-live</td><td>Announces content that changes</td><td><code>&lt;div aria-live="polite"&gt;Saved&lt;/div&gt;</code></td></tr>
+      <tr><td>aria-expanded</td><td>Says whether a section is open</td><td><code>&lt;button aria-expanded="false"&gt;Menu&lt;/button&gt;</code></td></tr>
+      <tr><td>role</td><td>A role, only when no native element exists</td><td><code>&lt;div role="alert"&gt;Form saved!&lt;/div&gt;</code></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Try it: aria-expanded + aria-live</h2>
+  <button type="button" aria-expanded="false" aria-controls="faq-1" id="faq-toggle">What is accessibility?</button>
+  <div id="faq-1" hidden>Accessibility means designing so everyone can use your site.</div>
+  <p aria-live="polite" id="status"></p>
+
+  <p class="warn"><strong>The first rule of ARIA: don't use ARIA.</strong>
+    <code>&lt;button&gt;</code> beats <code>&lt;div role="button"&gt;</code>; <code>&lt;label&gt;</code> beats <code>aria-label</code>.
+    ARIA is for widgets with no HTML element, like custom tabs or sliders.</p>
+
+  <script>
+    const toggle = document.querySelector('#faq-toggle');
+    const answer = document.querySelector('#faq-1');
+    const status = document.querySelector('#status');
+
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      answer.hidden = open;
+      status.textContent = open ? 'Answer hidden' : 'Answer shown'; // aria-live announces this
+    });
+  </script>
+</body>
+</html>
