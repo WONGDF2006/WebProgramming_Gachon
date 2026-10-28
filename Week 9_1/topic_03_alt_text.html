@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alt Text</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; }
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    code { color: #1a56db; }
+    .bad { color: #dc2626; }
+    .good { color: #16a34a; }
+  </style>
+</head>
+<body>
+  <!-- alt text is read INSTEAD of the image. Write what the image is FOR, not what it looks like.
+       - Informative image  → describe its purpose
+       - Decorative image   → alt="" (empty) so screen readers skip it
+       - Never start with "image of" / "picture of" — the reader already says "image". -->
+  <h1>Alt text: describe the purpose</h1>
+
+  <table>
+    <thead>
+      <tr><th>Image</th><th class="bad">✗ Weak</th><th class="good">✓ Better</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Magnifying-glass icon on a search button</td>
+        <td><code>alt="magnifying glass"</code></td>
+        <td><code>alt="Search"</code> — what it does</td>
+      </tr>
+      <tr>
+        <td>Club logo linking to the home page</td>
+        <td><code>alt="logo.png"</code></td>
+        <td><code>alt="Gachon WIND — home"</code></td>
+      </tr>
+      <tr>
+        <td>Chart of results in an article</td>
+        <td><code>alt="image of a chart"</code></td>
+        <td><code>alt="Sign-ups rose from 20 in March to 85 in June"</code></td>
+      </tr>
+      <tr>
+        <td>Wavy divider line between sections</td>
+        <td><code>alt="decorative wave"</code></td>
+        <td><code>alt=""</code> — decorative, skip it</td>
+      </tr>
+      <tr>
+        <td>Photo next to a caption that already describes it</td>
+        <td>alt repeats the caption</td>
+        <td><code>alt=""</code>, or add only what the caption misses</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Quick test: if you replaced the image with its alt text, would the page still make sense?</p>
+</body>
+</html>

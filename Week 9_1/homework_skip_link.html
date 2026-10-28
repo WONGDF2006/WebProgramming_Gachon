@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework: Skip Link</title>
+  <!--
+    HOMEWORK (part 2): add a skip link to your course project.
+    About 10 lines of HTML + CSS. It satisfies WCAG 2.4.1 "Bypass Blocks" (Level A):
+    keyboard users can jump past the header and menu straight to the content.
+      1. Make the skip link the FIRST focusable element in <body>
+      2. Point it at <main id="main-content">
+      3. Hide it off-screen, and slide it into view on :focus
+    Test: load the page and press Tab once.
+  -->
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; color: #1e293b; }
+
+    /* --- The skip link: these few rules are the whole trick --- */
+    .skip-link {
+      position: absolute; top: -48px; left: 16px; z-index: 100;
+      padding: 10px 16px; font-weight: 700; color: white; background: #1a56db;
+      border-radius: 0 0 8px 8px; transition: top .2s;
+    }
+    .skip-link:focus { top: 0; }
+    /* --------------------------------------------------------- */
+
+    header { padding: 20px 16px; color: white; background: #1b2540; }
+    header h1 { margin: 0 0 12px; font-size: 1.3rem; }
+    nav ul { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+    nav a { display: block; padding: 6px 10px; color: white; border-radius: 6px; }
+    nav a:focus-visible, main :focus-visible { outline: 3px solid #f59e0b; }
+    main { max-width: 640px; margin: 0 auto; padding: 24px 16px; }
+    main:focus { outline: none; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header>
+    <h1>Gachon WIND CCA</h1>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Members</a></li>
+        <li><a href="#">Schedule</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Join us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- tabindex="-1" lets the skip link move keyboard focus here, not just scroll -->
+  <main id="main-content" tabindex="-1">
+    <h2>Welcome</h2>
+    <p>Press <kbd>Tab</kbd> once after the page loads: the "Skip to main content" link appears.
+       Press <kbd>Enter</kbd> and focus jumps here, past all eight menu links.</p>
+    <p><a href="#">The next Tab lands on this link</a>, not on "Home".</p>
+  </main>
+</body>
+</html>

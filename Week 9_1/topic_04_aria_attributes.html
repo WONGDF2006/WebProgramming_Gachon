@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARIA Attributes</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 520px; margin: 0 auto; color: #1e293b; }
+    h2 { margin-top: 28px; font-size: 1rem; }
+    button { padding: 8px 16px; font: 600 1rem system-ui, sans-serif; color: white; background: #1a56db; border: none; border-radius: 8px; cursor: pointer; }
+    .icon-button { padding: 8px 12px; font-size: 1.2rem; }
+    .panel { margin-top: 10px; padding: 12px 14px; border-radius: 8px; background: #f1f5f9; }
+  </style>
+</head>
+<body>
+  <!-- ARIA adds information that HTML alone can't express.
+       First rule of ARIA: if a native element already does it, use that instead.
+       Use ARIA sparingly — wrong ARIA is worse than no ARIA. -->
+  <h1>ARIA attributes — use sparingly</h1>
+
+  <h2>aria-label: a name for a button with no text</h2>
+  <!-- Without aria-label a screen reader would just say "button" -->
+  <button type="button" class="icon-button" aria-label="Close menu">✕</button>
+
+  <h2>aria-hidden="true": hide decoration from screen readers</h2>
+  <!-- The emoji is decoration; the text already says it -->
+  <p><span aria-hidden="true">⭐</span> Featured project</p>
+
+  <h2>aria-expanded: tell users if something is open</h2>
+  <button type="button" id="menu-toggle" aria-expanded="false" aria-controls="menu-panel">Show menu</button>
+  <div class="panel" id="menu-panel" hidden>
+    <a href="#">Home</a> · <a href="#">Events</a> · <a href="#">Join us</a>
+  </div>
+
+  <script>
+    const toggle = document.querySelector('#menu-toggle');
+    const panel = document.querySelector('#menu-panel');
+
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open)); // screen reader hears "expanded" / "collapsed"
+      toggle.textContent = open ? 'Show menu' : 'Hide menu';
+      panel.hidden = open;
+    });
+  </script>
+</body>
+</html>

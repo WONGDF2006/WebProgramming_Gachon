@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semantic HTML for Accessibility</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; }
+    .compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    pre { margin: 0; padding: 14px; overflow-x: auto; border-radius: 10px; font-size: .82rem; background: #f1f5f9; }
+    h2 { font-size: 1rem; }
+    .bad { color: #dc2626; }
+    .good { color: #16a34a; }
+  </style>
+</head>
+<body>
+  <!-- Screen readers build a map of the page from its landmarks and headings.
+       <header>, <nav>, <main>, <article>, <footer> give that map for free.
+       A page of plain <div>s looks the same on screen but has NO map:
+       the user must listen to everything from the top. -->
+  <h1>Semantic HTML = structure with meaning</h1>
+
+  <div class="compare">
+    <section>
+      <h2 class="bad">✗ Div soup — no landmarks</h2>
+<pre>&lt;div class="top"&gt;
+  &lt;div class="menu"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="content"&gt;
+  &lt;div class="big-text"&gt;News&lt;/div&gt;
+  &lt;div class="post"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="bottom"&gt;...&lt;/div&gt;</pre>
+    </section>
+    <section>
+      <h2 class="good">✓ Semantic — a screen reader can jump around</h2>
+<pre>&lt;header&gt;
+  &lt;nav&gt;...&lt;/nav&gt;
+&lt;/header&gt;
+&lt;main&gt;
+  &lt;h1&gt;News&lt;/h1&gt;
+  &lt;article&gt;...&lt;/article&gt;
+&lt;/main&gt;
+&lt;footer&gt;...&lt;/footer&gt;</pre>
+    </section>
+  </div>
+
+  <h2>What each landmark gives the user</h2>
+  <ul>
+    <li><code>&lt;header&gt;</code> → "banner" — the site header</li>
+    <li><code>&lt;nav&gt;</code> → "navigation" — jump straight to the menu</li>
+    <li><code>&lt;main&gt;</code> → "main" — skip everything and start reading</li>
+    <li><code>&lt;article&gt;</code> → a self-contained piece, like one post</li>
+    <li><code>&lt;footer&gt;</code> → "contentinfo" — contact and copyright</li>
+    <li><code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> → a heading outline; don't skip levels</li>
+  </ul>
+</body>
+</html>

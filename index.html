@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
+	<a class="skip-link" href="#main-content">Skip to main content</a>
 	<div class="layout">
 		<header class="sidebar">
 			<p class="eyebrow">Web Programming · Gachon University</p>
@@ -21,13 +22,14 @@
 				<a href="#week-6"><span>06</span>Week 6 · Fetch &amp; Forms</a>
 				<a href="#week-7"><span>07</span>Week 7 · Book Search lab</a>
 				<a href="#week-8"><span>08</span>Week 8 · JS form validation</a>
+				<a href="#week-9"><span>09</span>Week 9 · Web accessibility</a>
 				<a href="#assignment"><span>★</span>Assignment · WIND CCA</a>
 			</nav>
 			<div class="legend" aria-label="Content types"><span>Topic</span><span>Exercise</span></div>
 			<footer>Web Programming · Gachon University · 2026</footer>
 		</header>
 
-		<main>
+		<main id="main-content" tabindex="-1">
 			<div class="section-lead">
 				<h2>Browse the course</h2>
 				<p>Open a week, choose a session, and jump straight into a lesson.</p>
@@ -295,6 +297,21 @@
 						["topic_06_aria-describedby_and_aria-invalid.html", "aria-describedby & aria-invalid"]
 					], exercises: [
 						["homework_registration_form_js_validation.html", "Homework: Registration Form With JS Validation"]
+					] }
+				]
+			},
+			{
+				week: 9, title: "Web Accessibility", description: "Semantic structure, alt text, ARIA, keyboard support, and colour contrast", sessions: [
+					{ name: "Web accessibility", folder: "Week 9_1", topics: [
+						["topic_01_semantic_html.html", "Semantic HTML"],
+						["topic_02_native_elements.html", "Native Elements Over Div"],
+						"topic_03_alt_text.html",
+						["topic_04_aria_attributes.html", "ARIA Attributes"],
+						"topic_05_keyboard_navigation.html",
+						"topic_06_color_contrast.html"
+					], exercises: [
+						["homework_lighthouse_audit.html", "Homework: Lighthouse Accessibility Audit"],
+						["homework_skip_link.html", "Homework: Skip Link"]
 					] }
 				]
 			}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework: Lighthouse Accessibility Audit</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 40px 16px; font-family: system-ui, sans-serif; color: #1e293b; background: #f0f4ff; }
+    main { max-width: 720px; margin: 0 auto; }
+    h1 { margin-top: 0; }
+    .due { color: #64748b; }
+    section { margin-bottom: 18px; padding: 20px 24px; border-radius: 14px; background: white; box-shadow: 0 6px 20px rgba(15, 23, 42, .06); }
+    h2 { margin-top: 0; font-size: 1.1rem; color: #1a56db; }
+    ol, ul { padding-left: 22px; }
+    li { margin-bottom: 6px; }
+    kbd, code { padding: 1px 5px; border-radius: 4px; font-size: .88em; background: #e2e8f0; }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Homework: Lighthouse Accessibility Audit</h1>
+    <p class="due">Due Thursday before class · Post to Discord</p>
+
+    <section>
+      <h2>Tasks</h2>
+      <ol>
+        <li>Run Lighthouse on your personal or team project site (Accessibility audit only).</li>
+        <li>Screenshot the initial Accessibility score.</li>
+        <li>Fix at least 3 failing audits from the report.</li>
+        <li>Re-run Lighthouse and screenshot the improved score.</li>
+        <li>Post both screenshots and your list of 3 fixes to the weekly task page.</li>
+        <li>Add a skip link to your course project — see <a href="homework_skip_link.html">the skip link example</a>.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>How to run Lighthouse in Chrome</h2>
+      <ol>
+        <li>Open your site in Chrome and press <kbd>F12</kbd> to open DevTools.</li>
+        <li>Open the <strong>Lighthouse</strong> tab (it may be under <code>»</code>).</li>
+        <li>Under <em>Categories</em>, tick only <strong>Accessibility</strong>.</li>
+        <li>Choose <em>Desktop</em> or <em>Mobile</em>, then click <strong>Analyze page load</strong>.</li>
+        <li>Screenshot the score circle and the list of failing audits.</li>
+      </ol>
+      <p>Tip: run it in an Incognito window so browser extensions don't change the result.</p>
+    </section>
+
+    <section>
+      <h2>Common failing audits and how to fix them</h2>
+      <table>
+        <thead>
+          <tr><th>Lighthouse says</th><th>Fix</th><th>Topic</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Image elements do not have <code>[alt]</code> attributes</td><td>Add alt text that describes the purpose, or <code>alt=""</code> if decorative</td><td><a href="topic_03_alt_text.html">Alt text</a></td></tr>
+          <tr><td>Background and foreground colors do not have a sufficient contrast ratio</td><td>Darken the text or lighten the background until it reaches 4.5 : 1</td><td><a href="topic_06_color_contrast.html">Contrast</a></td></tr>
+          <tr><td>Buttons do not have an accessible name</td><td>Give icon-only buttons an <code>aria-label</code></td><td><a href="topic_04_aria_attributes.html">ARIA</a></td></tr>
+          <tr><td>Links do not have a discernible name</td><td>Put text in the link, or alt text on the image inside it</td><td><a href="topic_03_alt_text.html">Alt text</a></td></tr>
+          <tr><td>Form elements do not have associated labels</td><td>Add <code>&lt;label for="id"&gt;</code> for every input</td><td><a href="../Week%206_2/topic_05_labels_and_accessibility.html">Week 6 labels</a></td></tr>
+          <tr><td><code>&lt;html&gt;</code> element does not have a <code>[lang]</code> attribute</td><td>Add <code>&lt;html lang="en"&gt;</code></td><td><a href="../week%202-1/topic_08_the_lang_attribute.html">Week 2 lang</a></td></tr>
+          <tr><td>Heading elements are not in a sequentially-descending order</td><td>Don't jump from <code>&lt;h1&gt;</code> to <code>&lt;h4&gt;</code>; style with CSS instead</td><td><a href="topic_01_semantic_html.html">Semantic HTML</a></td></tr>
+          <tr><td>Document doesn't have a main landmark</td><td>Wrap the page content in <code>&lt;main&gt;</code></td><td><a href="topic_01_semantic_html.html">Semantic HTML</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Template for your Discord post</h2>
+      <ul>
+        <li>Site: <em>your project URL</em></li>
+        <li>Score: <em>before</em> → <em>after</em> (attach both screenshots)</li>
+        <li>Fix 1: <em>audit name — what you changed</em></li>
+        <li>Fix 2: <em>audit name — what you changed</em></li>
+        <li>Fix 3: <em>audit name — what you changed</em></li>
+        <li>Skip link added: yes / no</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

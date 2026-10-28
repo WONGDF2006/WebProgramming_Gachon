@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Native Elements Over Div</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 520px; margin: 0 auto; color: #1e293b; }
+    .fake-button, button { display: inline-block; padding: 10px 20px; font: 700 1rem system-ui, sans-serif; color: white; background: #1a56db; border: none; border-radius: 8px; cursor: pointer; }
+    .fake-button { background: #94a3b8; }
+    h2 { margin-top: 28px; font-size: 1rem; }
+    #log { margin-top: 20px; padding: 12px; border-radius: 8px; background: #f1f5f9; font-family: Consolas, monospace; font-size: .85rem; }
+  </style>
+</head>
+<body>
+  <!-- <button> for ACTIONS (do something on this page).
+       <a href> for LINKS (go somewhere).
+       Native elements come with keyboard focus, Enter/Space support, and
+       the correct role for screen readers. A clickable <div> has none of that. -->
+  <h1>Native elements, always over div</h1>
+  <p>Press <kbd>Tab</kbd> to move through the page, then <kbd>Enter</kbd> or <kbd>Space</kbd>.</p>
+
+  <h2>✗ &lt;div onclick&gt; — Tab skips it, Enter does nothing</h2>
+  <div class="fake-button" id="fake">Save (div)</div>
+
+  <h2>✓ &lt;button&gt; — focusable, works with Enter and Space</h2>
+  <button type="button" id="real">Save (button)</button>
+
+  <h2>✓ &lt;a href&gt; for navigation</h2>
+  <a href="topic_01_semantic_html.html">Go to Topic 1 · Semantic HTML</a>
+
+  <div id="log">Nothing clicked yet.</div>
+
+  <script>
+    const log = document.querySelector('#log');
+    document.querySelector('#fake').addEventListener('click', () => { log.textContent = 'div clicked (mouse only!)'; });
+    document.querySelector('#real').addEventListener('click', () => { log.textContent = 'button clicked — mouse, Enter, or Space'; });
+  </script>
+</body>
+</html>

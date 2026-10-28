@@ -24,6 +24,22 @@ body {
 a { color: inherit; text-decoration: none; }
 h1, h2, h3, h4, h5, p { margin-top: 0; }
 
+/* Skip link: hidden until a keyboard user tabs to it */
+.skip-link {
+	position: absolute;
+	top: -48px;
+	left: 16px;
+	z-index: 100;
+	padding: 10px 16px;
+	border-radius: 0 0 8px 8px;
+	color: var(--bg);
+	background: var(--topic);
+	font-weight: 700;
+	transition: top .2s;
+}
+.skip-link:focus { top: 0; }
+main:focus { outline: none; }
+
 .layout { display: grid; grid-template-columns: 320px minmax(0, 1fr); min-height: 100vh; }
 
 /* Sidebar */
