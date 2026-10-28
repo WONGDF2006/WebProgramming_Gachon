@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Proper alt Text</title>
+  <!--
+    E2 · ADD PROPER alt TEXT TO IMAGES
+    Task: fix the alt text on four images.
+      1. Campus photo (informational) → describe it
+      2. Decorative wave divider      → alt="" so screen readers skip it
+      3. Logo linking to the homepage → describe the link destination
+      4. Bar chart                    → state what the chart shows
+    Click "Check my alt text" to test your answers.
+  -->
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 520px; margin: 0 auto; color: #1e293b; }
+    .img-placeholder {
+      display: flex; align-items: center; justify-content: center; height: 80px; margin-bottom: 6px;
+      font-size: 24px; border: 2px dashed #94a3b8; border-radius: 8px;
+    }
+    .label { margin: 0 0 14px; font-size: 12px; color: #475569; }
+    img { display: none; }
+    button { padding: 10px 20px; font: 600 14px system-ui, sans-serif; color: white; background: #1a7f5a; border: none; border-radius: 8px; cursor: pointer; }
+    #feedback { margin-top: 12px; font-size: 14px; line-height: 1.7; }
+  </style>
+</head>
+<body>
+  <h1>Add proper alt text</h1>
+
+  <!-- Before: alt="image" -->
+  <div class="img-placeholder" style="background:#e0eaff" aria-hidden="true">🏫</div>
+  <img src="" alt="Gachon University main building, a modern glass structure surrounded by trees">
+  <p class="label">Image 1: Campus building photo (informational)</p>
+
+  <!-- Before: no alt attribute at all -->
+  <div class="img-placeholder" style="background:#f0fdf4" aria-hidden="true">〰️</div>
+  <img src="" alt="">
+  <p class="label">Image 2: Decorative wavy divider</p>
+
+  <!-- Before: alt="logo" -->
+  <div class="img-placeholder" style="background:#fef3c7" aria-hidden="true">🏫</div>
+  <a href="/"><img src="" alt="Gachon University — go to homepage"></a>
+  <p class="label">Image 3: University logo (inside a link to the homepage)</p>
+
+  <!-- Before: alt="chart" -->
+  <div class="img-placeholder" style="background:#f5f0ff" aria-hidden="true">📊</div>
+  <img src="" alt="Bar chart of student enrollment: 2024: 1,200; 2025: 1,400; 2026: 1,476">
+  <p class="label">Image 4: Enrollment chart — 2024: 1,200 | 2025: 1,400 | 2026: 1,476 students</p>
+
+  <button type="button" id="check">Check my alt text</button>
+  <div id="feedback" aria-live="polite"></div>
+
+  <script>
+    document.querySelector('#check').addEventListener('click', () => {
+      const results = [...document.querySelectorAll('img')].map((img, i) => {
+        const alt = img.getAttribute('alt');
+        if (alt === null) return `❌ Image ${i + 1}: missing alt attribute`;
+        if (['image', 'logo', 'chart'].includes(alt)) return `⚠️ Image ${i + 1}: alt="${alt}" is too generic`;
+        if (i === 1 && alt !== '') return '⚠️ Image 2 should have alt="" (decorative)';
+        return `✅ Image ${i + 1}: alt="${alt}"`;
+      });
+      document.querySelector('#feedback').innerHTML = results.join('<br>');
+    });
+  </script>
+</body>
+</html>

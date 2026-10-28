@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Run Lighthouse & Fix Issues</title>
+  <!--
+    E3 · RUN LIGHTHOUSE & FIX ISSUES
+    The original sign-up form had four accessibility problems. All four are fixed below.
+      1. Icon-only button had no accessible name   → aria-label="Search"
+      2. Email input had no <label>                → <label for="email-field">
+      3. Errors were shown with red colour only    → "Error:" text + icon + role="alert"
+      4. Linked image had alt="click here"         → alt describes the destination
+    Test: open DevTools (F12) → Lighthouse → Accessibility only → Analyze page load.
+  -->
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 400px; margin: 0 auto; color: #1e293b; }
+    label { display: block; margin: 14px 0 4px; font-weight: 600; font-size: .9rem; }
+    input { width: 100%; padding: 8px; font-size: 15px; border: 2px solid #94a3b8; border-radius: 6px; box-sizing: border-box; }
+    .error { margin: 4px 0 0; font-size: 13px; color: #b91c1c; }
+    button { padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; }
+    button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #1a56db; outline-offset: 2px; }
+    .icon-btn { width: 36px; height: 36px; font-size: 18px; color: white; background: #1a7f5a; border-radius: 50%; }
+    .submit-btn { width: 100%; margin-top: 16px; padding: 10px 24px; font-size: 15px; color: white; background: #1a56db; }
+    .about-link { display: inline-block; margin-top: 16px; }
+    .about-link img { display: block; width: 80px; height: 40px; border-radius: 4px; background: #e0eaff; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Sign Up</h1>
+
+    <!-- Fix 1 -->
+    <button type="button" class="icon-btn" aria-label="Search">🔍</button>
+
+    <form novalidate>
+      <!-- Fix 2 -->
+      <label for="email-field">Email address</label>
+      <input type="email" id="email-field" placeholder="you@example.com" aria-describedby="email-error">
+      <!-- Fix 3: text marker, not colour alone -->
+      <p class="error" id="email-error" role="alert">⚠️ Error: Please enter a valid email address.</p>
+
+      <label for="password-field">Password</label>
+      <input type="password" id="password-field" aria-describedby="password-error">
+      <p class="error" id="password-error" role="alert">⚠️ Error: Password too short. Must be 8+ characters.</p>
+
+      <button type="submit" class="submit-btn">Create account</button>
+    </form>
+
+    <!-- Fix 4 -->
+    <a href="#" class="about-link"><img src="" alt="Learn about our team"></a>
+  </main>
+</body>
+</html>

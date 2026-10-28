@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fix a div-button to a real button</title>
+  <!--
+    E1 · FIX A DIV-BUTTON TO A REAL <button>
+    Task:
+      - Replace <div class="btn" onclick> with <button type="button">
+      - Add a :focus-visible style so keyboard focus is clearly visible
+      - Give the icon-only ✕ button an aria-label
+    Test: press Tab to reach each button, then Enter or Space to activate it.
+  -->
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 520px; margin: 0 auto; color: #1e293b; }
+    .btn {
+      display: inline-block; padding: 10px 24px; font: 600 15px system-ui, sans-serif;
+      color: white; background: #1a7f5a; border: none; border-radius: 8px; cursor: pointer;
+    }
+    .close-btn {
+      width: 36px; height: 36px; margin-left: 16px; font-size: 18px;
+      color: white; background: #dc2626; border: none; border-radius: 50%; cursor: pointer;
+    }
+    /* Visible focus ring for keyboard users only */
+    .btn:focus-visible { outline: 3px solid #1a7f5a; outline-offset: 3px; }
+    .close-btn:focus-visible { outline: 3px solid #dc2626; outline-offset: 3px; }
+    #result { margin-top: 16px; font-size: 14px; color: #475569; }
+  </style>
+</head>
+<body>
+  <h1>Fix the div-button</h1>
+  <p>Press <kbd>Tab</kbd>, then <kbd>Enter</kbd> or <kbd>Space</kbd>:</p>
+
+  <!-- Before: <div class="btn" onclick="...">Submit form</div> — Tab skips it -->
+  <button type="button" class="btn" id="submit">Submit form</button>
+
+  <!-- Before: no aria-label — a screen reader only says "button" -->
+  <button type="button" class="close-btn" id="close" aria-label="Close">✕</button>
+
+  <p id="result" aria-live="polite"></p>
+
+  <script>
+    const result = document.querySelector('#result');
+    document.querySelector('#submit').addEventListener('click', () => {
+      result.textContent = '✅ Submit activated — works by keyboard and mouse';
+    });
+    document.querySelector('#close').addEventListener('click', () => {
+      result.textContent = '✅ Close activated — announced as "Close, button"';
+    });
+  </script>
+</body>
+</html>
