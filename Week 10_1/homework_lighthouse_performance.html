@@ -45,28 +45,29 @@
         Lighthouse 12.6.0, Performance only, mobile (Moto G Power, slow 4G), 2 Nov 2026.</p>
 
       <p class="summary">I served a minified stylesheet, stopped the Assignment video from downloading until it is played, added an inline favicon to remove a failing 404 request, and made each week's links build only when that week is opened.
-        The score was already 100 and stayed 100, but the page now starts with 56% fewer DOM elements (800 → 348), 2 fewer requests, and no failed requests.</p>
+        The score was already 100 and stayed 100, but the page now transfers 63% less data on load (22.6 → 8.4 KiB), starts with 56% fewer DOM elements, and makes no failed requests.</p>
 
       <table>
         <thead><tr><th>Lighthouse measurement</th><th>Before</th><th>After</th></tr></thead>
         <tbody>
           <tr><td>Performance score</td><td>100</td><td>100</td></tr>
-          <tr><td>First / Largest Contentful Paint</td><td>0.9 s / 0.9 s</td><td>0.9 s / 1.0 s</td></tr>
+          <tr><td>First / Largest Contentful Paint</td><td>0.9 s / 0.9 s</td><td>0.9 s / 0.9 s</td></tr>
           <tr><td>DOM elements</td><td>800</td><td class="better">348</td></tr>
           <tr><td>Network requests</td><td>10</td><td class="better">8</td></tr>
+          <tr><td>Data transferred</td><td>22.6 KiB</td><td class="better">8.4 KiB</td></tr>
           <tr><td>Failed requests</td><td>1 (404 favicon.ico)</td><td class="better">0</td></tr>
           <tr><td>Stylesheet</td><td>style.css, 5,559 bytes</td><td class="better">style.min.css, 4,663 bytes</td></tr>
         </tbody>
       </table>
-      <p>Paint times move by ±0.1 s between runs; three runs of each version gave the same range.</p>
+      <p>Both columns are from the live site. I ran the "after" audit three times: two runs matched the table, one scored 99 (normal run-to-run variation).</p>
 
       <figure>
         <img src="captures/perf-before.png" alt="Lighthouse report before: Performance 100, FCP 0.9 s, LCP 0.9 s, TBT 0 ms, CLS 0, Speed Index 0.9 s" width="1100" height="1500" loading="lazy">
         <figcaption>Before — live site · <a href="captures/perf-before-report.html">full Lighthouse report</a></figcaption>
       </figure>
       <figure>
-        <img src="captures/perf-after.png" alt="Lighthouse report after: Performance 100, FCP 0.9 s, LCP 1.0 s, TBT 0 ms, CLS 0, Speed Index 0.9 s" width="1100" height="1500" loading="lazy">
-        <figcaption>After — run on a local copy before publishing · <a href="captures/perf-after-report.html">full Lighthouse report</a></figcaption>
+        <img src="captures/perf-after.png" alt="Lighthouse report after: Performance 100, FCP 0.9 s, LCP 0.9 s, TBT 0 ms, CLS 0, Speed Index 0.9 s" width="1100" height="1500" loading="lazy">
+        <figcaption>After — live site · <a href="captures/perf-after-report.html">full Lighthouse report</a></figcaption>
       </figure>
 
       <h3>The optimizations</h3>
