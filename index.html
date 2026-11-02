@@ -4,7 +4,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Web Programming | Course Library</title>
-	<link rel="stylesheet" href="style.css">
+	<!-- Inline icon: saves a request that would 404 on /favicon.ico -->
+	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230e1116'/%3E%3Ctext x='16' y='22' font-size='16' font-family='monospace' font-weight='700' fill='%235eead4' text-anchor='middle'%3EWP%3C/text%3E%3C/svg%3E">
+	<!-- Minified build of style.css (edit style.css, then rebuild) -->
+	<link rel="stylesheet" href="style.min.css">
 </head>
 <body>
 	<a class="skip-link" href="#main-content">Skip to main content</a>
@@ -23,9 +26,10 @@
 				<a href="#week-7"><span>07</span>Week 7 · Book Search lab</a>
 				<a href="#week-8"><span>08</span>Week 8 · Forms &amp; validation</a>
 				<a href="#week-9"><span>09</span>Week 9 · Web accessibility</a>
+				<a href="#week-10"><span>10</span>Week 10 · Web performance</a>
 				<a href="#assignment"><span>★</span>Assignment · WIND CCA</a>
 			</nav>
-			<div class="legend" aria-label="Content types"><span>Topic</span><span>Exercise</span></div>
+			<div class="legend" role="group" aria-label="Content types"><span>Topic</span><span>Exercise</span></div>
 			<footer>Web Programming · Gachon University · 2026</footer>
 		</header>
 
@@ -45,7 +49,7 @@
 				<div class="sessions">
 					<article class="session">
 						<h4>Website walkthrough</h4>
-						<video class="assignment-video" controls preload="metadata" src="Assignment/CLUB_WEBSITE.mp4">
+						<video class="assignment-video" controls preload="none" src="Assignment/CLUB_WEBSITE.mp4">
 							Your browser cannot play this video. <a href="Assignment/CLUB_WEBSITE.mp4">Download it instead</a>.
 						</video>
 					</article>
@@ -329,6 +333,27 @@
 						["exercise_03_lighthouse_and_fix.html", "Run Lighthouse & Fix Issues"]
 					] }
 				]
+			},
+			{
+				week: 10, title: "Web Performance Optimization", description: "Measuring with Lighthouse, then images, lazy loading, minification, defer, caching, and CDNs", sessions: [
+					{ name: "Web performance", folder: "Week 10_1", topics: [
+						"topic_01_why_performance_matters.html",
+						"topic_02_measuring_performance.html",
+						"topic_03_the_network_tab.html",
+						"topic_04_image_optimization.html",
+						"topic_05_lazy_loading.html",
+						"topic_06_minification.html",
+						["topic_07_js_loading_defer_async.html", "JS Loading: defer & async"],
+						"topic_08_caching.html",
+						["topic_09_cdn.html", "CDN (Content Delivery Network)"],
+						"topic_10_quick_wins_checklist.html"
+					], exercises: [
+						["exercise_01_lighthouse_fixes.html", "Run Lighthouse & Fix the Page"],
+						["exercise_02_picture_webp_srcset.html", "WebP With <picture> & srcset"],
+						["exercise_03_add_defer.html", "Add defer to Scripts"],
+						["homework_lighthouse_performance.html", "Homework: Lighthouse Performance"]
+					] }
+				]
 			}
 		];
 
@@ -353,13 +378,25 @@
 			return `<div class="link-group ${kind}"><h5>${heading} · ${items.length}</h5>${body}</div>`;
 		};
 
-		document.querySelector("#course-content").innerHTML = course.map((week, weekIndex) => {
+		const renderSessions = (week) => week.sessions.map((session) =>
+			`<article class="session"><h4>${escapeHtml(session.name)}</h4>${makeGroup("Topics", "topics", session.topics, session.folder)}${makeGroup("Exercises", "exercises", session.exercises, session.folder)}</article>`
+		).join("");
+
+		const weekList = document.querySelector("#course-content");
+		weekList.innerHTML = course.map((week, weekIndex) => {
 			const itemCount = week.sessions.reduce((total, session) => total + session.topics.length + session.exercises.length, 0);
-			const sessions = week.sessions.map((session) =>
-				`<article class="session"><h4>${escapeHtml(session.name)}</h4>${makeGroup("Topics", "topics", session.topics, session.folder)}${makeGroup("Exercises", "exercises", session.exercises, session.folder)}</article>`
-			).join("");
-			return `<details class="week" id="${week.id || `week-${week.week}`}" ${weekIndex === 0 ? "open" : ""}><summary><span class="week-number">${String(week.week).padStart(2, "0")}</span><span class="week-title"><h3>${escapeHtml(week.title)}</h3><p>${escapeHtml(week.description)} · ${week.sessions.length} session${week.sessions.length === 1 ? "" : "s"} · ${itemCount} resources</p></span></summary><div class="sessions">${sessions}</div></details>`;
+			return `<details class="week" id="${week.id || `week-${week.week}`}" data-index="${weekIndex}" ${weekIndex === 0 ? "open" : ""}><summary><span class="week-number">${String(week.week).padStart(2, "0")}</span><span class="week-title"><h3>${escapeHtml(week.title)}</h3><p>${escapeHtml(week.description)} · ${week.sessions.length} session${week.sessions.length === 1 ? "" : "s"} · ${itemCount} resources</p></span></summary><div class="sessions"></div></details>`;
 		}).join("");
+
+		// Build a week's links only when it is first opened, so the page starts with a small DOM.
+		weekList.querySelectorAll("details.week").forEach((details) => {
+			const fill = () => {
+				const sessions = details.querySelector(".sessions");
+				if (details.open && !sessions.hasChildNodes()) sessions.innerHTML = renderSessions(course[details.dataset.index]);
+			};
+			details.addEventListener("toggle", fill);
+			fill();
+		});
 
 		// Jumping to a week from the header also opens it.
 		document.querySelectorAll(".week-nav a").forEach((link) => {

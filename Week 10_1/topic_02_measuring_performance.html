@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Measuring Performance</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 760px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+    td:first-child { font-family: Consolas, monospace; font-weight: 700; color: #c2410c; }
+    .good { color: #15803d; } .poor { color: #b91c1c; }
+    kbd { padding: 1px 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: .8rem; background: #f1f5f9; }
+  </style>
+</head>
+<body>
+  <!-- You can't optimize what you don't measure. Lighthouse gives a 0–100 score
+       built from five lab metrics, each with "good" and "poor" thresholds. -->
+  <h1>Measuring performance</h1>
+
+  <table>
+    <thead><tr><th>Metric</th><th>Full name</th><th>Good</th><th>Poor</th><th>Measures</th></tr></thead>
+    <tbody>
+      <tr><td>FCP</td><td>First Contentful Paint</td><td class="good">&lt; 1.8 s</td><td class="poor">&gt; 3 s</td><td>When any content first appears</td></tr>
+      <tr><td>LCP</td><td>Largest Contentful Paint</td><td class="good">&lt; 2.5 s</td><td class="poor">&gt; 4 s</td><td>When the biggest image or text block appears</td></tr>
+      <tr><td>CLS</td><td>Cumulative Layout Shift</td><td class="good">&lt; 0.1</td><td class="poor">&gt; 0.25</td><td>How much the layout jumps (0 = none)</td></tr>
+      <tr><td>TBT</td><td>Total Blocking Time</td><td class="good">&lt; 200 ms</td><td class="poor">&gt; 600 ms</td><td>Time heavy JS blocks the main thread</td></tr>
+      <tr><td>SI</td><td>Speed Index</td><td class="good">&lt; 3.4 s</td><td class="poor">&gt; 5.8 s</td><td>How quickly the visible page fills in</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Running Lighthouse</h2>
+  <ol>
+    <li>Open the page in Chrome, press <kbd>F12</kbd>, open the <strong>Lighthouse</strong> tab.</li>
+    <li>Tick <strong>Performance</strong> only, choose Mobile or Desktop, click <strong>Analyze page load</strong>.</li>
+    <li>Use an Incognito window so extensions don't skew the result.</li>
+    <li>Run it 2–3 times: scores vary a little between runs.</li>
+  </ol>
+
+  <h2>Key points</h2>
+  <ul>
+    <li>Aim for 90+ (green).</li>
+    <li>LCP and CLS have the biggest effect on how fast a page <em>feels</em>.</li>
+    <li>Real users on real phones are usually slower than the lab test.</li>
+  </ul>
+</body>
+</html>

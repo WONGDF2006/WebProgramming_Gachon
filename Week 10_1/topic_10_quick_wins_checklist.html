@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Wins Checklist</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    ul { padding: 0; list-style: none; }
+    li { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #e2e8f0; }
+    input { width: 18px; height: 18px; margin-top: 3px; flex: none; accent-color: #c2410c; }
+    label { flex: 1; }
+    .impact { flex: none; padding: 1px 8px; border-radius: 10px; font-size: .72rem; font-weight: 700; }
+    .high { color: #15803d; background: #dcfce7; } .med { color: #92400e; background: #fef3c7; }
+    #count { font-weight: 700; }
+  </style>
+</head>
+<body>
+  <!-- Ten optimizations that fit almost any site, highest impact first.
+       Measure with Lighthouse before and after so you know what actually helped. -->
+  <h1>Quick wins checklist</h1>
+  <p id="count" aria-live="polite">0 / 10 done</p>
+
+  <ul id="wins">
+    <li><input type="checkbox" id="w1"><label for="w1"><strong>Convert images to WebP</strong> (Squoosh, TinyPNG).</label><span class="impact high">HIGH</span></li>
+    <li><input type="checkbox" id="w2"><label for="w2"><strong>loading="lazy"</strong> on images below the fold.</label><span class="impact high">HIGH</span></li>
+    <li><input type="checkbox" id="w3"><label for="w3"><strong>defer</strong> on external scripts.</label><span class="impact high">HIGH</span></li>
+    <li><input type="checkbox" id="w4"><label for="w4"><strong>width and height</strong> on every image (prevents CLS).</label><span class="impact high">HIGH</span></li>
+    <li><input type="checkbox" id="w5"><label for="w5"><strong>Server compression</strong> (gzip/Brotli).</label><span class="impact high">HIGH</span></li>
+    <li><input type="checkbox" id="w6"><label for="w6"><strong>Minify</strong> CSS and JS.</label><span class="impact med">MED</span></li>
+    <li><input type="checkbox" id="w7"><label for="w7"><strong>CDN</strong> for libraries (jsDelivr, cdnjs).</label><span class="impact med">MED</span></li>
+    <li><input type="checkbox" id="w8"><label for="w8"><strong>&amp;display=swap</strong> on Google Fonts URLs.</label><span class="impact med">MED</span></li>
+    <li><input type="checkbox" id="w9"><label for="w9"><strong>Remove unused CSS</strong> (DevTools → Coverage tab).</label><span class="impact med">MED</span></li>
+    <li><input type="checkbox" id="w10"><label for="w10"><strong>Preload</strong> the hero image and main font with <code>&lt;link rel="preload"&gt;</code>.</label><span class="impact med">MED</span></li>
+  </ul>
+
+  <script>
+    const boxes = document.querySelectorAll('#wins input');
+    const count = document.querySelector('#count');
+    boxes.forEach((box) => box.addEventListener('change', () => {
+      const done = [...boxes].filter((b) => b.checked).length;
+      count.textContent = done + ' / ' + boxes.length + ' done';
+    }));
+  </script>
+</body>
+</html>

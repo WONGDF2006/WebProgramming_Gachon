@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Network Tab</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    .waterfall { padding: 16px; border-radius: 10px; color: #cbd5e1; background: #1a2540; font-size: .82rem; }
+    .row { display: grid; grid-template-columns: 110px 1fr; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .track { position: relative; height: 14px; border-radius: 3px; background: #24324f; }
+    .bar { position: absolute; top: 0; height: 14px; border-radius: 3px; }
+    .row small { grid-column: 2; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <!-- DevTools → Network shows every file the page loads as a waterfall.
+       Each row breaks one request into phases; long phases tell you what's slow. -->
+  <h1>The Network tab</h1>
+
+  <div class="waterfall" aria-label="Request timing phases">
+    <div class="row"><span>Queueing</span><div class="track"><div class="bar" style="left:0;width:5%;background:#6b7280"></div></div><small>Waiting for a free connection</small></div>
+    <div class="row"><span>DNS lookup</span><div class="track"><div class="bar" style="left:5%;width:8%;background:#8b5cf6"></div></div><small>Domain name → IP address</small></div>
+    <div class="row"><span>Connect + SSL</span><div class="track"><div class="bar" style="left:13%;width:12%;background:#f59e0b"></div></div><small>TCP handshake + TLS</small></div>
+    <div class="row"><span>TTFB</span><div class="track"><div class="bar" style="left:25%;width:20%;background:#10b981"></div></div><small>Server thinking until the first byte</small></div>
+    <div class="row"><span>Download</span><div class="track"><div class="bar" style="left:45%;width:55%;background:#3b82f6"></div></div><small>Transferring the file</small></div>
+  </div>
+
+  <p><strong>Long TTFB</strong> (over ~600 ms) means a slow server. <strong>Long download</strong> means the file is too big.</p>
+
+  <h2>Tips</h2>
+  <ul>
+    <li><strong>Throttle</strong> to "Slow 4G" or "3G" to feel what mobile users feel.</li>
+    <li><strong>Sort by Size</strong> to find the heaviest files first.</li>
+    <li><strong>Filter</strong> by Img, JS, or CSS.</li>
+    <li>Tick <strong>Disable cache</strong> to test a first-time visit.</li>
+    <li>Look for <strong>red rows</strong> (4xx/5xx): failed requests waste time.</li>
+  </ul>
+</body>
+</html>

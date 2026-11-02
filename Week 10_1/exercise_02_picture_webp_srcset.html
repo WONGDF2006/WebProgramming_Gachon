@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebP with picture and srcset</title>
+  <!--
+    E2 · COMPARE IMAGE FORMATS (WebP vs JPEG)
+    Task:
+      - Wrap the image in <picture> with a WebP <source>
+      - Keep a JPEG <img> as the fallback
+      - Add srcset with two sizes (400w and 800w) plus sizes
+      - Add width, height, and a descriptive alt
+      - Bonus: fetchpriority="high" because this is the hero image
+    Test: DevTools → Network → Img. Resize the window narrow and reload:
+    the browser picks the 400w file. The Type column shows webp.
+  -->
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 24px 16px; max-width: 800px; margin: 0 auto; color: #1e293b; }
+    img { display: block; width: 100%; height: auto; border-radius: 8px; background: #e2e8f0; }
+    p { font-size: .9rem; color: #475569; }
+  </style>
+</head>
+<body>
+  <h1>Image format practice</h1>
+
+  <picture>
+    <!-- Picsum serves WebP when the URL ends in .webp -->
+    <source type="image/webp"
+            srcset="https://picsum.photos/id/1043/400/200.webp 400w,
+                    https://picsum.photos/id/1043/800/400.webp 800w"
+            sizes="(max-width: 480px) 400px, 800px">
+    <img src="https://picsum.photos/id/1043/800/400.jpg"
+         srcset="https://picsum.photos/id/1043/400/200.jpg 400w,
+                 https://picsum.photos/id/1043/800/400.jpg 800w"
+         sizes="(max-width: 480px) 400px, 800px"
+         alt="Forest path in autumn, practice photo"
+         width="800" height="400"
+         fetchpriority="high">
+  </picture>
+
+  <p>Compare the sizes yourself: open
+    <a href="https://picsum.photos/id/1043/800/400.jpg" target="_blank" rel="noopener">the JPEG</a> and
+    <a href="https://picsum.photos/id/1043/800/400.webp" target="_blank" rel="noopener">the WebP</a>
+    in the Network tab and look at the Size column.</p>
+  <p>Surprise: for this photo the WebP (about 87 KB) is slightly <em>bigger</em> than the JPEG (about 85 KB).
+    Picsum converts on the fly from an already-compressed JPEG, so there is little left to save.
+    WebP wins when you export it yourself from the original image with a tool like Squoosh — always measure.</p>
+</body>
+</html>

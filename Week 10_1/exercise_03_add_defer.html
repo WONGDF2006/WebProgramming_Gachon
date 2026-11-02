@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add defer to Scripts</title>
+  <!--
+    E3 · ADD defer TO SCRIPTS — BEFORE & AFTER
+    The starting page ran a slow script in the <head> that blocked rendering,
+    and a DOM script at the bottom of <body>.
+      - External scripts: use defer (needs the DOM) or async (independent, like analytics)
+      - Inline scripts can't use defer, so wrap them in DOMContentLoaded instead
+    Below, the DOM script lives in the <head> but still works, because it waits
+    for DOMContentLoaded — the same moment a deferred script would run.
+  -->
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 24px 16px; max-width: 600px; margin: 0 auto; color: #1e293b; }
+    #status { margin-top: 12px; padding: 12px; border-radius: 8px; font-size: .9rem; }
+    .pending { color: #92400e; background: #fef3c7; }
+    .ok { color: #166534; background: #dcfce7; }
+    pre { padding: 14px; overflow-x: auto; border-radius: 8px; font-size: .8rem; background: #f1f5f9; }
+  </style>
+
+  <!-- For real external files you would write:
+       <script src="app.js" defer></script>
+       <script src="analytics.js" async></script> -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const status = document.getElementById('status');
+      status.textContent = '✅ DOM was ready when this script ran — even though it sits in <head>.';
+      status.className = 'ok';
+      console.log('DOMContentLoaded after', Math.round(performance.now()), 'ms');
+    });
+  </script>
+</head>
+<body>
+  <h1>Script loading test</h1>
+  <p>Without waiting, a <code>&lt;head&gt;</code> script can't find <code>#status</code> because it doesn't exist yet.</p>
+  <div id="status" class="pending">Waiting for script…</div>
+
+  <h2>Before</h2>
+<pre>&lt;head&gt;
+  &lt;script src="app.js"&gt;&lt;/script&gt;        &lt;!-- blocks parsing --&gt;
+  &lt;script src="analytics.js"&gt;&lt;/script&gt;  &lt;!-- blocks parsing --&gt;
+&lt;/head&gt;</pre>
+
+  <h2>After</h2>
+<pre>&lt;head&gt;
+  &lt;script src="app.js" defer&gt;&lt;/script&gt;        &lt;!-- runs after parsing, in order --&gt;
+  &lt;script src="analytics.js" async&gt;&lt;/script&gt;  &lt;!-- runs whenever it arrives --&gt;
+&lt;/head&gt;</pre>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Performance Matters</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+    .stat { padding: 14px; text-align: center; border: 1px solid #c8d4f0; border-radius: 10px; }
+    .stat strong { display: block; font-size: 1.8rem; color: #c2410c; }
+    .stat span { font-size: .82rem; color: #475569; }
+  </style>
+</head>
+<body>
+  <!-- Speed = users = revenue. Slow sites lose visitors, sales, and search ranking.
+       Slow networks and cheap phones make the problem much worse. -->
+  <h1>Why performance matters</h1>
+
+  <div class="stats">
+    <div class="stat"><strong>53%</strong><span>of mobile users leave if a page takes over 3 s (Google, 2018)</span></div>
+    <div class="stat"><strong>7%</strong><span>fewer conversions per 1 s of delay</span></div>
+    <div class="stat"><strong>+1%</strong><span>revenue per 100 ms faster (Walmart, 2012)</span></div>
+  </div>
+
+  <h2>Performance also affects SEO</h2>
+  <p>Since 2021, Google uses the <strong>Core Web Vitals</strong> as ranking signals:</p>
+  <ul>
+    <li><strong>LCP</strong> (Largest Contentful Paint): how fast the biggest element appears.</li>
+    <li><strong>CLS</strong> (Cumulative Layout Shift): does the page jump around while loading?</li>
+    <li><strong>INP</strong> (Interaction to Next Paint): how fast the page responds to clicks.</li>
+  </ul>
+
+  <h2>Key points</h2>
+  <ul>
+    <li>Every second of delay costs users and conversions.</li>
+    <li>Slow pages rank lower in search results.</li>
+    <li>Users on 3G/4G and older devices feel slowness the most.</li>
+  </ul>
+</body>
+</html>

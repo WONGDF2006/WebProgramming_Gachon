@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Loading: defer & async</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 760px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    .timeline { padding: 16px; border-radius: 10px; color: #cbd5e1; background: #1a2540; font-size: .82rem; }
+    .row { display: flex; align-items: center; gap: 3px; margin-bottom: 4px; }
+    .row b { width: 80px; flex: none; font-weight: 600; }
+    .seg { height: 14px; border-radius: 2px; }
+    .parse { background: #2563eb; } .fetch { background: #d97706; } .exec { background: #dc2626; } .pause { background: #374151; border: 1px dashed #6b7280; }
+    .timeline small { display: block; margin: 0 0 12px 83px; color: #94a3b8; }
+    .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
+    .legend span::before { display: inline-block; width: 10px; height: 10px; margin-right: 5px; border-radius: 2px; content: ""; background: var(--c); }
+    pre { padding: 14px; overflow-x: auto; border-radius: 8px; font-size: .8rem; background: #f1f5f9; }
+  </style>
+</head>
+<body>
+  <!-- A plain <script src> STOPS the HTML parser until it downloads and runs.
+       defer and async download in the background instead. -->
+  <h1>JavaScript loading: defer &amp; async</h1>
+
+  <div class="timeline" role="img" aria-label="Timeline comparing no attribute, async, and defer">
+    <div class="row"><b>no attribute</b><span class="seg parse" style="width:90px"></span><span class="seg pause fetch" style="width:60px"></span><span class="seg exec" style="width:30px"></span><span class="seg parse" style="width:70px"></span></div>
+    <small>Parsing stops → download → run → parsing resumes (slow)</small>
+    <div class="row"><b>async</b><span class="seg parse" style="width:120px"></span><span class="seg exec" style="width:30px"></span><span class="seg parse" style="width:100px"></span></div>
+    <small>Downloads while parsing, runs as soon as it arrives (order not guaranteed)</small>
+    <div class="row"><b>defer</b><span class="seg parse" style="width:220px"></span><span class="seg exec" style="width:30px"></span></div>
+    <small>Downloads while parsing, runs after the HTML is fully parsed, in order (best default)</small>
+    <div class="legend"><span style="--c:#2563eb">HTML parsing</span><span style="--c:#d97706">Script download</span><span style="--c:#dc2626">Script runs</span></div>
+  </div>
+
+<pre>&lt;!-- ✗ Blocks parsing --&gt;
+&lt;script src="app.js"&gt;&lt;/script&gt;
+
+&lt;!-- ✓ defer: for scripts that use the DOM. Order is kept. --&gt;
+&lt;script src="app.js" defer&gt;&lt;/script&gt;
+
+&lt;!-- ✓ async: for independent scripts like analytics --&gt;
+&lt;script src="analytics.js" async&gt;&lt;/script&gt;</pre>
+
+  <h2>Key points</h2>
+  <ul>
+    <li>Use <code>defer</code> by default; <code>async</code> only for scripts that depend on nothing.</li>
+    <li>Both only work on external scripts (with <code>src</code>). For inline scripts, use <code>DOMContentLoaded</code>.</li>
+    <li>With <code>defer</code>, it's fine to put scripts in the <code>&lt;head&gt;</code>.</li>
+  </ul>
+</body>
+</html>

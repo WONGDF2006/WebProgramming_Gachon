@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Optimization</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 760px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+    td:first-child { font-family: Consolas, monospace; font-weight: 700; color: #c2410c; }
+    pre { padding: 14px; overflow-x: auto; border-radius: 8px; font-size: .8rem; background: #f1f5f9; }
+  </style>
+</head>
+<body>
+  <!-- Images are usually 60–80% of a page's weight, so they are the first thing to fix.
+       Right format + right size + width/height attributes. -->
+  <h1>Image optimization</h1>
+
+  <table>
+    <thead><tr><th>Format</th><th>Best for</th><th>Size</th></tr></thead>
+    <tbody>
+      <tr><td>JPEG</td><td>Photos</td><td>Baseline</td></tr>
+      <tr><td>PNG</td><td>Transparency, simple graphics</td><td>Large for photos</td></tr>
+      <tr><td>WebP</td><td>Photos and graphics — replaces JPEG and PNG</td><td>About 25–34% smaller than JPEG</td></tr>
+      <tr><td>AVIF</td><td>Next-gen, best compression</td><td>Smaller than WebP</td></tr>
+      <tr><td>SVG</td><td>Icons, logos, illustrations</td><td>Tiny, scales perfectly</td></tr>
+    </tbody>
+  </table>
+
+  <h2>WebP with a fallback, and the right size per screen</h2>
+<pre>&lt;!-- WebP first, JPEG for old browsers --&gt;
+&lt;picture&gt;
+  &lt;source srcset="hero.webp" type="image/webp"&gt;
+  &lt;img src="hero.jpg" alt="Campus at sunrise" width="1200" height="600"&gt;
+&lt;/picture&gt;
+
+&lt;!-- srcset: the browser downloads only the size it needs --&gt;
+&lt;img src="photo-800.jpg"
+     srcset="photo-400.jpg 400w, photo-800.jpg 800w, photo-1200.jpg 1200w"
+     sizes="(max-width: 600px) 100vw, 800px"
+     alt="Description" width="800" height="400"&gt;</pre>
+
+  <h2>Key points</h2>
+  <ul>
+    <li>Convert to WebP with <a href="https://squoosh.app" target="_blank" rel="noopener">Squoosh</a> or TinyPNG.</li>
+    <li>Never ship a 4000 px photo into an 800 px slot — resize it.</li>
+    <li>Always set <code>width</code> and <code>height</code> so the layout doesn't shift (CLS).</li>
+  </ul>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caching</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 760px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    pre { padding: 14px; overflow-x: auto; border-radius: 8px; font-size: .8rem; background: #f1f5f9; }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+    ol li { margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <!-- The browser keeps a local copy of files it has downloaded. On the next visit
+       it can reuse them instead of downloading again. The server controls this with headers. -->
+  <h1>Caching</h1>
+
+  <h2>Cache-Control headers (set by the server)</h2>
+<pre>Cache-Control: public, max-age=31536000, immutable   ← 1 year: versioned CSS/JS, fonts
+Cache-Control: public, max-age=3600                  ← 1 hour: content that changes sometimes
+Cache-Control: no-cache                              ← always check with the server first (HTML)
+Cache-Control: no-store                              ← never store (private data)</pre>
+
+  <h2>304 Not Modified</h2>
+  <ol>
+    <li>First visit: the server sends the file plus an <code>ETag</code> (a fingerprint) or <code>Last-Modified</code> date.</li>
+    <li>When the cached copy expires, the browser asks: "has it changed?" (<code>If-None-Match</code>).</li>
+    <li>If not, the server answers <strong>304 Not Modified</strong> with no body. The browser reuses its copy.</li>
+  </ol>
+  <p>In DevTools → Network, a reused file shows <em>(memory cache)</em>, <em>(disk cache)</em>, or a 304 status.</p>
+
+  <h2>Cache busting</h2>
+<pre>&lt;link rel="stylesheet" href="styles.a3f9c2b1.css"&gt;
+&lt;script src="app.d8e4f2a9.js" defer&gt;&lt;/script&gt;</pre>
+  <p>Change the file → the hash changes → new URL → the browser downloads the new version. Build tools add the hash for you.</p>
+
+  <table>
+    <thead><tr><th>Resource</th><th>Cache for</th></tr></thead>
+    <tbody>
+      <tr><td>HTML</td><td>no-cache / short — users must get new HTML</td></tr>
+      <tr><td>CSS &amp; JS with a hash</td><td>1 year, immutable</td></tr>
+      <tr><td>Images</td><td>1 month – 1 year</td></tr>
+      <tr><td>Fonts</td><td>1 year</td></tr>
+    </tbody>
+  </table>
+
+  <p>Note: on GitHub Pages you can't set these headers yourself. It sends <code>max-age=600</code> (10 minutes) for every file.</p>
+</body>
+</html>

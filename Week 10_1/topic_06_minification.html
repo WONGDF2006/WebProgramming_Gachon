@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minification</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 760px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    textarea { width: 100%; min-height: 180px; padding: 10px; font: .82rem Consolas, monospace; border: 2px solid #c8d4f0; border-radius: 8px; box-sizing: border-box; }
+    button { margin: 10px 0; padding: 8px 18px; font: 600 .95rem system-ui, sans-serif; color: white; background: #c2410c; border: none; border-radius: 8px; cursor: pointer; }
+    #result { font-weight: 700; }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+  </style>
+</head>
+<body>
+  <!-- Minification removes whitespace, comments, and extra characters from CSS/JS
+       without changing what the code does. Smaller files download and parse faster. -->
+  <h1>Minification</h1>
+
+  <label for="input"><strong>CSS to minify</strong></label>
+  <textarea id="input" spellcheck="false">/* Navigation styles */
+.nav {
+  display: flex;
+  align-items: center;
+  background-color: #1a2340;
+  padding: 12px 24px;
+}
+
+.nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+}</textarea>
+  <button type="button" id="minify">Minify</button>
+  <p id="result" aria-live="polite"></p>
+  <label for="output"><strong>Minified</strong></label>
+  <textarea id="output" readonly></textarea>
+
+  <h2>Real tools</h2>
+  <table>
+    <thead><tr><th>Tool</th><th>For</th><th>How</th></tr></thead>
+    <tbody>
+      <tr><td>cssnano</td><td>CSS</td><td>A PostCSS plugin used by most build tools</td></tr>
+      <tr><td>Terser</td><td>JavaScript</td><td><code>npx terser app.js -o app.min.js</code></td></tr>
+      <tr><td>Vite / webpack</td><td>Both</td><td><code>npm run build</code> minifies automatically</td></tr>
+    </tbody>
+  </table>
+  <p>Keep editing the readable file; deploy the <code>.min.css</code> / <code>.min.js</code> version.</p>
+
+  <script>
+    // A simple teaching minifier: comments, whitespace, and the last semicolon.
+    // Real tools like cssnano do much more (shorter colours, merged rules...).
+    function minifyCss(css) {
+      return css
+        .replace(/\/\*[\s\S]*?\*\//g, '')   // comments
+        .replace(/\s+/g, ' ')               // runs of whitespace
+        .replace(/\s*([{}:;,>])\s*/g, '$1') // spaces around symbols
+        .replace(/;}/g, '}')                // last semicolon in a block
+        .trim();
+    }
+
+    document.querySelector('#minify').addEventListener('click', () => {
+      const input = document.querySelector('#input').value;
+      const output = minifyCss(input);
+      document.querySelector('#output').value = output;
+      const saved = Math.round((1 - output.length / input.length) * 100);
+      document.querySelector('#result').textContent = input.length + ' → ' + output.length + ' characters (' + saved + '% smaller)';
+    });
+  </script>
+</body>
+</html>

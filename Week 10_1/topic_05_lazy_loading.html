@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lazy Loading</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px 16px; max-width: 720px; margin: 0 auto; color: #1e293b; line-height: 1.6; }
+    pre { padding: 14px; overflow-x: auto; border-radius: 8px; font-size: .8rem; background: #f1f5f9; }
+    .compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .good, .bad { padding: 12px 16px; border: 2px solid; border-radius: 10px; }
+    .good { border-color: #16a34a; background: #f0fdf4; }
+    .bad { border-color: #dc2626; background: #fef2f2; }
+    .gallery img { display: block; width: 100%; height: auto; margin-bottom: 12px; border-radius: 8px; background: #e2e8f0; }
+  </style>
+</head>
+<body>
+  <!-- loading="lazy" waits to download an image or iframe until the user scrolls near it.
+       Less to download up front = faster first load. -->
+  <h1>Lazy loading</h1>
+
+<pre>&lt;!-- One attribute --&gt;
+&lt;img src="photo.webp" alt="Gallery photo" loading="lazy" width="600" height="400"&gt;
+&lt;iframe src="https://www.youtube.com/embed/xyz" loading="lazy" title="Tutorial video"&gt;&lt;/iframe&gt;
+
+&lt;!-- ✗ Never lazy-load the hero image: it delays LCP --&gt;
+&lt;img src="hero.webp" alt="Hero" loading="lazy"&gt;
+
+&lt;!-- ✓ Hero image: load it first --&gt;
+&lt;img src="hero.webp" alt="Hero" fetchpriority="high" width="1200" height="600"&gt;</pre>
+
+  <div class="compare">
+    <div class="good"><strong>✓ Lazy load</strong>
+      <ul><li>Galleries below the fold</li><li>Images in long articles</li><li>YouTube and map embeds</li></ul></div>
+    <div class="bad"><strong>✗ Don't lazy load</strong>
+      <ul><li>Hero / banner image</li><li>Logo in the header</li><li>Anything visible on load</li></ul></div>
+  </div>
+
+  <h2>Try it</h2>
+  <p>Open DevTools → Network → Img, reload, then scroll down. The photos below download only as they come near the screen.</p>
+  <div class="gallery">
+    <img src="https://picsum.photos/id/1015/800/450" alt="River valley between mountains" loading="lazy" width="800" height="450">
+    <img src="https://picsum.photos/id/1016/800/450" alt="Canyon with rocky cliffs" loading="lazy" width="800" height="450">
+    <img src="https://picsum.photos/id/1018/800/450" alt="Mountain landscape with green hills" loading="lazy" width="800" height="450">
+    <img src="https://picsum.photos/id/1019/800/450" alt="Sea and rocks at sunset" loading="lazy" width="800" height="450">
+  </div>
+</body>
+</html>

@@ -18,6 +18,10 @@
     table { width: 100%; border-collapse: collapse; font-size: .88rem; }
     th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
     th { color: #475569; }
+    figure { margin: 18px 0; }
+    figure img { display: block; width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 8px; }
+    figcaption { margin-top: 6px; font-size: .88rem; color: #475569; }
+    h3 { font-size: 1rem; }
   </style>
 </head>
 <body>
@@ -69,15 +73,36 @@
     </section>
 
     <section>
-      <h2>Template for your Discord post</h2>
-      <ul>
-        <li>Site: <em>your project URL</em></li>
-        <li>Score: <em>before</em> → <em>after</em> (attach both screenshots)</li>
-        <li>Fix 1: <em>audit name — what you changed</em></li>
-        <li>Fix 2: <em>audit name — what you changed</em></li>
-        <li>Fix 3: <em>audit name — what you changed</em></li>
-        <li>Skip link added: yes / no</li>
-      </ul>
+      <h2>My results — Web Programming Course Library</h2>
+      <p>Site: <a href="https://wongdf2006.github.io/WebProgramming_Gachon/">wongdf2006.github.io/WebProgramming_Gachon</a> ·
+        Lighthouse 12.6.0, Accessibility only, desktop, run on 2 Nov 2026.</p>
+
+      <table>
+        <thead><tr><th></th><th>Version</th><th>Score</th><th>Failing audits</th></tr></thead>
+        <tbody>
+          <tr><td>Before</td><td>Course page before the Week 9 changes (commit <code>dd46463</code>)</td><td>100</td><td>0</td></tr>
+          <tr><td>After</td><td>Course page with the changes below</td><td>100</td><td>0</td></tr>
+        </tbody>
+      </table>
+
+      <figure>
+        <img src="captures/a11y-before.png" alt="Lighthouse report before: Accessibility score 100, no failing audits" width="1100" height="1500" loading="lazy">
+        <figcaption>Before — run on a local copy of that commit, since that version is no longer online · <a href="captures/a11y-before-report.html">full Lighthouse report</a></figcaption>
+      </figure>
+      <figure>
+        <img src="captures/a11y-after.png" alt="Lighthouse report after: Accessibility score 100, no failing audits" width="1100" height="1500" loading="lazy">
+        <figcaption>After — run on a local copy before publishing · <a href="captures/a11y-after-report.html">full Lighthouse report</a></figcaption>
+      </figure>
+
+      <h3>What I changed</h3>
+      <p>Lighthouse found no failing audits, so instead I fixed three problems that automated tests can't detect,
+        from Lighthouse's "items to manually check" list and the ARIA rules:</p>
+      <ol>
+        <li><strong>Skip link</strong> (WCAG 2.4.1, Level A): "Skip to main content" is the first Tab stop and moves focus into <code>&lt;main&gt;</code>.</li>
+        <li><strong>Reduced motion</strong>: smooth scrolling is turned off when the visitor's system asks for <code>prefers-reduced-motion</code>.</li>
+        <li><strong>Labelled colour key</strong>: the Topic/Exercise key had <code>aria-label</code> on a plain <code>div</code>, which screen readers ignore; it now has <code>role="group"</code> so the label is read.</li>
+      </ol>
+      <p>Still to do: the Assignment video has no captions (<code>&lt;track kind="captions"&gt;</code>). Lighthouse lists it but doesn't score it.</p>
     </section>
   </main>
 </body>

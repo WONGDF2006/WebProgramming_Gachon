@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework: Lighthouse Performance</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 40px 16px; font-family: system-ui, sans-serif; color: #1e293b; background: #fff7ed; line-height: 1.6; }
+    main { max-width: 760px; margin: 0 auto; }
+    h1 { margin-top: 0; }
+    section { margin-bottom: 18px; padding: 20px 24px; border-radius: 14px; background: white; box-shadow: 0 6px 20px rgba(15, 23, 42, .06); }
+    h2 { margin-top: 0; font-size: 1.1rem; color: #c2410c; }
+    h3 { font-size: 1rem; }
+    ol, ul { padding-left: 22px; }
+    li { margin-bottom: 6px; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .88em; background: #f1f5f9; }
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    td.better { color: #15803d; font-weight: 700; }
+    figure { margin: 18px 0; }
+    figure img { display: block; width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 8px; }
+    figcaption { margin-top: 6px; font-size: .88rem; color: #475569; }
+    .summary { padding: 14px 16px; border-left: 4px solid #c2410c; border-radius: 0 8px 8px 0; background: #fff7ed; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Homework: Lighthouse Performance</h1>
+
+    <section>
+      <h2>Task</h2>
+      <ol>
+        <li>Run Lighthouse on your personal site and screenshot the Performance score.</li>
+        <li>Apply at least 3 optimizations from today.</li>
+        <li>Re-run Lighthouse and screenshot the new score.</li>
+        <li>Post both screenshots to your page with a 2-sentence description of what you changed.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>My results — Web Programming Course Library</h2>
+      <p>Site: <a href="https://wongdf2006.github.io/WebProgramming_Gachon/">wongdf2006.github.io/WebProgramming_Gachon</a> ·
+        Lighthouse 12.6.0, Performance only, mobile (Moto G Power, slow 4G), 2 Nov 2026.</p>
+
+      <p class="summary">I served a minified stylesheet, stopped the Assignment video from downloading until it is played, added an inline favicon to remove a failing 404 request, and made each week's links build only when that week is opened.
+        The score was already 100 and stayed 100, but the page now starts with 56% fewer DOM elements (800 → 348), 2 fewer requests, and no failed requests.</p>
+
+      <table>
+        <thead><tr><th>Lighthouse measurement</th><th>Before</th><th>After</th></tr></thead>
+        <tbody>
+          <tr><td>Performance score</td><td>100</td><td>100</td></tr>
+          <tr><td>First / Largest Contentful Paint</td><td>0.9 s / 0.9 s</td><td>0.9 s / 1.0 s</td></tr>
+          <tr><td>DOM elements</td><td>800</td><td class="better">348</td></tr>
+          <tr><td>Network requests</td><td>10</td><td class="better">8</td></tr>
+          <tr><td>Failed requests</td><td>1 (404 favicon.ico)</td><td class="better">0</td></tr>
+          <tr><td>Stylesheet</td><td>style.css, 5,559 bytes</td><td class="better">style.min.css, 4,663 bytes</td></tr>
+        </tbody>
+      </table>
+      <p>Paint times move by ±0.1 s between runs; three runs of each version gave the same range.</p>
+
+      <figure>
+        <img src="captures/perf-before.png" alt="Lighthouse report before: Performance 100, FCP 0.9 s, LCP 0.9 s, TBT 0 ms, CLS 0, Speed Index 0.9 s" width="1100" height="1500" loading="lazy">
+        <figcaption>Before — live site · <a href="captures/perf-before-report.html">full Lighthouse report</a></figcaption>
+      </figure>
+      <figure>
+        <img src="captures/perf-after.png" alt="Lighthouse report after: Performance 100, FCP 0.9 s, LCP 1.0 s, TBT 0 ms, CLS 0, Speed Index 0.9 s" width="1100" height="1500" loading="lazy">
+        <figcaption>After — run on a local copy before publishing · <a href="captures/perf-after-report.html">full Lighthouse report</a></figcaption>
+      </figure>
+
+      <h3>The optimizations</h3>
+      <ol>
+        <li><strong>Minification</strong>: <code>style.min.css</code> is built from <code>style.css</code> with cssnano (16% smaller).</li>
+        <li><strong>Lazy loading</strong>: the video uses <code>preload="none"</code>, so nothing downloads until Play is pressed.</li>
+        <li><strong>Fewer requests</strong>: an inline SVG favicon replaces the browser's automatic <code>/favicon.ico</code> request, which returned 404.</li>
+        <li><strong>Smaller DOM</strong>: only the open week's links are built at load; the others are built when opened.</li>
+      </ol>
+      <p>Not possible here: longer cache times. GitHub Pages sets <code>Cache-Control: max-age=600</code> for every file and it can't be changed.</p>
+    </section>
+  </main>
+</body>
+</html>
