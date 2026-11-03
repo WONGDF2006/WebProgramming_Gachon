@@ -3,106 +3,151 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Homework: Lighthouse Accessibility Audit</title>
+  <title>Homework 1: Lighthouse Accessibility Audit — Week 9_1</title>
+  <link rel="icon" href="data:,">
   <style>
     * { box-sizing: border-box; }
-    body { margin: 0; padding: 40px 16px; font-family: system-ui, sans-serif; color: #1e293b; background: #f0f4ff; }
-    main { max-width: 720px; margin: 0 auto; }
-    h1 { margin-top: 0; }
-    .due { color: #475569; }
+    body { margin: 0; padding: 40px 16px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #f0f4ff; }
+    main { max-width: 860px; margin: 0 auto; }
+    h1 { margin: 0 0 6px; }
+    .due { margin-top: 0; color: #475569; }
     section { margin-bottom: 18px; padding: 20px 24px; border-radius: 14px; background: white; box-shadow: 0 6px 20px rgba(15, 23, 42, .06); }
-    h2 { margin-top: 0; font-size: 1.1rem; color: #1a56db; }
+    h2 { margin-top: 0; font-size: 1.15rem; color: #1a56db; }
+    h3 { margin: 22px 0 6px; font-size: 1rem; }
     ol, ul { padding-left: 22px; }
     li { margin-bottom: 6px; }
-    kbd, code { padding: 1px 5px; border-radius: 4px; font-size: .88em; background: #e2e8f0; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .88em; background: #e2e8f0; }
+    pre { margin: 0; padding: 12px 14px; overflow-x: auto; border-radius: 8px; font-size: .8rem; line-height: 1.5; color: #e2e8f0; background: #1e293b; }
     table { width: 100%; border-collapse: collapse; font-size: .88rem; }
     th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
     th { color: #475569; }
-    figure { margin: 18px 0; }
+    .bad { color: #b91c1c; font-weight: 700; }
+    .good { color: #15803d; font-weight: 700; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 14px 0; }
+    .stat { padding: 12px; text-align: center; border: 1px solid #c8d4f0; border-radius: 10px; }
+    .stat strong { display: block; font-size: 1.5rem; }
+    .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+    figure { margin: 0; }
     figure img { display: block; width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 8px; }
-    figcaption { margin-top: 6px; font-size: .88rem; color: #475569; }
-    h3 { font-size: 1rem; }
+    figcaption { margin-top: 6px; font-size: .85rem; color: #475569; }
+    .diff { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin: 8px 0; }
+    .diff p { margin: 0 0 4px; font-size: .85rem; font-weight: 700; }
   </style>
 </head>
 <body>
   <main>
-    <h1>Homework: Lighthouse Accessibility Audit</h1>
-    <p class="due">Due Thursday before class · Post to Discord</p>
+    <h1>Homework 1 · Lighthouse Accessibility Audit — Week 9_1</h1>
+    <p class="due">Audited target: every page in <a href="https://wongdf2006.github.io/WebProgramming_Gachon/Week%209_1/">wongdf2006.github.io/WebProgramming_Gachon/Week 9_1/</a> ·
+      Lighthouse 12.6.0, Accessibility, desktop · 3 Nov 2026</p>
 
-    <section>
-      <h2>Tasks</h2>
-      <ol>
-        <li>Run Lighthouse on your personal or team project site (Accessibility audit only).</li>
-        <li>Screenshot the initial Accessibility score.</li>
-        <li>Fix at least 3 failing audits from the report.</li>
-        <li>Re-run Lighthouse and screenshot the improved score.</li>
-        <li>Post both screenshots and your list of 3 fixes to the weekly task page.</li>
-        <li>Add a skip link to your course project — see <a href="homework_skip_link.html">the skip link example</a>.</li>
-      </ol>
+    <section aria-labelledby="summary-heading">
+      <h2 id="summary-heading">Summary</h2>
+      <div class="stats">
+        <div class="stat"><strong>88 → 100</strong>Lowest page score</div>
+        <div class="stat"><strong>9 → 0</strong>Pages with failing audits</div>
+        <div class="stat"><strong>21 / 21</strong>Pages at 100 after</div>
+        <div class="stat"><strong>4</strong>Fixes, in 9 files</div>
+      </div>
+      <p>Lighthouse was run on all 21 live Week 9_1 pages. Nine failed, mostly on the colour-contrast rule the lessons teach.
+        Each failure's cause was fixed, the pages were published, and Lighthouse was re-run on the live pages.</p>
     </section>
 
-    <section>
-      <h2>How to run Lighthouse in Chrome</h2>
-      <ol>
-        <li>Open your site in Chrome and press <kbd>F12</kbd> to open DevTools.</li>
-        <li>Open the <strong>Lighthouse</strong> tab (it may be under <code>»</code>).</li>
-        <li>Under <em>Categories</em>, tick only <strong>Accessibility</strong>.</li>
-        <li>Choose <em>Desktop</em> or <em>Mobile</em>, then click <strong>Analyze page load</strong>.</li>
-        <li>Screenshot the score circle and the list of failing audits.</li>
-      </ol>
-      <p>Tip: run it in an Incognito window so browser extensions don't change the result.</p>
-    </section>
+    <section aria-labelledby="shots-heading">
+      <h2 id="shots-heading">Step 1 &amp; 4 · Before and after screenshots</h2>
+      <div class="shots">
+        <figure>
+          <img src="captures/topic03-before.png" alt="Lighthouse before for topic_03_alt_text: score 88, contrast audit failing on the th element with class good" width="1100" height="886" loading="lazy">
+          <figcaption>Before · topic_03_alt_text — 88, contrast fails · <a href="captures/topic03-before-report.html">full report</a></figcaption>
+        </figure>
+        <figure>
+          <img src="captures/topic03-after.png" alt="Lighthouse after for topic_03_alt_text: score 100, no failing audits" width="1100" height="931" loading="lazy">
+          <figcaption>After · topic_03_alt_text — 100 · <a href="captures/topic03-after-report.html">full report</a></figcaption>
+        </figure>
+        <figure>
+          <img src="captures/ex02-before.png" alt="Lighthouse before for exercise_02_add_alt_text: score 94, links do not have a discernible name" width="1100" height="870" loading="lazy">
+          <figcaption>Before · exercise_02_add_alt_text — 94, link has no name · <a href="captures/ex02-before-report.html">full report</a></figcaption>
+        </figure>
+        <figure>
+          <img src="captures/ex02-after.png" alt="Lighthouse after for exercise_02_add_alt_text: score 100, no failing audits" width="1100" height="931" loading="lazy">
+          <figcaption>After · exercise_02_add_alt_text — 100 · <a href="captures/ex02-after-report.html">full report</a></figcaption>
+        </figure>
+      </div>
 
-    <section>
-      <h2>Common failing audits and how to fix them</h2>
+      <h3>Every page that failed</h3>
       <table>
-        <thead>
-          <tr><th>Lighthouse says</th><th>Fix</th><th>Topic</th></tr>
-        </thead>
+        <thead><tr><th>Page</th><th>Failing audit</th><th>Before</th><th>After</th></tr></thead>
         <tbody>
-          <tr><td>Image elements do not have <code>[alt]</code> attributes</td><td>Add alt text that describes the purpose, or <code>alt=""</code> if decorative</td><td><a href="topic_03_alt_text.html">Alt text</a></td></tr>
-          <tr><td>Background and foreground colors do not have a sufficient contrast ratio</td><td>Darken the text or lighten the background until it reaches 4.5 : 1</td><td><a href="topic_06_color_contrast.html">Contrast</a></td></tr>
-          <tr><td>Buttons do not have an accessible name</td><td>Give icon-only buttons an <code>aria-label</code></td><td><a href="topic_04_aria_attributes.html">ARIA</a></td></tr>
-          <tr><td>Links do not have a discernible name</td><td>Put text in the link, or alt text on the image inside it</td><td><a href="topic_03_alt_text.html">Alt text</a></td></tr>
-          <tr><td>Form elements do not have associated labels</td><td>Add <code>&lt;label for="id"&gt;</code> for every input</td><td><a href="../Week%208_1/topic_05_labels_and_accessibility.html">Week 8 labels</a></td></tr>
-          <tr><td><code>&lt;html&gt;</code> element does not have a <code>[lang]</code> attribute</td><td>Add <code>&lt;html lang="en"&gt;</code></td><td><a href="../week%202-1/topic_08_the_lang_attribute.html">Week 2 lang</a></td></tr>
-          <tr><td>Heading elements are not in a sequentially-descending order</td><td>Don't jump from <code>&lt;h1&gt;</code> to <code>&lt;h4&gt;</code>; style with CSS instead</td><td><a href="topic_01_semantic_html.html">Semantic HTML</a></td></tr>
-          <tr><td>Document doesn't have a main landmark</td><td>Wrap the page content in <code>&lt;main&gt;</code></td><td><a href="topic_01_semantic_html.html">Semantic HTML</a></td></tr>
+          <tr><td>topic_03_alt_text</td><td>color-contrast</td><td class="bad">88</td><td class="good">100</td></tr>
+          <tr><td>topic_01_semantic_html</td><td>color-contrast</td><td class="bad">89</td><td class="good">100</td></tr>
+          <tr><td>topic_04_button_vs_div</td><td>color-contrast</td><td class="bad">89</td><td class="good">100</td></tr>
+          <tr><td>topic_06_color_contrast</td><td>color-contrast</td><td class="bad">89</td><td class="good">100</td></tr>
+          <tr><td>topic_03_semantic_html</td><td>color-contrast</td><td class="bad">90</td><td class="good">100</td></tr>
+          <tr><td>topic_08_color_contrast</td><td>color-contrast</td><td class="bad">90</td><td class="good">100</td></tr>
+          <tr><td>topic_02_native_elements</td><td>color-contrast</td><td class="bad">91</td><td class="good">100</td></tr>
+          <tr><td>homework_lighthouse_audit</td><td>color-contrast</td><td class="bad">93</td><td class="good">100</td></tr>
+          <tr><td>exercise_02_add_alt_text</td><td>link-name</td><td class="bad">94</td><td class="good">100</td></tr>
         </tbody>
       </table>
+      <p>The other 12 pages already scored 100 and still do. The new <a href="index.html">Week 9_1 overview page</a> also scores 100
+        (before, the folder address returned a 404).</p>
     </section>
 
-    <section>
-      <h2>My results — Web Programming Course Library</h2>
-      <p>Site: <a href="https://wongdf2006.github.io/WebProgramming_Gachon/">wongdf2006.github.io/WebProgramming_Gachon</a> ·
-        Lighthouse 12.6.0, Accessibility only, desktop, run on 2 Nov 2026.</p>
+    <section aria-labelledby="changes-heading">
+      <h2 id="changes-heading">Step 2 &amp; 3 · What I changed</h2>
 
+      <h3>1 · Green "good" labels too light — WCAG 1.4.3 Contrast (AA)</h3>
+      <p>The ✓ labels used <code>#16a34a</code> on white: <strong>3.29 : 1</strong>, below the 4.5 : 1 minimum. A darker green reaches <strong>5.02 : 1</strong>.
+        Fixed on 4 topic pages, plus the "✓ Pass" result in the contrast checker.</p>
+      <div class="diff">
+        <div><p class="bad">Before</p><pre>.good { color: #16a34a; }   /* 3.29 : 1 */</pre></div>
+        <div><p class="good">After</p><pre>.good { color: #15803d; }   /* 5.02 : 1 */</pre></div>
+      </div>
+
+      <h3>2 · Link with no name — WCAG 2.4.4 Link Purpose (A) / 4.1.2 Name, Role, Value (A)</h3>
+      <p>The logo link's only content was an image hidden with <code>display: none</code>. That also removes it from the accessibility tree,
+        so its alt text was never read and screen readers announced an empty link. Hiding it visually instead keeps the alt text as the link's name.</p>
+      <div class="diff">
+        <div><p class="bad">Before</p><pre>img { display: none; }</pre></div>
+        <div><p class="good">After</p><pre>/* hidden visually, still read aloud */
+img { position: absolute; width: 1px; height: 1px;
+      overflow: hidden; clip: rect(0 0 0 0);
+      white-space: nowrap; }</pre></div>
+      </div>
+
+      <h3>3 · Grey text and button too light — WCAG 1.4.3 Contrast (AA)</h3>
       <table>
-        <thead><tr><th></th><th>Version</th><th>Score</th><th>Failing audits</th></tr></thead>
+        <thead><tr><th>Where</th><th>Before</th><th>After</th></tr></thead>
         <tbody>
-          <tr><td>Before</td><td>Course page before the Week 9 changes (commit <code>dd46463</code>)</td><td>100</td><td>0</td></tr>
-          <tr><td>After</td><td>Course page with the changes below</td><td>100</td><td>0</td></tr>
+          <tr><td>"Due…" line on this page</td><td><code>#64748b</code> on <code>#f0f4ff</code> — <span class="bad">4.32 : 1</span></td><td><code>#475569</code> — <span class="good">6.89 : 1</span></td></tr>
+          <tr><td>"Fake button" in native elements</td><td>white on <code>#94a3b8</code> — <span class="bad">2.56 : 1</span></td><td>white on <code>#475569</code> — <span class="good">7.58 : 1</span></td></tr>
+          <tr><td>Contrast checker default colour</td><td><code>#94a3b8</code> on white — <span class="bad">2.56 : 1</span></td><td><code>#475569</code> — <span class="good">7.58 : 1</span></td></tr>
         </tbody>
       </table>
+      <p>The checker still lets you pick a failing colour to see "✗ Fail"; it just no longer <em>starts</em> on one.</p>
 
-      <figure>
-        <img src="captures/a11y-before.png" alt="Lighthouse report before: Accessibility score 100, no failing audits" width="1100" height="1500" loading="lazy">
-        <figcaption>Before — run on a local copy of that commit, since that version is no longer online · <a href="captures/a11y-before-report.html">full Lighthouse report</a></figcaption>
-      </figure>
-      <figure>
-        <img src="captures/a11y-after.png" alt="Lighthouse report after: Accessibility score 100, no failing audits" width="1100" height="1500" loading="lazy">
-        <figcaption>After — live site · <a href="captures/a11y-after-report.html">full Lighthouse report</a></figcaption>
-      </figure>
+      <h3>4 · Deliberately bad examples shown as real text — WCAG 1.4.3 (AA) and 1.1.1 Non-text Content (A)</h3>
+      <p>The contrast lesson showed its "fail" samples as real low-contrast text, so the page itself failed. I kept the samples visible
+        but drew them as labelled images, with the explanation next to them in readable text.</p>
+      <div class="diff">
+        <div><p class="bad">Before</p><pre>&lt;span class="sample" style="color:#ff9999"&gt;
+  #ff9999 — fail (2.1 : 1)
+&lt;/span&gt;</pre></div>
+        <div><p class="good">After</p><pre>&lt;span class="sample"&gt;
+  &lt;svg role="img" aria-label="Example text
+       in #ff9999 on white" ...&gt;
+    &lt;text fill="#ff9999"&gt;Sample&lt;/text&gt;
+  &lt;/svg&gt; #ff9999 — fail (2.0 : 1)
+&lt;/span&gt;</pre></div>
+      </div>
+    </section>
 
-      <h3>What I changed</h3>
-      <p>Lighthouse found no failing audits, so instead I fixed three problems that automated tests can't detect,
-        from Lighthouse's "items to manually check" list and the ARIA rules:</p>
-      <ol>
-        <li><strong>Skip link</strong> (WCAG 2.4.1, Level A): "Skip to main content" is the first Tab stop and moves focus into <code>&lt;main&gt;</code>.</li>
-        <li><strong>Reduced motion</strong>: smooth scrolling is turned off when the visitor's system asks for <code>prefers-reduced-motion</code>.</li>
-        <li><strong>Labelled colour key</strong>: the Topic/Exercise key had <code>aria-label</code> on a plain <code>div</code>, which screen readers ignore; it now has <code>role="group"</code> so the label is read.</li>
-      </ol>
-      <p>Still to do: the Assignment video has no captions (<code>&lt;track kind="captions"&gt;</code>). Lighthouse lists it but doesn't score it.</p>
+    <section aria-labelledby="learned-heading">
+      <h2 id="learned-heading">Takeaways</h2>
+      <ul>
+        <li>The failing colours look readable on a good screen, but measured 2.56–4.32 : 1. Contrast has to be measured, not judged by eye.</li>
+        <li><code>display: none</code> hides content from screen readers too. If the hidden element is the only label a link has, the link loses its name.</li>
+        <li>Lighthouse checks only part of WCAG. Keyboard use, focus order, and whether alt text is <em>good</em> still need manual testing.</li>
+      </ul>
     </section>
   </main>
 </body>
