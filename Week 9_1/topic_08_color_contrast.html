@@ -10,7 +10,7 @@
     .rule { padding: 14px; text-align: center; border: 1px solid #c8d4f0; border-radius: 10px; }
     .rule strong { display: block; font-size: 1.6rem; }
     .samples { display: flex; flex-wrap: wrap; gap: 10px; }
-    .sample { padding: 12px 18px; font-weight: 600; border: 2px solid #cbd5e1; border-radius: 8px; }
+    .sample { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; font-weight: 600; border: 2px solid #cbd5e1; border-radius: 8px; }
   </style>
 </head>
 <body>
@@ -26,8 +26,10 @@
 
   <h2>Fail vs pass on white</h2>
   <div class="samples">
-    <span class="sample" style="color:#ff9999">#ff9999 — fail (2.1 : 1)</span>
-    <span class="sample" style="color:#ff9900">#ff9900 — fail (2.1 : 1)</span>
+    <!-- The failing colours are shown as labelled images, so the example is visible
+         without making the page itself fail the contrast rule it is teaching -->
+    <span class="sample"><svg role="img" aria-label="Example text in #ff9999 on white" width="60" height="18"><text x="0" y="14" fill="#ff9999" font-weight="600" font-size="15">Sample</text></svg> #ff9999 — fail (2.0 : 1)</span>
+    <span class="sample"><svg role="img" aria-label="Example text in #ff9900 on white" width="60" height="18"><text x="0" y="14" fill="#ff9900" font-weight="600" font-size="15">Sample</text></svg> #ff9900 — fail (2.1 : 1)</span>
     <span class="sample" style="color:#767676">#767676 — pass AA (4.5 : 1)</span>
     <span class="sample" style="color:#595959">#595959 — pass AAA (7 : 1)</span>
     <span class="sample" style="color:#fff;background:#1a7f5a;border-color:#1a7f5a">White on #1a7f5a — pass AA (5 : 1)</span>
