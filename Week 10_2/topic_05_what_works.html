@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Works &amp; What Doesn&#x27;t</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+    <!-- Pages only sends files. If it runs in the browser, it works; if it needs a server process, it doesn't. -->
+    <h1>What works and what doesn't</h1>
+    <table>
+      <thead><tr><th>Technology</th><th>Works?</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>HTML, CSS</td><td class="yes">✓ Yes</td><td>Static files, sent as-is</td></tr>
+        <tr><td>Client-side JavaScript</td><td class="yes">✓ Yes</td><td>Runs in the visitor's browser</td></tr>
+        <tr><td><code>fetch()</code> to external APIs</td><td class="yes">✓ Yes</td><td>The browser calls the API, not the server</td></tr>
+        <tr><td>Images, fonts, video, PDFs</td><td class="yes">✓ Yes</td><td>Static files</td></tr>
+        <tr><td>PHP</td><td class="no">✗ No</td><td>Needs a PHP interpreter on the server</td></tr>
+        <tr><td>Node.js / Express</td><td class="no">✗ No</td><td>Needs a Node runtime: use Render or Railway</td></tr>
+        <tr><td>Python / Django / Flask</td><td class="no">✗ No</td><td>Needs a Python runtime</td></tr>
+        <tr><td>MySQL / MongoDB</td><td class="no">✗ No</td><td>Databases need a running server</td></tr>
+        <tr><td>Server-side login / sessions</td><td class="no">✗ No</td><td>Use a service like Firebase Auth instead</td></tr>
+      </tbody>
+    </table>
+    <p class="note"><strong>Proof from this course:</strong> the <a href="../Week%207_1/step6_polish.html">Week 7 Book Search App</a>
+      calls the Open Library API with <code>fetch()</code>. It works on this GitHub Pages site because the browser does the fetching.</p>
+    <section class="key" aria-labelledby="key-heading">
+      <h2 id="key-heading">Key points</h2>
+      <ul>
+      <li>Runs in the browser → works. Needs a server process → doesn't.</li>
+      <li><code>fetch()</code> to public APIs works fine.</li>
+      <li>For server logic, use serverless functions or a separate backend.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

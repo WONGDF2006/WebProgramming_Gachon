@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The URL Structure</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+    <!-- Repo paths map straight onto URL paths. -->
+    <h1>The URL structure</h1>
+<pre><code><span class="o">https://</span><span class="k">USERNAME</span><span class="o">.github.io/</span><span class="k">REPO-NAME</span><span class="o">/about.html</span>
+         <span class="c">username</span>             <span class="c">repository</span>  <span class="c">file path in the repo</span></code></pre>
+    <table>
+      <thead><tr><th>Type</th><th>URL</th><th>Repo name</th></tr></thead>
+      <tbody>
+        <tr><td>Personal site</td><td><code>https://USERNAME.github.io/</code></td><td>Must be exactly <code>USERNAME.github.io</code></td></tr>
+        <tr><td>Project site</td><td><code>https://USERNAME.github.io/REPO/</code></td><td>Any other repo</td></tr>
+      </tbody>
+    </table>
+    <p>This course site is a project site:</p>
+    <table>
+      <tbody>
+        <tr><td>Username</td><td><code>wongdf2006</code> (GitHub lowercases it in the URL)</td></tr>
+        <tr><td>Repository</td><td><code>WebProgramming_Gachon</code></td></tr>
+        <tr><td>Live URL</td><td><a href="https://wongdf2006.github.io/WebProgramming_Gachon/">https://wongdf2006.github.io/WebProgramming_Gachon/</a></td></tr>
+        <tr><td>A folder with a space</td><td><code>Week 9_1/</code> becomes <code>Week%209_1/</code> in the URL</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Custom domains (like <code>yourname.com</code>) are free too: add a <code>CNAME</code> file and set up DNS.</p>
+    <section class="key" aria-labelledby="key-heading">
+      <h2 id="key-heading">Key points</h2>
+      <ul>
+      <li>Project site: <code>https://USERNAME.github.io/REPO/</code> (keep the trailing slash).</li>
+      <li>Personal site: the repo must be named <code>USERNAME.github.io</code>.</li>
+      <li>File paths in the repo become paths in the URL. Spaces become <code>%20</code>.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

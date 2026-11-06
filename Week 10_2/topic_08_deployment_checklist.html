@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deployment Checklist</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+    <!-- Check these before sharing your live URL. This course site was checked against the list on 6 Nov 2026. -->
+    <h1>Deployment checklist</h1>
+    <table>
+      <thead><tr><th>Check</th><th>Why</th><th>This course site</th></tr></thead>
+      <tbody>
+        <tr><td>🔗 All paths relative</td><td><code>/style.css</code> breaks on project sites</td>
+          <td>Found one real bug: a "homepage" link with <code>href="/"</code> in the Week 9 alt-text exercise, now <code>../index.html</code>. The other <code>/…</code> links are made-up example menus in Week 2 lessons.</td></tr>
+        <tr><td>🖼️ File names match exactly</td><td>GitHub's servers are case-sensitive</td><td>All 210 course-index links load (HTTP 200).</td></tr>
+        <tr><td>🧹 No leftover <code>console.log</code></td><td>Debug output isn't for users</td><td>Only in lessons that teach the console, on purpose.</td></tr>
+        <tr><td>🔑 No API keys or passwords</td><td>A public repo is public to everyone</td><td>None: the APIs used need no key.</td></tr>
+        <tr><td>✅ Tested locally first</td><td>Fix errors before deploying</td><td>Pages are tested on a local server before each push.</td></tr>
+        <tr><td>🌐 Live URL checked in a private window</td><td>Avoids your browser's cache</td><td>Checked after each push.</td></tr>
+        <tr><td>📁 <code>index.html</code> in the root</td><td>It's the homepage</td><td>Yes, plus one in each Week 9 folder.</td></tr>
+      </tbody>
+    </table>
+    <section class="key" aria-labelledby="key-heading">
+      <h2 id="key-heading">Key points</h2>
+      <ul>
+      <li>Relative paths are the most common deployment fix.</li>
+      <li>Match file name capitalisation exactly.</li>
+      <li>Never commit secrets; test locally, then test the live URL privately.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

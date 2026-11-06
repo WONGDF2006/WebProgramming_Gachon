@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework: Deploy the Book Search App</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+
+    <style>
+      figure { margin: 14px 0; }
+      figure img { display: block; width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 10px; }
+      figcaption { margin-top: 6px; font-size: .85rem; color: #475569; }
+      .links td:first-child { width: 160px; color: #475569; }
+    </style>
+    <h1>Homework · Deploy the Book Search App</h1>
+    <p>Deploy the Book Search App from the Week 6–7 lab to its own public repo, <code>webpro-book-search</code>, with GitHub Pages.</p>
+
+    <h2>Submission links</h2>
+    <table class="links">
+      <tbody>
+        <tr><td>Live URL</td><td><a href="https://wongdf2006.github.io/webpro-book-search/">https://wongdf2006.github.io/webpro-book-search/</a></td></tr>
+        <tr><td>GitHub repo</td><td><a href="https://github.com/WONGDF2006/webpro-book-search">https://github.com/WONGDF2006/webpro-book-search</a></td></tr>
+      </tbody>
+    </table>
+
+    <figure>
+      <img src="captures/book-search-live.png" alt="The live Book Search App after searching harry potter: 12 results shown as cards with covers, titles, authors, and years" width="1100" height="900" loading="lazy">
+      <figcaption>The live app after a real search for "harry potter", 6 Nov 2026</figcaption>
+    </figure>
+
+    <h2>Step 1–2 · Get the app and run the deployment checklist</h2>
+    <p>The app is the finished lab version (<a href="../Week%207_1/step6_polish.html">Week 7 step 6</a>), saved as <code>index.html</code>.</p>
+    <table>
+      <thead><tr><th>Check</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>Absolute paths (<code>href="/…"</code>, <code>src="/…"</code>)</td><td class="yes">None</td></tr>
+        <tr><td>Debug <code>console.log</code></td><td class="yes">None. The one <code>console.error</code> logs real fetch failures, so it stays.</td></tr>
+        <tr><td>API keys or secrets</td><td class="yes">None: the Open Library API needs no key.</td></tr>
+        <tr><td>Works locally</td><td class="yes">Yes: a search for "harry potter" returned 12 books, no JavaScript errors.</td></tr>
+        <tr><td>Leftover lab text</td><td>Replaced the "Step 6" title and task comment with a real app title.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Step 3–5 · Repo, push, and Pages</h2>
+<pre><code><span class="p">$</span> <span class="k">git init -b main</span>
+<span class="p">$</span> <span class="k">git add index.html</span>
+<span class="p">$</span> <span class="k">git commit -m "Deploy Book Search App"</span>
+<span class="o">e5a4b41 Deploy Book Search App</span>
+<span class="p">$</span> <span class="k">git remote add origin https://github.com/WONGDF2006/webpro-book-search.git</span>
+<span class="p">$</span> <span class="k">git push -u origin main</span></code></pre>
+    <p>Pages: Deploy from a branch → <code>main</code> / root. Live 40 seconds later.</p>
+
+    <h2>Step 6 · Test the live URL in a fresh browser</h2>
+    <p>Tested in a fresh Chrome profile with no cache, as the guide asks for a private window:</p>
+    <table>
+      <tbody>
+        <tr><td>Search "harry potter"</td><td class="yes">12 results, 11 with covers, no JavaScript errors</td></tr>
+        <tr><td>Lighthouse performance (mobile)</td><td class="yes">98</td></tr>
+        <tr><td>Lighthouse accessibility (desktop)</td><td><span class="no">95</span> → <span class="yes">100</span> after one fix</td></tr>
+      </tbody>
+    </table>
+    <p>The accessibility check found the footer text too faint: <code>#64748b</code> on <code>#f1f5f9</code> measured 4.34 : 1, under the 4.5 : 1 minimum.
+      Darkening it to <code>#475569</code> (6.92 : 1) was a second commit, <code>9318468</code>. The live site re-tested at 100.</p>
+
+  </main>
+</body>
+</html>
