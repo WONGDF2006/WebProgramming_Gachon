@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 11-A · React Components &amp; Props</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+    <!-- Overview of the graded task. The work itself has to be done and run by the student. -->
+    <h1>Task 11-A · React components &amp; props</h1>
+    <p>30 points · due at the start of class, Friday of the following week.</p>
+    <h2>What to build</h2>
+    <ol class="steps">
+      <li>A Vite + React project: <code>npm create vite@latest task11 -- --template react</code></li>
+      <li><code>src/StudentProfileCard.jsx</code> with exactly five props: <code>name</code>, <code>studentId</code>, <code>major</code>, <code>year</code>, <code>gpa</code>.</li>
+      <li>Three cards in <code>App.jsx</code>: yours, with your real student ID, and two classmates', with their real names.</li>
+      <li>Your own CSS in <code>src/index.css</code>: border, padding, rounded corners, a background different from the page, a hover effect.</li>
+      <li>Deploy with <code>gh-pages</code> (set <code>base: '/task11/'</code> in <code>vite.config.js</code>), with at least 3 meaningful commits.</li>
+    </ol>
+    <h2>Before you start on this computer</h2>
+    <p class="warn">Node.js and npm aren't installed system-wide on this machine, and Vite needs them. Install the LTS version from
+      <a href="https://nodejs.org/">nodejs.org</a> first, then check with <code>node --version</code> and <code>npm --version</code>.
+      Also note that Git here names new branches <code>master</code> by default (see <a href="../Week%2010_1/exercise_03_push_to_github.html">Week 10_1 E3</a>).</p>
+    <h2>Rubric</h2>
+    <table>
+      <thead><tr><th>Criterion</th><th>Points</th></tr></thead>
+      <tbody>
+        <tr><td>Component structure: 5 props, JSX matches the spec, exact file name</td><td>8</td></tr>
+        <tr><td>Your student ID in the rendered output</td><td>5</td></tr>
+        <tr><td>3 cards rendered, with real names</td><td>4</td></tr>
+        <tr><td>Your own CSS that makes it look like a card</td><td>6</td></tr>
+        <tr><td>GitHub Pages URL returns 200</td><td>4</td></tr>
+        <tr><td>At least 3 meaningful commits</td><td>3</td></tr>
+      </tbody>
+    </table>
+    <p class="note">The practice exercises <a href="exercise_01_profile_card.html">E1</a> and <a href="exercise_03_card_with_children.html">E3</a>
+      use the same ideas as this task: a card component, props with defaults, and composition.</p>
+
+  </main>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What is React &amp; JSX?</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+    <!-- React builds UIs from components; JSX is HTML-like syntax inside JavaScript, compiled to React.createElement(). -->
+    <h1>What is React &amp; JSX?</h1>
+    <p><strong>React</strong> lets you describe what the UI should look like for the current data, and it updates the DOM efficiently when that data changes.</p>
+    <p><strong>JSX</strong> lets you write HTML-like markup inside JavaScript. A build tool (Babel, Vite) turns it into <code>React.createElement()</code> calls.</p>
+<pre><code>// JSX (what you write)
+const element = &lt;h1 className=&quot;title&quot;&gt;Hello, {name}!&lt;/h1&gt;;
+
+// What it compiles to (you never write this)
+const element = React.createElement(&#x27;h1&#x27;, { className: &#x27;title&#x27; }, &#x27;Hello, &#x27; + name + &#x27;!&#x27;);</code></pre>
+    <h2>JSX rules that differ from HTML</h2>
+    <table>
+      <thead><tr><th>HTML</th><th>JSX</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><code>class</code></td><td><code>className</code></td><td><code>class</code> is a JavaScript keyword</td></tr>
+        <tr><td><code>for</code></td><td><code>htmlFor</code></td><td><code>for</code> is a JavaScript keyword</td></tr>
+        <tr><td><code>&lt;img&gt;</code>, <code>&lt;br&gt;</code></td><td><code>&lt;img /&gt;</code>, <code>&lt;br /&gt;</code></td><td>Every element must be closed</td></tr>
+        <tr><td><code>&lt;!-- comment --&gt;</code></td><td><code>{/* comment */}</code></td><td>HTML comments aren't valid in JSX</td></tr>
+      </tbody>
+    </table>
+<pre><code>function App() {
+  const user = &#x27;Amir&#x27;;
+  return (
+    // Return ONE root element (or a &lt;&gt;...&lt;/&gt; Fragment)
+    &lt;div className=&quot;app&quot;&gt;
+      &lt;h1&gt;Welcome, {user}!&lt;/h1&gt;               {/* JS expressions go in {} */}
+      &lt;p&gt;Today: {new Date().toDateString()}&lt;/p&gt;
+      &lt;img src=&quot;photo.jpg&quot; alt=&quot;Profile&quot; /&gt;   {/* self-closed */}
+    &lt;/div&gt;
+  );
+}</code></pre>    <section class="key" aria-labelledby="key-heading">
+      <h2 id="key-heading">Key points</h2>
+      <ul>
+      <li>JSX is HTML-like syntax that compiles to <code>React.createElement()</code>.</li>
+      <li>Use <code>className</code> and <code>htmlFor</code>; close every element.</li>
+      <li>Put JavaScript expressions inside <code>{ }</code>.</li>
+      <li>A component returns one root element or a Fragment.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

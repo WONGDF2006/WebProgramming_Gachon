@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Props — Passing Data</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+    <!-- Props are how a parent passes data to a child. They are read-only in the child. -->
+    <h1>Props — passing data</h1>
+    <p><strong>Props</strong> (properties) pass data from a parent component to a child, written like HTML attributes. The child can read them but must not change them.</p>
+<pre><code>function App() {
+  return (
+    &lt;div&gt;
+      &lt;StudentCard name=&quot;Amir Tashkentov&quot; year={2} /&gt;
+      &lt;StudentCard name=&quot;Gulnora Nazarova&quot; year={3} /&gt;
+    &lt;/div&gt;
+  );
+}
+
+// The child gets one object, props
+function StudentCard(props) {
+  return &lt;h3&gt;{props.name} · Year {props.year}&lt;/h3&gt;;
+}
+
+// Destructured: the cleaner, preferred style
+function StudentCard({ name, year }) {
+  return &lt;h3&gt;{name} · Year {year}&lt;/h3&gt;;
+}</code></pre>
+    <p class="note"><strong>Strings vs other values:</strong> <code>year="2"</code> passes the <em>string</em> "2";
+      <code>year={2}</code> passes the <em>number</em> 2. Numbers, booleans and expressions go in <code>{ }</code>.</p>
+    <h2>Default values</h2>
+<pre><code>function Button({ label = &#x27;Click me&#x27;, color = &#x27;blue&#x27;, disabled = false }) {
+  return &lt;button style={{ background: color }} disabled={disabled}&gt;{label}&lt;/button&gt;;
+}
+
+&lt;Button /&gt;                             // &quot;Click me&quot;, blue
+&lt;Button label=&quot;Submit&quot; /&gt;              // still blue
+&lt;Button label=&quot;Delete&quot; color=&quot;red&quot; /&gt;  // both custom</code></pre>
+    <h2><code>props.children</code></h2>
+<pre><code>// Whatever sits between the opening and closing tags becomes children
+function Panel({ title, children }) {
+  return (
+    &lt;div className=&quot;panel&quot;&gt;
+      &lt;h2&gt;{title}&lt;/h2&gt;
+      &lt;div className=&quot;panel-body&quot;&gt;{children}&lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+&lt;Panel title=&quot;Week 11&quot;&gt;
+  &lt;p&gt;React session today&lt;/p&gt;
+&lt;/Panel&gt;</code></pre>    <section class="key" aria-labelledby="key-heading">
+      <h2 id="key-heading">Key points</h2>
+      <ul>
+      <li>Props flow from parent to child and are read-only.</li>
+      <li>Destructure them: <code>function Card({ name, year })</code>.</li>
+      <li>Set defaults with <code>{ label = 'OK' }</code>.</li>
+      <li><code>children</code> holds the JSX between a component's tags.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

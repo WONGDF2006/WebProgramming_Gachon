@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E2 · Render a List of Notifications</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+
+    <style>
+      .demo { margin: 14px 0; padding: 18px; border: 2px dashed #94a3b8; border-radius: 10px; background: #f8fafc; }
+      .demo-label { margin: 0 0 10px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #475569; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+    <h1>E2 · Render a list of notifications</h1>
+    <p><strong>Task:</strong> render each notification with an icon chosen by its <code>type</code>, using <code>.map()</code>, a stable
+      <code>key</code>, and conditional rendering.</p>
+<pre><code>const notifications = [
+  { id: 1, type: &#x27;success&#x27;, message: &#x27;Profile updated successfully&#x27; },
+  { id: 2, type: &#x27;warning&#x27;, message: &#x27;Password expires in 3 days&#x27; },
+  { id: 3, type: &#x27;info&#x27;,    message: &#x27;New lecture materials available&#x27; },
+];
+
+function NotificationItem({ type, message }) {
+  const icon = type === &#x27;success&#x27; ? &#x27;✅&#x27; : type === &#x27;warning&#x27; ? &#x27;⚠️&#x27; : &#x27;ℹ️&#x27;;
+  return &lt;li&gt;&lt;span aria-hidden=&quot;true&quot;&gt;{icon}&lt;/span&gt; {message}&lt;/li&gt;;
+}
+
+function NotificationList() {
+  return (
+    &lt;ul&gt;
+      {notifications.map(n =&gt; (
+        &lt;NotificationItem key={n.id} type={n.type} message={n.message} /&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+ReactDOM.createRoot(document.getElementById(&#x27;root&#x27;)).render(&lt;NotificationList /&gt;);</code></pre>
+    <div class="demo" aria-label="Live result">
+      <p class="demo-label">Live result</p>
+      <div id="root"></div>
+    </div>
+    <script type="text/babel" data-presets="react">
+const notifications = [
+  { id: 1, type: 'success', message: 'Profile updated successfully' },
+  { id: 2, type: 'warning', message: 'Password expires in 3 days' },
+  { id: 3, type: 'info',    message: 'New lecture materials available' },
+];
+
+function NotificationItem({ type, message }) {
+  const icon = type === 'success' ? '✅' : type === 'warning' ? '⚠️' : 'ℹ️';
+  return <li><span aria-hidden="true">{icon}</span> {message}</li>;
+}
+
+function NotificationList() {
+  return (
+    <ul>
+      {notifications.map(n => (
+        <NotificationItem key={n.id} type={n.type} message={n.message} />
+      ))}
+    </ul>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<NotificationList />);
+    </script>
+    <p class="note">The icon is marked <code>aria-hidden</code> so screen readers read the message without saying "check mark" first.</p>
+
+  </main>
+</body>
+</html>

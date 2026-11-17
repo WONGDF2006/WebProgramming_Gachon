@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 11_1 · React Components &amp; Props</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; line-height: 1.6; color: #e6edf3; background: #0e1116; }
+    a { color: #5eead4; }
+    .skip-link { position: absolute; top: -48px; left: 16px; padding: 10px 16px; font-weight: 700; color: #0e1116; background: #5eead4; border-radius: 0 0 8px 8px; }
+    .skip-link:focus { top: 0; }
+    nav { padding: 14px 16px; border-bottom: 1px solid #2a3340; }
+    main { max-width: 900px; margin: 0 auto; padding: 28px 16px 56px; }
+    main:focus { outline: none; }
+    h1 { margin: 0 0 6px; }
+    .lead { margin: 0 0 24px; color: #a8b3c1; }
+    .homework { margin-bottom: 24px; padding: 18px 20px; border: 1px solid #fbbf24; border-radius: 12px; background: #1c232d; }
+    .homework h2 { margin: 0 0 8px; color: #fbbf24; font-size: 1.1rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    section.card { padding: 18px 20px; border: 1px solid #2a3340; border-radius: 12px; background: #161b22; }
+    section.card h2 { margin: 0 0 10px; font-size: 1rem; }
+    ol { margin: 0; padding-left: 22px; }
+    li { margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <nav aria-label="Course navigation"><a href="../index.html#week-9">← Course Library</a></nav>
+
+  <main id="main-content" tabindex="-1">
+    <h1>Week 11_1 · React Components &amp; Props</h1>
+    <p class="lead">Functional components, JSX, props, lists, conditional rendering, and composition. (Lecture: Week 11 Friday.)</p>
+
+    <section class="homework" aria-labelledby="hw-heading">
+      <h2 id="hw-heading">Task 11-A · StudentProfileCard</h2>
+      <p><a href="homework_task_11a.html">Task overview, requirements, and rubric</a></p>
+    </section>
+
+    <div class="grid">
+      <section class="card" aria-labelledby="topics-heading">
+        <h2 id="topics-heading">Lecture topics</h2>
+        <ol>
+          <li><a href="topic_01_what_is_react_and_jsx.html">What is React &amp; JSX?</a></li>
+          <li><a href="topic_02_functional_components.html">Functional components</a></li>
+          <li><a href="topic_03_props.html">Props — passing data</a></li>
+          <li><a href="topic_04_lists_and_conditional_rendering.html">Lists &amp; conditional rendering</a></li>
+          <li><a href="topic_05_component_composition.html">Component composition</a></li>
+        </ol>
+      </section>
+      <section class="card" aria-labelledby="ex-heading">
+        <h2 id="ex-heading">Practice exercises (live React demos)</h2>
+        <ol>
+          <li><a href="exercise_01_profile_card.html">ProfileCard component</a></li>
+          <li><a href="exercise_02_notification_list.html">Notification list</a></li>
+          <li><a href="exercise_03_card_with_children.html">Card with props.children</a></li>
+        </ol>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
