@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework: Deploy the Portfolio</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+
+    <style>
+      figure { margin: 14px 0; }
+      figure img { display: block; width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 10px; }
+      figcaption { margin-top: 6px; font-size: .85rem; color: #475569; }
+      .links td:first-child { width: 140px; color: #475569; }
+      .phone { max-width: 300px; }
+    </style>
+    <h1>Homework · Deploy the portfolio on GitHub Pages</h1>
+    <table class="links">
+      <tbody>
+        <tr><td>GitHub repo</td><td><a href="https://github.com/WONGDF2006/portfolio">https://github.com/WONGDF2006/portfolio</a></td></tr>
+        <tr><td>GitHub Pages</td><td><a href="https://wongdf2006.github.io/portfolio/">https://wongdf2006.github.io/portfolio/</a></td></tr>
+      </tbody>
+    </table>
+    <h2>Lighthouse accessibility (required screenshot)</h2>
+    <figure>
+      <img src="captures/portfolio-lighthouse-accessibility.png" alt="Lighthouse report for wongdf2006.github.io/portfolio: Accessibility score 100, 23 passed audits" width="1100" height="931" loading="lazy">
+      <figcaption>Lighthouse 12.6.0, live site, desktop: Accessibility 100</figcaption>
+    </figure>
+
+    <h2>Required checklist</h2>
+    <table>
+      <thead><tr><th>#</th><th>Requirement</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Semantic HTML: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code></td><td class="yes">All four, plus a skip link and labelled sections</td></tr>
+        <tr><td>2</td><td>Responsive CSS</td><td class="yes">Fits a 390 px phone exactly (it was 492 px before the mobile fix)</td></tr>
+        <tr><td>3</td><td>At least 1 JS interaction</td><td class="yes">Dark mode toggle: follows the system setting, remembers the choice, works with the keyboard, reports its state with <code>aria-pressed</code></td></tr>
+        <tr><td>4</td><td>Lighthouse Accessibility ≥ 90 (screenshot)</td><td class="yes">100 (performance also 100 on mobile)</td></tr>
+        <tr><td>5</td><td>All images have meaningful alt text</td><td class="yes">The only image's alt says what it is: a placeholder "W" picture</td></tr>
+        <tr><td>6</td><td>Colour contrast passes WCAG AA</td><td class="yes">Every text colour pair in both themes; the lowest is 6.41 : 1</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Light, dark, and phone</h2>
+    <figure>
+      <img src="captures/portfolio-live-dark.png" alt="The live portfolio in dark mode: dark navy background, light text, and a Light mode button" width="1100" height="1121" loading="lazy">
+      <figcaption>Dark mode, after pressing the toggle on the live site</figcaption>
+    </figure>
+    <figure class="phone">
+      <img src="captures/portfolio-live-phone.png" alt="The live portfolio on a 390 pixel phone: the picture, heading and bio stacked, then skills and one project card per row" width="780" height="4128" loading="lazy">
+      <figcaption>A 390 px phone</figcaption>
+    </figure>
+
+  </main>
+</body>
+</html>

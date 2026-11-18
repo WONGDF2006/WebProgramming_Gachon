@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework: Portfolio Repository</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+
+    <style>
+      figure { margin: 14px 0; }
+      figure img { display: block; width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 10px; }
+      figcaption { margin-top: 6px; font-size: .85rem; color: #475569; }
+      .links td:first-child { width: 140px; color: #475569; }
+      .phone { max-width: 300px; }
+    </style>
+    <h1>Homework · <code>portfolio</code> repository</h1>
+    <p>A personal portfolio repo with an <code>index.html</code> that has my name, a photo, a bio, skills, and links to course projects,
+      built in at least 5 meaningful commits.</p>
+    <table class="links">
+      <tbody>
+        <tr><td>GitHub repo</td><td><a href="https://github.com/WONGDF2006/portfolio">https://github.com/WONGDF2006/portfolio</a></td></tr>
+        <tr><td>GitHub Pages</td><td><a href="https://wongdf2006.github.io/portfolio/">https://wongdf2006.github.io/portfolio/</a></td></tr>
+      </tbody>
+    </table>
+    <figure>
+      <img src="captures/portfolio-live-desktop.png" alt="The live portfolio: header with navigation and a dark mode button, a hero with a W placeholder picture and a short bio, nine skill tags, and three project cards" width="1100" height="1121" loading="lazy">
+      <figcaption>The live portfolio</figcaption>
+    </figure>
+
+    <h2>Commits</h2>
+    <p>Each commit is one real step. The mobile fix came from measuring: before it, the page was 492 px wide on a 390 px phone.</p>
+<pre><code>b78c3ab Add dark mode toggle that remembers the visitor's choice
+54c8b1f Fix mobile layout: stack the hero and let project cards wrap
+438e49d Add project cards for three course projects
+b581fce Add skills section
+bcd29c9 Add hero section with name, profile picture and short bio
+29e1c7a Add page skeleton with header, navigation, main and footer</code></pre>
+
+    <h2>Contents</h2>
+    <table>
+      <tbody>
+        <tr><td>Name</td><td>WONGDF2006</td></tr>
+        <tr><td>Photo</td><td>A placeholder "W" picture (<code>images/avatar.svg</code>). Replace it with a real photo.</td></tr>
+        <tr><td>Bio</td><td>A short bio about this semester's work</td></tr>
+        <tr><td>Skills</td><td>Nine skills covered in the course</td></tr>
+        <tr><td>Projects</td><td>Book Search App, Course Library, Gachon WIND CCA proposal</td></tr>
+      </tbody>
+    </table>
+
+  </main>
+</body>
+</html>
