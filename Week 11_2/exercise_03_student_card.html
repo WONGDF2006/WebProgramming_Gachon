@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E3 · My Student Card</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+
+    <style>
+      .demo { margin: 14px 0; padding: 18px; border: 2px dashed #94a3b8; border-radius: 10px; background: #f8fafc; }
+      .demo-label { margin: 0 0 10px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #475569; }
+      .demo button { padding: 7px 14px; margin: 4px 6px 4px 0; border: 1px solid #94a3b8; border-radius: 8px; font: 600 .9rem system-ui, sans-serif; background: #fff; cursor: pointer; }
+      .demo button[aria-pressed="true"] { color: #fff; border-color: #1d4ed8; background: #1d4ed8; }
+      .demo input[type="text"], .demo input[type="email"], .demo textarea { padding: 8px 10px; border: 1px solid #94a3b8; border-radius: 8px; font: 1rem system-ui, sans-serif; }
+      .demo label { font-weight: 600; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+    <h1>E3 · My Student Card</h1>
+    <p>A <code>StudentCard</code> component with my own details.</p>
+    <pre><code>function StudentCard({ name, studentId, course }) {
+  return (
+    &lt;article style={{ maxWidth: 300, overflow: &#x27;hidden&#x27;, border: &#x27;1px solid #cbd5e1&#x27;, borderRadius: 14, background: &#x27;#fff&#x27; }}&gt;
+      &lt;div style={{ padding: &#x27;16px 18px&#x27;, color: &#x27;#fff&#x27;, background: &#x27;#1e3a5f&#x27; }}&gt;
+        &lt;h2 style={{ margin: 0, fontSize: &#x27;1.25rem&#x27; }}&gt;{name}&lt;/h2&gt;
+        &lt;p style={{ margin: &#x27;4px 0 0&#x27; }}&gt;ID: {studentId}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;p style={{ margin: 0, padding: &#x27;14px 18px&#x27; }}&gt;{course}&lt;/p&gt;
+    &lt;/article&gt;
+  );
+}
+
+ReactDOM.createRoot(document.getElementById(&#x27;root&#x27;)).render(
+  &lt;StudentCard name=&quot;WongDengFoong&quot; studentId=&quot;202699475&quot; course=&quot;Web Programming · K0126_002&quot; /&gt;
+);</code></pre>
+    <div class="demo" aria-label="Live result">
+      <p class="demo-label">Live result</p>
+      <div id="root"></div>
+    </div>
+    <script type="text/babel" data-presets="react">
+const { useState, useEffect } = React;
+function StudentCard({ name, studentId, course }) {
+  return (
+    <article style={{ maxWidth: 300, overflow: 'hidden', border: '1px solid #cbd5e1', borderRadius: 14, background: '#fff' }}>
+      <div style={{ padding: '16px 18px', color: '#fff', background: '#1e3a5f' }}>
+        <h2 style={{ margin: 0, fontSize: '1.25rem' }}>{name}</h2>
+        <p style={{ margin: '4px 0 0' }}>ID: {studentId}</p>
+      </div>
+      <p style={{ margin: 0, padding: '14px 18px' }}>{course}</p>
+    </article>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <StudentCard name="WongDengFoong" studentId="202699475" course="Web Programming · K0126_002" />
+);
+    </script>
+
+  </main>
+</body>
+</html>

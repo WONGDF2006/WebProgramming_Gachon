@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E1 · ProductCard Challenge</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+
+    <style>
+      .demo { margin: 14px 0; padding: 18px; border: 2px dashed #94a3b8; border-radius: 10px; background: #f8fafc; }
+      .demo-label { margin: 0 0 10px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #475569; }
+      .demo button { padding: 7px 14px; margin: 4px 6px 4px 0; border: 1px solid #94a3b8; border-radius: 8px; font: 600 .9rem system-ui, sans-serif; background: #fff; cursor: pointer; }
+      .demo button[aria-pressed="true"] { color: #fff; border-color: #1d4ed8; background: #1d4ed8; }
+      .demo input[type="text"], .demo input[type="email"], .demo textarea { padding: 8px 10px; border: 1px solid #94a3b8; border-radius: 8px; font: 1rem system-ui, sans-serif; }
+      .demo label { font-weight: 600; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+    <h1>E1 · ProductCard Challenge</h1>
+    <p>A <code>ProductCard</code> with <code>name</code>, <code>price</code> (KRW), <code>rating</code> and <code>inStock</code> props. Bonus: show <em>rating / 5 stars</em>, and an <em>Out of stock</em> label when <code>inStock</code> is false.</p>
+    <pre><code>function ProductCard({ name, price, rating, inStock }) {
+  return (
+    &lt;article style={{ padding: 16, border: &#x27;1px solid #cbd5e1&#x27;, borderRadius: 12, background: inStock ? &#x27;#fff&#x27; : &#x27;#f1f5f9&#x27; }}&gt;
+      &lt;h2 style={{ margin: &#x27;0 0 6px&#x27;, fontSize: &#x27;1.1rem&#x27; }}&gt;{name}&lt;/h2&gt;
+      &lt;p style={{ margin: &#x27;0 0 4px&#x27;, fontWeight: 700 }}&gt;₩{price.toLocaleString(&#x27;ko-KR&#x27;)}&lt;/p&gt;
+      &lt;p style={{ margin: &#x27;0 0 8px&#x27; }}&gt;{rating} / 5 stars&lt;/p&gt;
+      {inStock
+        ? &lt;span style={{ color: &#x27;#15803d&#x27;, fontWeight: 600 }}&gt;In stock&lt;/span&gt;
+        : &lt;span style={{ color: &#x27;#b91c1c&#x27;, fontWeight: 600 }}&gt;Out of stock&lt;/span&gt;}
+    &lt;/article&gt;
+  );
+}
+
+const products = [
+  { id: &#x27;earbuds&#x27;, name: &#x27;Wireless Earbuds&#x27;, price: 89000, rating: 4.5, inStock: true },
+  { id: &#x27;keyboard&#x27;, name: &#x27;Mechanical Keyboard&#x27;, price: 120000, rating: 4.8, inStock: false },
+  { id: &#x27;mouse&#x27;, name: &#x27;Gaming Mouse&#x27;, price: 45000, rating: 4.2, inStock: true },
+];
+
+function ProductList() {
+  return (
+    &lt;div style={{ display: &#x27;grid&#x27;, gridTemplateColumns: &#x27;repeat(auto-fit, minmax(180px, 1fr))&#x27;, gap: 14 }}&gt;
+      {products.map((p) =&gt; &lt;ProductCard key={p.id} {...p} /&gt;)}
+    &lt;/div&gt;
+  );
+}
+
+ReactDOM.createRoot(document.getElementById(&#x27;root&#x27;)).render(&lt;ProductList /&gt;);</code></pre>
+    <div class="demo" aria-label="Live result">
+      <p class="demo-label">Live result</p>
+      <div id="root"></div>
+    </div>
+    <script type="text/babel" data-presets="react">
+const { useState, useEffect } = React;
+function ProductCard({ name, price, rating, inStock }) {
+  return (
+    <article style={{ padding: 16, border: '1px solid #cbd5e1', borderRadius: 12, background: inStock ? '#fff' : '#f1f5f9' }}>
+      <h2 style={{ margin: '0 0 6px', fontSize: '1.1rem' }}>{name}</h2>
+      <p style={{ margin: '0 0 4px', fontWeight: 700 }}>₩{price.toLocaleString('ko-KR')}</p>
+      <p style={{ margin: '0 0 8px' }}>{rating} / 5 stars</p>
+      {inStock
+        ? <span style={{ color: '#15803d', fontWeight: 600 }}>In stock</span>
+        : <span style={{ color: '#b91c1c', fontWeight: 600 }}>Out of stock</span>}
+    </article>
+  );
+}
+
+const products = [
+  { id: 'earbuds', name: 'Wireless Earbuds', price: 89000, rating: 4.5, inStock: true },
+  { id: 'keyboard', name: 'Mechanical Keyboard', price: 120000, rating: 4.8, inStock: false },
+  { id: 'mouse', name: 'Gaming Mouse', price: 45000, rating: 4.2, inStock: true },
+];
+
+function ProductList() {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>
+      {products.map((p) => <ProductCard key={p.id} {...p} />)}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<ProductList />);
+    </script>
+    <p class="note"><code>toLocaleString('ko-KR')</code> adds the thousands separators: 89000 becomes 89,000. <code>{...p}</code> passes every field of the object as a prop.</p>
+
+  </main>
+</body>
+</html>
