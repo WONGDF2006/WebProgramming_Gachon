@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lifting State Up</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+    <!-- When siblings share data, move the state to their nearest common parent. -->
+    <h1>Lifting state up</h1>
+    <p>When two components need the same data, move the state to their <strong>nearest common parent</strong>. The parent passes the value
+      down as props and passes a callback down so children can ask for changes.</p>
+<pre><code>        SearchPage            state: query, results
+        ↑ onSearch    ↓ props
+   SearchBar        ResultList
+ (triggers updates)  (reads via props)</code></pre>
+    <p class="note"><strong>Data flows down. Events flow up.</strong> This is React's one-way data model: there is one owner of each piece
+      of state (a single source of truth).</p>
+<pre><code>// The parent owns the state
+function SearchPage() {
+  const [query,   setQuery]   = useState(&#x27;&#x27;);
+  const [results, setResults] = useState([]);
+
+  const handleSearch = async (q) =&gt; {
+    setQuery(q);
+    const data = await fetchResults(q);
+    setResults(data);
+  };
+
+  return (
+    &lt;&gt;
+      &lt;SearchBar onSearch={handleSearch} /&gt;            {/* child 1: triggers updates */}
+      &lt;ResultList query={query} results={results} /&gt;   {/* child 2: reads via props */}
+    &lt;/&gt;
+  );
+}
+
+function SearchBar({ onSearch }) {
+  const [input, setInput] = useState(&#x27;&#x27;);
+  return (
+    &lt;input value={input} onChange={e =&gt; {
+      setInput(e.target.value);
+      onSearch(e.target.value);
+    }} /&gt;
+  );
+}</code></pre>
+    <h2>What not to do</h2>
+    <ul>
+      <li>Keep a copy of the value in each sibling and try to keep them in sync by hand.</li>
+      <li>Store it in a global variable: React won't re-render when it changes.</li>
+      <li>Change a prop inside the child: props are read-only.</li>
+    </ul>
+    <p>Live: <a href="exercise_06_search_page.html">Demo 06 · SearchPage</a>. In my shopping cart, <code>ShoppingCart</code> owns the cart
+      and both <code>ProductList</code> and <code>Cart</code> get it through props.</p>
+    <section class="key" aria-labelledby="key-heading">
+      <h2 id="key-heading">Key points</h2>
+      <ul>
+      <li>Shared state lives in the nearest common parent.</li>
+      <li>Pass the value down as props and the updater down as a callback prop.</li>
+      <li>One owner per piece of state.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

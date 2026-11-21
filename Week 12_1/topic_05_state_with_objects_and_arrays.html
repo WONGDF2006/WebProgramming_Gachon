@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>State with Objects &amp; Arrays</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+    <!-- Never mutate objects or arrays in state. Create a new copy with spread, map or filter. -->
+    <h1>State with objects &amp; arrays</h1>
+    <p class="warn"><strong>Never mutate. Always create a new object or array.</strong> React compares the old and new value by reference
+      (<code>Object.is</code>). If you change the same object and pass it back, React sees “no change” and skips the re-render.</p>
+    <h2>Objects: the spread operator</h2>
+<pre><code>function ProfileForm() {
+  const [user, setUser] = useState({ name: &#x27;&#x27;, email: &#x27;&#x27;, bio: &#x27;&#x27; });
+
+  // ✗ WRONG: mutation, same object reference
+  // user.name = &#x27;Kim Minho&#x27;;
+  // setUser(user);
+
+  // ✓ RIGHT: copy everything, then overwrite one field
+  const handleChange = (field, value) =&gt; {
+    setUser(prev =&gt; ({ ...prev, [field]: value }));
+  };
+
+  return (
+    &lt;form&gt;
+      &lt;input value={user.name}  onChange={e =&gt; handleChange(&#x27;name&#x27;,  e.target.value)} /&gt;
+      &lt;input value={user.email} onChange={e =&gt; handleChange(&#x27;email&#x27;, e.target.value)} /&gt;
+      &lt;textarea value={user.bio} onChange={e =&gt; handleChange(&#x27;bio&#x27;,  e.target.value)} /&gt;
+    &lt;/form&gt;
+  );
+}</code></pre>
+    <h2>Arrays: three patterns</h2>
+    <table>
+      <thead><tr><th>Action</th><th>Pattern</th><th>Avoid</th></tr></thead>
+      <tbody>
+        <tr><td>Add</td><td><code>setTodos(prev =&gt; [...prev, item])</code></td><td><code>push</code>, <code>unshift</code></td></tr>
+        <tr><td>Remove</td><td><code>setTodos(prev =&gt; prev.filter(t =&gt; t.id !== id))</code></td><td><code>splice</code></td></tr>
+        <tr><td>Change one</td><td><code>setTodos(prev =&gt; prev.map(t =&gt; t.id === id ? { ...t, done: !t.done } : t))</code></td><td><code>todos[i].done = …</code></td></tr>
+      </tbody>
+    </table>
+<pre><code>function TodoList() {
+  const [todos, setTodos] = useState([]);
+  const [input, setInput] = useState(&#x27;&#x27;);
+
+  const addTodo = () =&gt; {
+    if (!input.trim()) return;
+    setTodos(prev =&gt; [...prev, { id: Date.now(), text: input, done: false }]);
+    setInput(&#x27;&#x27;);
+  };
+  const removeTodo = (id) =&gt; setTodos(prev =&gt; prev.filter(t =&gt; t.id !== id));
+  const toggleTodo = (id) =&gt;
+    setTodos(prev =&gt; prev.map(t =&gt; t.id === id ? { ...t, done: !t.done } : t));
+  // ...
+}</code></pre>
+    <p>Live: <a href="exercise_04_profile_form.html">Demo 04 · ProfileForm</a> and <a href="exercise_05_todo_list.html">Demo 05 · TodoList</a>.
+      My <a href="homework_shopping_cart.html">Shopping Cart homework</a> uses the same map / filter patterns for quantities.</p>
+    <section class="key" aria-labelledby="key-heading">
+      <h2 id="key-heading">Key points</h2>
+      <ul>
+      <li>Objects: <code>{ ...prev, field: value }</code>.</li>
+      <li>Arrays: spread to add, <code>filter</code> to remove, <code>map</code> to change one item.</li>
+      <li><code>push</code> returns a number and mutates in place: never pass it to a setter.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

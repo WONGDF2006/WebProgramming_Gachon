@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 06 · SearchPage (lifting state up)</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+
+    <style>
+      .demo { margin: 14px 0; padding: 18px; border: 2px dashed #94a3b8; border-radius: 10px; background: #f8fafc; }
+      .demo-label { margin: 0 0 10px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #475569; }
+      .demo button { padding: 7px 14px; margin: 4px 6px 4px 0; border: 1px solid #94a3b8; border-radius: 8px; font: 600 .9rem system-ui, sans-serif; background: #fff; cursor: pointer; }
+      .demo input, .demo textarea { padding: 8px 10px; margin: 4px 0 10px; border: 1px solid #94a3b8; border-radius: 8px; font: 1rem system-ui, sans-serif; }
+      .demo label { display: block; font-weight: 600; }
+      .demo .done { text-decoration: line-through; color: #475569; }
+      .log { min-height: 1.6em; padding: 6px 10px; border-radius: 6px; font: .85rem ui-monospace, monospace; background: #e2e8f0; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+    <h1>Demo 06 · SearchPage (lifting state up)</h1>
+    <p><code>SearchPage</code> owns <code>query</code> and <code>results</code>. <code>SearchBar</code> sends each change up through <code>onSearch</code>; <code>ResultList</code> only reads props.</p>
+    <pre><code>const FRUITS = [&#x27;Apple&#x27;, &#x27;Apricot&#x27;, &#x27;Banana&#x27;, &#x27;Blueberry&#x27;, &#x27;Cherry&#x27;, &#x27;Grape&#x27;, &#x27;Kiwi&#x27;, &#x27;Lemon&#x27;, &#x27;Mango&#x27;, &#x27;Orange&#x27;, &#x27;Peach&#x27;, &#x27;Pear&#x27;, &#x27;Strawberry&#x27;, &#x27;Watermelon&#x27;];
+
+// Stands in for a server call
+const fetchResults = (q) =&gt;
+  Promise.resolve(FRUITS.filter((f) =&gt; f.toLowerCase().includes(q.trim().toLowerCase())));
+
+function SearchPage() {
+  const [query, setQuery] = useState(&#x27;&#x27;);
+  const [results, setResults] = useState(FRUITS);
+
+  const handleSearch = async (q) =&gt; {
+    setQuery(q);
+    const data = await fetchResults(q);
+    setResults(data);
+  };
+
+  return (
+    &lt;&gt;
+      &lt;SearchBar onSearch={handleSearch} /&gt;
+      &lt;ResultList query={query} results={results} /&gt;
+    &lt;/&gt;
+  );
+}
+
+function SearchBar({ onSearch }) {
+  const [input, setInput] = useState(&#x27;&#x27;);
+  return (
+    &lt;div&gt;
+      &lt;label htmlFor=&quot;fruit-search&quot;&gt;Search fruit&lt;/label&gt;
+      &lt;input id=&quot;fruit-search&quot; value={input} onChange={(e) =&gt; {
+        setInput(e.target.value);
+        onSearch(e.target.value);
+      }} /&gt;
+    &lt;/div&gt;
+  );
+}
+
+function ResultList({ query, results }) {
+  return (
+    &lt;div&gt;
+      &lt;p aria-live=&quot;polite&quot;&gt;{results.length} result{results.length === 1 ? &#x27;&#x27; : &#x27;s&#x27;}{query &amp;&amp; &lt;&gt; for “{query}”&lt;/&gt;}&lt;/p&gt;
+      &lt;ul&gt;{results.map((r) =&gt; &lt;li key={r}&gt;{r}&lt;/li&gt;)}&lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+
+ReactDOM.createRoot(document.getElementById(&#x27;root&#x27;)).render(&lt;SearchPage /&gt;);</code></pre>
+    <div class="demo" aria-label="Live result">
+      <p class="demo-label">Live result</p>
+      <div id="root"></div>
+    </div>
+    <script type="text/babel" data-presets="react">
+const { useState } = React;
+const FRUITS = ['Apple', 'Apricot', 'Banana', 'Blueberry', 'Cherry', 'Grape', 'Kiwi', 'Lemon', 'Mango', 'Orange', 'Peach', 'Pear', 'Strawberry', 'Watermelon'];
+
+// Stands in for a server call
+const fetchResults = (q) =>
+  Promise.resolve(FRUITS.filter((f) => f.toLowerCase().includes(q.trim().toLowerCase())));
+
+function SearchPage() {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState(FRUITS);
+
+  const handleSearch = async (q) => {
+    setQuery(q);
+    const data = await fetchResults(q);
+    setResults(data);
+  };
+
+  return (
+    <>
+      <SearchBar onSearch={handleSearch} />
+      <ResultList query={query} results={results} />
+    </>
+  );
+}
+
+function SearchBar({ onSearch }) {
+  const [input, setInput] = useState('');
+  return (
+    <div>
+      <label htmlFor="fruit-search">Search fruit</label>
+      <input id="fruit-search" value={input} onChange={(e) => {
+        setInput(e.target.value);
+        onSearch(e.target.value);
+      }} />
+    </div>
+  );
+}
+
+function ResultList({ query, results }) {
+  return (
+    <div>
+      <p aria-live="polite">{results.length} result{results.length === 1 ? '' : 's'}{query && <> for “{query}”</>}</p>
+      <ul>{results.map((r) => <li key={r}>{r}</li>)}</ul>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<SearchPage />);
+    </script>
+    <p class="note"><code>fetchResults</code> here filters a local list instead of calling a server, so the demo works offline.</p>
+
+  </main>
+</body>
+</html>

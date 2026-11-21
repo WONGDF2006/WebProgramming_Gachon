@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 05 · TodoList (state with an array)</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+
+    <style>
+      .demo { margin: 14px 0; padding: 18px; border: 2px dashed #94a3b8; border-radius: 10px; background: #f8fafc; }
+      .demo-label { margin: 0 0 10px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #475569; }
+      .demo button { padding: 7px 14px; margin: 4px 6px 4px 0; border: 1px solid #94a3b8; border-radius: 8px; font: 600 .9rem system-ui, sans-serif; background: #fff; cursor: pointer; }
+      .demo input, .demo textarea { padding: 8px 10px; margin: 4px 0 10px; border: 1px solid #94a3b8; border-radius: 8px; font: 1rem system-ui, sans-serif; }
+      .demo label { display: block; font-weight: 600; }
+      .demo .done { text-decoration: line-through; color: #475569; }
+      .log { min-height: 1.6em; padding: 6px 10px; border-radius: 6px; font: .85rem ui-monospace, monospace; background: #e2e8f0; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+    <h1>Demo 05 · TodoList (state with an array)</h1>
+    <p>Add with spread, remove with <code>filter</code>, toggle with <code>map</code>.</p>
+    <pre><code>function TodoList() {
+  const [todos, setTodos] = useState([]);
+  const [input, setInput] = useState(&#x27;&#x27;);
+
+  const addTodo = (e) =&gt; {
+    e.preventDefault();
+    if (!input.trim()) return;
+    setTodos((prev) =&gt; [...prev, { id: Date.now(), text: input.trim(), done: false }]);
+    setInput(&#x27;&#x27;);
+  };
+  const removeTodo = (id) =&gt; setTodos((prev) =&gt; prev.filter((t) =&gt; t.id !== id));
+  const toggleTodo = (id) =&gt;
+    setTodos((prev) =&gt; prev.map((t) =&gt; (t.id === id ? { ...t, done: !t.done } : t)));
+
+  const left = todos.filter((t) =&gt; !t.done).length;
+
+  return (
+    &lt;div&gt;
+      &lt;form onSubmit={addTodo}&gt;
+        &lt;label htmlFor=&quot;todo-input&quot;&gt;New task&lt;/label&gt;
+        &lt;input id=&quot;todo-input&quot; value={input} onChange={(e) =&gt; setInput(e.target.value)} placeholder=&quot;Finish the shopping cart&quot; /&gt;
+        &lt;button type=&quot;submit&quot;&gt;Add&lt;/button&gt;
+      &lt;/form&gt;
+      {todos.length === 0 ? &lt;p&gt;Nothing to do yet.&lt;/p&gt; : (
+        &lt;ul&gt;
+          {todos.map((t) =&gt; (
+            &lt;li key={t.id}&gt;
+              &lt;label style={{ display: &#x27;inline&#x27;, fontWeight: 400 }}&gt;
+                &lt;input type=&quot;checkbox&quot; checked={t.done} onChange={() =&gt; toggleTodo(t.id)} /&gt;{&#x27; &#x27;}
+                &lt;span className={t.done ? &#x27;done&#x27; : &#x27;&#x27;}&gt;{t.text}&lt;/span&gt;
+              &lt;/label&gt;{&#x27; &#x27;}
+              &lt;button type=&quot;button&quot; onClick={() =&gt; removeTodo(t.id)} aria-label={&#x27;Remove &#x27; + t.text}&gt;✕&lt;/button&gt;
+            &lt;/li&gt;
+          ))}
+        &lt;/ul&gt;
+      )}
+      &lt;p aria-live=&quot;polite&quot;&gt;{left} of {todos.length} left&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+ReactDOM.createRoot(document.getElementById(&#x27;root&#x27;)).render(&lt;TodoList /&gt;);</code></pre>
+    <div class="demo" aria-label="Live result">
+      <p class="demo-label">Live result</p>
+      <div id="root"></div>
+    </div>
+    <script type="text/babel" data-presets="react">
+const { useState } = React;
+function TodoList() {
+  const [todos, setTodos] = useState([]);
+  const [input, setInput] = useState('');
+
+  const addTodo = (e) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+    setTodos((prev) => [...prev, { id: Date.now(), text: input.trim(), done: false }]);
+    setInput('');
+  };
+  const removeTodo = (id) => setTodos((prev) => prev.filter((t) => t.id !== id));
+  const toggleTodo = (id) =>
+    setTodos((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+
+  const left = todos.filter((t) => !t.done).length;
+
+  return (
+    <div>
+      <form onSubmit={addTodo}>
+        <label htmlFor="todo-input">New task</label>
+        <input id="todo-input" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Finish the shopping cart" />
+        <button type="submit">Add</button>
+      </form>
+      {todos.length === 0 ? <p>Nothing to do yet.</p> : (
+        <ul>
+          {todos.map((t) => (
+            <li key={t.id}>
+              <label style={{ display: 'inline', fontWeight: 400 }}>
+                <input type="checkbox" checked={t.done} onChange={() => toggleTodo(t.id)} />{' '}
+                <span className={t.done ? 'done' : ''}>{t.text}</span>
+              </label>{' '}
+              <button type="button" onClick={() => removeTodo(t.id)} aria-label={'Remove ' + t.text}>✕</button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <p aria-live="polite">{left} of {todos.length} left</p>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<TodoList />);
+    </script>
+
+  </main>
+</body>
+</html>

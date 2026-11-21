@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 12_1 · React State &amp; the useState Hook</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; line-height: 1.6; color: #e6edf3; background: #0e1116; }
+    a { color: #5eead4; }
+    .skip-link { position: absolute; top: -48px; left: 16px; padding: 10px 16px; font-weight: 700; color: #0e1116; background: #5eead4; border-radius: 0 0 8px 8px; }
+    .skip-link:focus { top: 0; }
+    nav { padding: 14px 16px; border-bottom: 1px solid #2a3340; }
+    main { max-width: 900px; margin: 0 auto; padding: 28px 16px 56px; }
+    main:focus { outline: none; }
+    h1 { margin: 0 0 6px; }
+    .lead { margin: 0 0 24px; color: #a8b3c1; }
+    .homework { margin-bottom: 24px; padding: 18px 20px; border: 1px solid #fbbf24; border-radius: 12px; background: #1c232d; }
+    .homework h2 { margin: 0 0 8px; color: #fbbf24; font-size: 1.1rem; }
+    .homework p { margin: 0 0 6px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    section.card { padding: 18px 20px; border: 1px solid #2a3340; border-radius: 12px; background: #161b22; }
+    section.card h2 { margin: 0 0 10px; font-size: 1rem; }
+    ol { margin: 0; padding-left: 22px; }
+    li { margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <nav aria-label="Course navigation"><a href="../index.html#week-12">← Course Library</a></nav>
+
+  <main id="main-content" tabindex="-1">
+    <h1>Week 12_1 · React State &amp; the useState Hook</h1>
+    <p class="lead">When components need to remember things: state vs props, <code>useState</code>, immutable updates, objects and arrays,
+      and lifting state up. (Lecture: Week 12 Monday.)</p>
+
+    <section class="homework" aria-labelledby="hw-heading">
+      <h2 id="hw-heading">Homework</h2>
+      <p><a href="homework_shopping_cart.html">Interactive Shopping Cart: report</a> ·
+        <a href="https://wongdf2006.github.io/shopping-cart/">live site</a> ·
+        <a href="https://github.com/WONGDF2006/shopping-cart">GitHub repo</a></p>
+      <p>Also on my personal page: a React <a href="https://wongdf2006.github.io/portfolio/#learning">“What I'm learning” tracker</a>.</p>
+    </section>
+
+    <div class="grid">
+      <section class="card" aria-labelledby="topics-heading">
+        <h2 id="topics-heading">Lecture topics</h2>
+        <ol>
+          <li><a href="topic_01_state_vs_props.html">What is state? (state vs props)</a></li>
+          <li><a href="topic_02_usestate_syntax_and_rules.html">useState syntax &amp; rules of Hooks</a></li>
+          <li><a href="topic_03_updating_state_correctly.html">Updating state correctly</a></li>
+          <li><a href="topic_04_multiple_state_variables.html">Multiple state variables</a></li>
+          <li><a href="topic_05_state_with_objects_and_arrays.html">State with objects &amp; arrays</a></li>
+          <li><a href="topic_06_lifting_state_up.html">Lifting state up</a></li>
+        </ol>
+      </section>
+      <section class="card" aria-labelledby="ex-heading">
+        <h2 id="ex-heading">Lecture demos (live React)</h2>
+        <ol>
+          <li><a href="exercise_01_counter_bug.html">CounterBug: a regular variable</a></li>
+          <li><a href="exercise_02_counter_state.html">CounterState: useState &amp; functional updates</a></li>
+          <li><a href="exercise_03_user_form.html">UserForm: multiple useState calls</a></li>
+          <li><a href="exercise_04_profile_form.html">ProfileForm: state with an object</a></li>
+          <li><a href="exercise_05_todo_list.html">TodoList: state with an array</a></li>
+          <li><a href="exercise_06_search_page.html">SearchPage: lifting state up</a></li>
+          <li><a href="exercise_07_counter_with_history.html">Challenge: counter with history</a></li>
+        </ol>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

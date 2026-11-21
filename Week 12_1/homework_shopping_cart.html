@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework: Interactive Shopping Cart</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 16px 56px; font-family: system-ui, sans-serif; line-height: 1.6; color: #1e293b; background: #fff; }
+    main { max-width: 760px; margin: 0 auto; }
+    nav { max-width: 760px; margin: 0 auto 18px; font-size: .9rem; }
+    a { color: #1d4ed8; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 28px 0 8px; font-size: 1.1rem; }
+    code { padding: 1px 5px; border-radius: 4px; font-size: .9em; background: #f1f5f9; }
+    pre { margin: 10px 0; padding: 14px 16px; overflow-x: auto; border-radius: 10px; font-size: .82rem; line-height: 1.6; color: #e2e8f0; background: #1e293b; }
+    pre code { padding: 0; background: none; }
+    pre .c { color: #a5b4c8; font-style: italic; }   /* comment */
+    pre .p { color: #a5b4c8; }                       /* prompt */
+    pre .k { color: #fde047; }                       /* command */
+    pre .o { color: #86efac; }                       /* output */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; }
+    th { color: #475569; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card { padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .card strong { display: block; margin-bottom: 4px; }
+    .card p { margin: 0; font-size: .9rem; color: #475569; }
+    .note { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #1d4ed8; border-radius: 0 8px 8px 0; background: #eff6ff; }
+    .warn { margin: 14px 0; padding: 12px 16px; border-left: 4px solid #b45309; border-radius: 0 8px 8px 0; background: #fffbeb; }
+    .yes { color: #15803d; font-weight: 700; }
+    .no { color: #b91c1c; font-weight: 700; }
+    ol.steps li, ul li { margin-bottom: 6px; }
+    .key { margin-top: 24px; padding: 14px 18px; border-radius: 10px; background: #f1f5f9; }
+    .key h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Week navigation"><a href="index.html">← Week overview</a></nav>
+  <main>
+
+    <style>
+      figure { margin: 14px 0; }
+      figure img { display: block; width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 10px; }
+      figure.phone img { max-width: 320px; }
+      figcaption { margin-top: 6px; font-size: .85rem; color: #475569; }
+      .links td:first-child { width: 140px; color: #475569; }
+    </style>
+    <h1>Homework · Interactive Shopping Cart</h1>
+    <table class="links">
+      <tbody>
+        <tr><td>GitHub repo</td><td><a href="https://github.com/WONGDF2006/shopping-cart">https://github.com/WONGDF2006/shopping-cart</a></td></tr>
+        <tr><td>Live site</td><td><a href="https://wongdf2006.github.io/shopping-cart/">https://wongdf2006.github.io/shopping-cart/</a></td></tr>
+        <tr><td>Student</td><td>WongDengFoong · 202699475</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Requirements</h2>
+    <table>
+      <thead><tr><th>Requirement</th><th>How it is done</th></tr></thead>
+      <tbody>
+        <tr><td>1. Product list, at least 5 items (name, price, image URL)</td><td class="yes">6 products in <code>src/products.js</code>, each with an image URL</td></tr>
+        <tr><td>2. Add / Remove buttons, state = array of cart items</td><td class="yes"><code>useState([])</code> holding <code>{ id, quantity }</code> items</td></tr>
+        <tr><td>3. Cart sidebar with items and total computed from state</td><td class="yes"><code>Cart</code>; the total is a <code>reduce</code> on every render, never stored</td></tr>
+        <tr><td>4. Quantity controls + and − per item</td><td class="yes">− at 1 removes the item</td></tr>
+        <tr><td>5. ShoppingCart component (product list + cart panel)</td><td class="yes"><code>ShoppingCart</code> owns the state and renders both</td></tr>
+        <tr><td>6. Submit the GitHub repo URL on Cybercampus</td><td>The repo link above</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Components</h2>
+<pre><code>App
+└── ShoppingCart   owns cart state: [{ id, quantity }] and add / decrease / remove / clear
+    ├── ProductList  image, name, price, "Add to cart", "n in cart"   (gets onAdd)
+    └── Cart         items, − / +, Remove, total, Clear cart          (gets the items and callbacks)</code></pre>
+<pre><code>const addItem = (id) =&gt;
+  setCart((prev) =&gt;
+    prev.some((item) =&gt; item.id === id)
+      ? prev.map((item) =&gt; (item.id === id ? { ...item, quantity: item.quantity + 1 } : item))
+      : [...prev, { id, quantity: 1 }]
+  );
+
+const decreaseItem = (id) =&gt;
+  setCart((prev) =&gt;
+    prev
+      .map((item) =&gt; (item.id === id ? { ...item, quantity: item.quantity - 1 } : item))
+      .filter((item) =&gt; item.quantity &gt; 0)
+  );
+
+// Derived from state on every render, never stored
+const total = items.reduce((sum, { product, quantity }) =&gt; sum + product.price * quantity, 0);</code></pre>
+    <figure>
+      <img src="captures/shopping-cart-desktop.png" alt="The live shop: six product cards on the left; the cart sidebar on the right holds 2 Grid Notebooks and 2 Wireless Earbuds with minus and plus buttons, Remove buttons and a total of ₩185,000" width="1280" height="860" loading="lazy">
+      <figcaption>Live site, desktop: 2 notebooks and 2 earbuds in the cart, total ₩185,000</figcaption>
+    </figure>
+    <figure class="phone">
+      <img src="captures/shopping-cart-mobile.png" alt="The shop at phone width: the last product card, Desk Lamp, shows 2 in cart, and the cart below it holds 1 Laptop Backpack and 2 Desk Lamps for a total of ₩101,000" width="390" height="844" loading="lazy">
+      <figcaption>Phone width (390 px): the cart moves under the products</figcaption>
+    </figure>
+
+    <h2>Commits</h2>
+<pre><code>c7b8b5e Keep product card buttons aligned when an item is not in the cart
+1fd2e16 Write README with live link and how the cart state works
+c97a2c6 Set GitHub Pages base path and add gh-pages deploy script
+a6da743 Style the shop: product grid, sticky cart sidebar, mobile layout
+020a3dd Add ShoppingCart with lifted cart state, quantity controls and total
+6e03d2d Add six products with images and a ProductList component
+c30a9be Create Vite + React project</code></pre>
+
+    <h2>Checks</h2>
+    <p>Run against the live site in Chrome with a script that clicks the real buttons and reads the cart:</p>
+    <table>
+      <thead><tr><th>Step</th><th>Cart afterwards</th></tr></thead>
+      <tbody>
+        <tr><td>Add notebook twice, earbuds once, then + on earbuds</td><td>2 × ₩3,500 + 2 × ₩89,000 = <strong>₩185,000</strong></td></tr>
+        <tr><td>− on notebook twice</td><td>Notebook line removed at 0, total ₩178,000</td></tr>
+        <tr><td>Add keyboard, then Remove keyboard</td><td>Back to ₩178,000</td></tr>
+        <tr><td>Clear cart</td><td>Empty, ₩0</td></tr>
+        <tr><td>Phone width (390 px)</td><td class="yes">Fits, no sideways scrolling</td></tr>
+        <tr><td>Lighthouse accessibility / best practices (desktop and mobile)</td><td class="yes">100 / 100</td></tr>
+        <tr><td>Console errors</td><td class="yes">None</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Built with Vite 8 and React 19, deployed with <code>gh-pages</code> 6.3.0 and <code>base: '/shopping-cart/'</code>. The product
+      images are simple SVG pictures in <code>public/images/</code>, so the shop has no outside image dependencies.</p>
+    <h2>On my personal page</h2>
+    <p>The slide also asks for something relevant on my personal page. I added two things to my
+      <a href="https://wongdf2006.github.io/portfolio/">portfolio</a>:</p>
+    <ul>
+      <li>The <em>Study Supplies Shop</em> card on the home page and the <a href="https://wongdf2006.github.io/portfolio/projects.html">projects page</a>
+        (it appears under the React filter).</li>
+      <li>A <strong>What I'm learning</strong> tracker built with React state. <code>LearningTracker</code> owns the topics array and the note;
+        <code>Progress</code> reads the done count through props, <code>Checklist</code> sends ticks up through <code>onToggle</code>
+        (updated with <code>map</code>), and the note box shows a live word count. The done count is derived, never stored.</li>
+    </ul>
+    <figure>
+      <img src="captures/portfolio-learning-tracker.png" alt="The What I'm learning section on my portfolio: 7 of 9 topics done with a progress bar, a checklist of nine topics, and a note box reading Next: useEffect, then React Router with a count of 5 words" width="960" height="554" loading="lazy">
+      <figcaption>Live portfolio: after ticking “useEffect &amp; data fetching” the bar shows 7 of 9; the note shows 5 words</figcaption>
+    </figure>
+
+  </main>
+</body>
+</html>
