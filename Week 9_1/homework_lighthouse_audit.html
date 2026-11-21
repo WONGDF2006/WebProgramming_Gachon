@@ -52,6 +52,40 @@
         Each failure's cause was fixed, the pages were published, and Lighthouse was re-run on the live pages.</p>
     </section>
 
+    <section aria-labelledby="captures-heading">
+      <h2 id="captures-heading">Lighthouse captures of my pages</h2>
+      <p>Each capture shows the audited page on the left and its Lighthouse report on the right. They were taken with Lighthouse 12.6.0 and
+        headless Chrome rather than the DevTools panel. "Before" page views come from the pre-fix version of the site (commit
+        <code>122a84d</code>) served locally; every report is a real run.</p>
+      <h3>My site</h3>
+        <figure>
+          <img src="captures/page-home-a11y.png" alt="My course library home page next to its Lighthouse report: Accessibility 100" width="1762" height="830" loading="lazy">
+          <figcaption>Course library home page — Accessibility 100 (live, 21 Nov 2026) · <a href="captures/home-a11y-report.html">full report</a></figcaption>
+        </figure>
+        <figure>
+          <img src="captures/page-week91-a11y.png" alt="My Week 9_1 overview page next to its Lighthouse report: Accessibility 100" width="1762" height="830" loading="lazy">
+          <figcaption>Week 9_1 overview page — Accessibility 100 (live, 21 Nov 2026) · <a href="captures/week91-index-a11y-report.html">full report</a></figcaption>
+        </figure>
+      <h3>Alt text topic page: 88 → 100</h3>
+        <figure>
+          <img src="captures/page-topic03-before.png" alt="Before: the alt text topic page next to its report, Accessibility 88, with the contrast failure on the green Better heading expanded" width="1762" height="830" loading="lazy">
+          <figcaption>Before — 88, colour contrast fails · <a href="captures/topic03-before-report.html">full report</a></figcaption>
+        </figure>
+        <figure>
+          <img src="captures/page-topic03-after.png" alt="After: the alt text topic page next to its report, Accessibility 100" width="1762" height="830" loading="lazy">
+          <figcaption>After — 100 · <a href="captures/topic03-after-report.html">full report</a></figcaption>
+        </figure>
+      <h3>Alt text exercise: 94 → 100</h3>
+        <figure>
+          <img src="captures/page-ex02-before.png" alt="Before: the alt text exercise page next to its report, Accessibility 94, with the link-name failure expanded" width="1762" height="830" loading="lazy">
+          <figcaption>Before — 94, a link has no name · <a href="captures/ex02-before-report.html">full report</a></figcaption>
+        </figure>
+        <figure>
+          <img src="captures/page-ex02-after.png" alt="After: the alt text exercise page next to its report, Accessibility 100" width="1762" height="830" loading="lazy">
+          <figcaption>After — 100 · <a href="captures/ex02-after-report.html">full report</a></figcaption>
+        </figure>
+    </section>
+
     <section aria-labelledby="shots-heading">
       <h2 id="shots-heading">Step 1 &amp; 4 · Before and after screenshots</h2>
       <div class="shots">

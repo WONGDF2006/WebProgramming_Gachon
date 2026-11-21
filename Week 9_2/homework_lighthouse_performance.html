@@ -52,6 +52,36 @@
         and on mobile its Largest Contentful Paint took 12.3 s. Five optimizations brought it to 100 on both mobile and desktop.</p>
     </section>
 
+    <section aria-labelledby="captures-heading">
+      <h2 id="captures-heading">Lighthouse captures of my pages</h2>
+      <p>Each capture shows the audited page on the left and its Lighthouse report on the right. They were taken with Lighthouse 12.6.0 and
+        headless Chrome rather than the DevTools panel. "Before" page views come from the pre-fix version of the site (commit
+        <code>122a84d</code>) served locally; every report is a real run.</p>
+      <h3>My site</h3>
+        <figure>
+          <img src="captures/page-home-perf.png" alt="My course library home page on a phone next to its Lighthouse performance report" width="1152" height="830" loading="lazy">
+          <figcaption>Course library home page — Performance on mobile (live, 21 Nov 2026) · <a href="captures/home-perf-mobile-report.html">full report</a></figcaption>
+        </figure>
+      <h3>Week 2 photo page: mobile 75 → 100</h3>
+        <figure>
+          <img src="captures/page-mobile-before.png" alt="Before: the Week 2 photo page on a phone next to its report, Performance 75, largest image 12.3 seconds" width="1152" height="830" loading="lazy">
+          <figcaption>Before — mobile 75 · <a href="captures/mobile-before-report.html">full report</a></figcaption>
+        </figure>
+        <figure>
+          <img src="captures/page-mobile-after.png" alt="After: the Week 2 photo page on a phone next to its report, Performance 100" width="1152" height="830" loading="lazy">
+          <figcaption>After — mobile 100 · <a href="captures/mobile-after-report.html">full report</a></figcaption>
+        </figure>
+      <h3>Desktop: 90 → 100</h3>
+        <figure>
+          <img src="captures/page-desktop-before.png" alt="Before: the Week 2 photo page on desktop next to its report, Performance 90" width="1762" height="830" loading="lazy">
+          <figcaption>Before — desktop 90 · <a href="captures/desktop-before-report.html">full report</a></figcaption>
+        </figure>
+        <figure>
+          <img src="captures/page-desktop-after.png" alt="After: the Week 2 photo page on desktop next to its report, Performance 100" width="1762" height="830" loading="lazy">
+          <figcaption>After — desktop 100 · <a href="captures/desktop-after-report.html">full report</a></figcaption>
+        </figure>
+    </section>
+
     <section aria-labelledby="step1-heading">
       <h2 id="step1-heading">Step 1 · Baseline audit (before)</h2>
       <table>
